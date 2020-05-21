@@ -8,8 +8,8 @@ object Dominion {
     val student1 = Player("Jakob Strakhof")
     val student2 = Player("Karsten Huber")
     println("Hello, " + student1.name + " and " + student2)
-    println(CardSet.copperCard)
-    val board = Board()
 
+    val board = Board().printBoard()
+    print(board)
   }
 }

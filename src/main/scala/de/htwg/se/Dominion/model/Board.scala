@@ -1,33 +1,34 @@
 package de.htwg.se.Dominion.model
 
 case class Board() {
-  println("_______________ ______________ _________________\n")
-  println("|copper stack | |silver stack| |gold stack     |\n")
-  println("|_____________| |____________| |_______________|\n")
-  println("_______________ ______________ _________________\n")
-  println("|propertyStack| |dukedomStack| |provinceStack  |\n")
-  println("|_____________| |____________| ________________|\n")
-  println("_______________ ______________ _________________\n")
-  println("|moatStack    | |villageStack| |lumberjackStack|\n")
-  println("|_____________| |____________| |_______________|\n")
-  println("_______________ ______________ _________________\n")
-  println("|cellarStack  | |marketStack | |militiaStack   |\n")
-  println("|_____________| |____________| |_______________|\n")
-  println("_______________ ______________ _________________\n")
-  println("|mineStack    | |smithyStack | |conversionStack|\n")
-  println("|_____________| |____________| |_______________|\n")
-  println("_______________ ______________\n")
-  println("|workshopStack| |garbageStack|\n")
-  println("|_____________| |____________|\n")
-  println("\n")
-  println("\n")
-  println("_______________ _______________\n")
-  println("|discard pile | |draw pile    |\n")
-  println("|_____________| |_____________|\n")
-  println("\n")
-  println("_______________ _______________ ______________ _______________ ______________\n")
-  println("|handcard 1   | |handcard 2   | |handcard 3  | |handcard 4   | |handcard 5  |\n")
-  println("|effects 1    | |effects 2    | |effects 3   | |effects 4    | |effects 5   |\n")
-  println("|_____________| |_____________| |____________| |_____________| |____________|\n")
+  def printBoard(): String = {
+    "_______________ ______________ _________________\n" +
+      "|copper stack | |silver stack| |gold stack     |\n" +
+      "|_____________| |____________| |_______________|\n" +
+      "_______________ ______________ _________________\n" +
+      "|propertyStack| |dukedomStack| |provinceStack  |\n" +
+      "|_____________| |____________| ________________|\n" +
+      "_______________ ______________ _________________\n" +
+      "|moatStack    | |villageStack| |lumberjackStack|\n" +
+      "|_____________| |____________| |_______________|\n" +
+      "_______________ ______________ _________________\n" +
+      "|cellarStack  | |marketStack | |militiaStack   |\n" +
+      "|_____________| |____________| |_______________|\n" +
+      "_______________ ______________ _________________\n" +
+      "|mineStack    | |smithyStack | |conversionStack|\n" +
+      "|_____________| |____________| |_______________|\n" +
+      "_______________ ______________\n" +
+      "|workshopStack| |garbageStack|\n" +
+      "|_____________| |____________|\n\n\n" +
+      "_______________ _______________\n" +
+      "|discard pile | |draw pile    |\n" +
+      "|_____________| |_____________|\n"
+  }
+
+
+//  println("_______________ _______________ ______________ _______________ ______________\n")
+//  println("|handcard 1   | |handcard 2   | |handcard 3  | |handcard 4   | |handcard 5  |\n")
+//  println("|effects 1    | |effects 2    | |effects 3   | |effects 4    | |effects 5   |\n")
+//  println("|_____________| |_____________| |____________| |_____________| |____________|\n")
 
 }
