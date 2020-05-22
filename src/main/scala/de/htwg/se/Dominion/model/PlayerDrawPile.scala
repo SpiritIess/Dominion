@@ -1,5 +1,4 @@
 package de.htwg.se.Dominion.model
-import de.htwg.se.Dominion.model.CardSet
 
 import scala.util.Random
 

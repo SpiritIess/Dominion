@@ -1,5 +1,4 @@
 package de.htwg.se.Dominion.model
-import de.htwg.se.Dominion.model.Card
 
 case class Hand(drawPile: List[Card]) {
   val (card1, newDrawPile1) = PlayerDrawPile(drawPile).drawOne()
