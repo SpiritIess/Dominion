@@ -4,7 +4,7 @@ import scala.util.Random
 case class Card(cardID: Int, cardType: Int, cost:Int,
                 extraBuys: Int, extraActions: Int, extraGold: Int,
                 extraDraws: Int){
-  def usesAction: Boolean = cardType == 1
+  def usesAction: Boolean = cardType == 3
 }
 
 case class Effect(cardID: Int) {

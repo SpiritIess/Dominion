@@ -6,4 +6,3 @@ case class Player(name: String) {
    val startingHand = Hand(startingPile)
    val playerDrawPile = startingHand.newDrawPile5
 }
-

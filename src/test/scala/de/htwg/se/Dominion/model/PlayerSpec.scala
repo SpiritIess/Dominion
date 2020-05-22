@@ -14,6 +14,15 @@ class PlayerSpec extends WordSpec with Matchers {
     "have a nice String representation" in {
       player.toString should be("Jakob Strakhof")
     }
+    "have copper cards in the startingPile" in {
+      player.startingPile.contains(CardSet.copperCard) should be (true)
+    }
+    "have province cards in the startingPile" in {
+      player.startingPile.contains(CardSet.propertyCard) should be (true)
+    }
+    "after drawing 5 cards the size of playerDrawPile should be reduced by 5" in {
+      player.playerDrawPile.size should be(5)
+    }
   }}
 
 
