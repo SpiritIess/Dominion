@@ -7,38 +7,72 @@ import org.scalatest.junit.JUnitRunner
 @RunWith(classOf[JUnitRunner])
 class CardSpec extends WordSpec with Matchers {
 
-  "A Card" when { "new" should {
-    val card = Card(1, "Copper", 1, 0, 0, 0, 0, 0)
-    "have an ID"  in {
-      card.cardID should be(1)
+  "A copper card" should {
+    val copperCard = Card(1, "Copper", 1, 0, 0, 0, 0, 0)
+    "have an ID" in {
+      copperCard.cardID should be(1)
     }
-    "have a name"  in {
-      card.name should be("Copper")
+    "have a name" in {
+      copperCard.name should be("Copper")
     }
-    "have a cardType"  in {
-      card.cardType should be(1)
+    "have a cardType" in {
+      copperCard.cardType should be(1)
     }
-    "have a cost"  in {
-      card.cost should be(0)
+    "have no cost" in {
+      copperCard.cost should be(0)
     }
-    "have extraBuys"  in {
-      card.extraBuys should be(0)
+    "have no extraBuys" in {
+      copperCard.extraBuys should be(0)
     }
-    "have extraActions"  in {
-      card.extraActions should be(0)
+    "have no extraActions" in {
+      copperCard.extraActions should be(0)
     }
-    "have a extraGold"  in {
-      card.extraGold should be(0)
+    "have no extraGold" in {
+      copperCard.extraGold should be(0)
     }
-    "have a extraDraws"  in {
-      card.extraDraws should be(0)
+    "have no extraDraws" in {
+      copperCard.extraDraws should be(0)
     }
     "have a nice String representation" in {
-      card.toString should be("Copper")
+      copperCard.toString should be("Copper")
+    }
+    "not use an Action" in {
+      copperCard.usesAction should be(false)
+    }
+  }
+
+  "A market card" should {
+    val marketCard: Card = Card(12, "market", 3, 5, 1, 1, 1, 1)
+    "have an ID"  in {
+      marketCard.cardID should be(12)
+    }
+    "have a name"  in {
+      marketCard.name should be("market")
+    }
+    "have a cardType"  in {
+      marketCard.cardType should be(3)
+    }
+    "have a cost"  in {
+      marketCard.cost should be(5)
+    }
+    "have extraBuys"  in {
+      marketCard.extraBuys should be(1)
+    }
+    "have extraActions"  in {
+      marketCard.extraActions should be(1)
+    }
+    "have extraGold"  in {
+      marketCard.extraGold should be(1)
+    }
+    "have extraDraws"  in {
+      marketCard.extraDraws should be(1)
+    }
+    "have a nice String representation" in {
+      marketCard.toString should be("market")
     }
     "use an Action" in {
-      card.usesAction should be(true)
+      marketCard.usesAction should be(true)
     }
-  }}
+  }
 
 }
