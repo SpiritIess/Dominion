@@ -1,8 +1,8 @@
 package de.htwg.se.Dominion.model
 
 case class Board() {
-  def printBoard(): String = {
-    "_______________ ______________ _________________\n" +
+  override def toString: String = {
+      "_______________ ______________ _________________\n" +
       "|copper stack | |silver stack| |gold stack     |\n" +
       "|_____________| |____________| |_______________|\n" +
       "_______________ ______________ _________________\n" +

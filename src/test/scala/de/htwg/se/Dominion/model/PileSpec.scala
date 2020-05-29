@@ -1,10 +1,8 @@
 package de.htwg.se.Dominion.model
 
-import org.junit.runner.RunWith
 import org.scalatest._
 import org.scalatest.junit.JUnitRunner
 
-@RunWith(classOf[JUnitRunner])
 class PileSpec extends WordSpec with Matchers {
   "A Pile" when {"new" should {
     val pile = Pile()

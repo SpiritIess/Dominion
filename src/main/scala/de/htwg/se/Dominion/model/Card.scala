@@ -6,16 +6,17 @@ case class Card(cardID: Int, name: String, cardType: Int, cost:Int,
                 extraDraws: Int) {
   def usesAction: Boolean = cardType == 3
 
-  override def toString:String = name
+  override def toString: String = name
 
-  //  case class Effect(cardID: Int) {
-  //    val effect: Unit = cardID match {
-  //      case 8 => //Burggraben
-  //      case 11 => //Keller
-  //      case 13 => //Miliz
-  //      case 14 => //Mine
-  //      case 16 => //Umbau
-  //      case 17 => //Werkstatt
-  //    }
-  //  }
+  def processEffect(currentHand: List[Card], drawPile: List[Card]): (List[Card], List[Card]) = {
+    if (cardType != 3) {
+      println("error: only an action card has an effect when played!")
+      (currentHand, drawPile)
+    }
+    else {
+      name match {
+        case "moat" => PlayerDrawPile(drawPile).drawAdditional(extraDraws)
+      }
+    }
+  }
 }
