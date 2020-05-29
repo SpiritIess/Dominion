@@ -1,14 +1,11 @@
 package de.htwg.se.Dominion.model
 
-import org.junit.runner.RunWith
 import org.scalatest.{Matchers, WordSpec}
-import org.scalatest.junit.JUnitRunner
 
-@RunWith(classOf[JUnitRunner])
 class PlayerDrawPileSpec extends WordSpec with Matchers {
 
   "A PlayerDrawPile" when {"new" should {
-    val playerDrawPile = PlayerDrawPile(Pile().startPile)
+    val playerDrawPile = PlayerDrawPile(Pile.startPile)
     "have a nice string representation" in {
       playerDrawPile.toString should be ("List(Copper, Copper, Copper, Copper, Copper, Copper, Copper, property, property, property)")
     }

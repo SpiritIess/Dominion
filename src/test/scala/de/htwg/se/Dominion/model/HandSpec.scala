@@ -1,10 +1,7 @@
 package de.htwg.se.Dominion.model
 
-import org.junit.runner.RunWith
 import org.scalatest.{Matchers, WordSpec}
-import org.scalatest.junit.JUnitRunner
 
-@RunWith(classOf[JUnitRunner])
 class HandSpec extends WordSpec with Matchers {
   "A Hand" when { "drawing from a pile of Copper-cards" should {
     val drawPile = List.fill(10)(CardSet.copperCard)

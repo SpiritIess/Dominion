@@ -6,7 +6,7 @@ import de.htwg.se.Dominion.model.{Board, Card, CardSet, Pile, Player, Tui}
 object Dominion {
   def main(args: Array[String]): Unit = {
 
-    val tui = Tui(Pile())
+    val tui = Tui()
 
     val players = tui.getPlayerList()
 
