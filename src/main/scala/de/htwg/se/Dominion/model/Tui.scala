@@ -29,4 +29,13 @@ case class Tui() {
     }
     playerList.toList
   }
+
+  def processInputLine(input: String): Int = {
+    input match {
+      case "q" => -1
+      case "n" => 5
+      case "s" => val players = getPlayerList(); println(players.head.startingHand); players.length
+      case _ => 2
+    }
+  }
 }
