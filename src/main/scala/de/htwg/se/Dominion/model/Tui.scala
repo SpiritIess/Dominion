@@ -4,12 +4,6 @@ import scala.collection.mutable.ListBuffer
 
 case class Tui() {
   def printTui(): Unit = {
-
-//    println("Dominion\n")
-//    val student1 = Player("Jakob Strakhof")
-//    val student2 = Player("Karsten Huber")
-//    println("Hello, " + student1.name + " and " + student2)
-
     val board = Board().toString()
     print(board)
   }
@@ -29,12 +23,10 @@ case class Tui() {
   }
 
   def getPlayerList(playerNames: List[String] = getPlayerNames()): List[Player] = {
-    var playerListTemp = new ListBuffer[Player]
+    var playerList = new ListBuffer[Player]
     for (x <- playerNames) {
-      playerListTemp += Player(x)
+      playerList += Player(x)
     }
-    val playerList = playerListTemp.toList
-    playerList
+    playerList.toList
   }
-
 }
