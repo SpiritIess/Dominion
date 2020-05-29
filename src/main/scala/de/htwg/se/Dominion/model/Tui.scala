@@ -2,7 +2,7 @@ package de.htwg.se.Dominion.model
 
 import scala.collection.mutable.ListBuffer
 
-case class Tui(pile: Pile) {
+case class Tui() {
   def printTui(): Unit = {
 
 //    println("Dominion\n")
@@ -10,7 +10,7 @@ case class Tui(pile: Pile) {
 //    val student2 = Player("Karsten Huber")
 //    println("Hello, " + student1.name + " and " + student2)
 
-    val board = Board(pile).toString()
+    val board = Board().toString()
     print(board)
   }
 
