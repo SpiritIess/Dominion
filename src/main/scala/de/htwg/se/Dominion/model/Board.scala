@@ -1,28 +1,34 @@
 package de.htwg.se.Dominion.model
 
-case class Board() {
+case class Board(pile: Pile) {
+
+  private val moneyStack = Seq[String] ("Copper: " + pile.copperPile.length, "Silver: " + pile.silverPile.length, "Gold: " + pile.goldPile.length)
+  private val winninStack = Seq[String] ("Property: " + pile.propertyPile.length, "Dukedom: " + pile.dukedomPile.length, "Province: " + pile.provincePile.length)
+//  override def toString: String = {
+//      "_______________ ______________ _________________\n" +
+//      "|copper stack | |silver stack| |gold stack     |\n" +
+//      "|_____________| |____________| |_______________|\n" +
+//      "_______________ ______________ _________________\n" +
+//      "|propertyStack| |dukedomStack| |provinceStack  |\n" +
+//      "|_____________| |____________| ________________|\n" +
+//      "_______________ ______________ _________________\n" +
+//      "|moatStack    | |villageStack| |lumberjackStack|\n" +
+//      "|_____________| |____________| |_______________|\n" +
+//      "_______________ ______________ _________________\n" +
+//      "|cellarStack  | |marketStack | |militiaStack   |\n" +
+//      "|_____________| |____________| |_______________|\n" +
+//      "_______________ ______________ _________________\n" +
+//      "|mineStack    | |smithyStack | |conversionStack|\n" +
+//      "|_____________| |____________| |_______________|\n" +
+//      "_______________ ______________\n" +
+//      "|workshopStack| |garbageStack|\n" +
+//      "|_____________| |____________|\n\n\n" +
+//      "_______________ _______________\n" +
+//      "|discard pile | |draw pile    |\n" +
+//      "|_____________| |_____________|\n"
+//  }
   override def toString: String = {
-    "_______________ ______________ _________________\n" +
-      "|copper stack | |silver stack| |gold stack     |\n" +
-      "|_____________| |____________| |_______________|\n" +
-      "_______________ ______________ _________________\n" +
-      "|propertyStack| |dukedomStack| |provinceStack  |\n" +
-      "|_____________| |____________| ________________|\n" +
-      "_______________ ______________ _________________\n" +
-      "|moatStack    | |villageStack| |lumberjackStack|\n" +
-      "|_____________| |____________| |_______________|\n" +
-      "_______________ ______________ _________________\n" +
-      "|cellarStack  | |marketStack | |militiaStack   |\n" +
-      "|_____________| |____________| |_______________|\n" +
-      "_______________ ______________ _________________\n" +
-      "|mineStack    | |smithyStack | |conversionStack|\n" +
-      "|_____________| |____________| |_______________|\n" +
-      "_______________ ______________\n" +
-      "|workshopStack| |garbageStack|\n" +
-      "|_____________| |____________|\n\n\n" +
-      "_______________ _______________\n" +
-      "|discard pile | |draw pile    |\n" +
-      "|_____________| |_____________|\n"
+    moneyStack.mkString("|", "| |", "|\n") + winninStack.mkString("|", "| |", "|\n")
   }
 
 
