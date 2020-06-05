@@ -9,12 +9,10 @@ object Dominion {
   def main(args: Array[String]): Unit = {
     var input: String = ""
     var test = 0
-
+    tui.processInputLine("")
     do {
-      tui.printTui()
       input = scala.io.StdIn.readLine()
-      test = tui.processInputLine(input)
-//      println("ProcessInput Return: " + test)
+      tui.processInputLine(input)
     } while (input != "q")
 
 
