@@ -1,14 +1,74 @@
-package de.htwg.se.Dominion.aview
+package de.htwg.se.Dominion.aview.tui
 
+import de.htwg.se.Dominion.controller.Controller
 import de.htwg.se.Dominion.model.{Board, Player}
 
 import scala.collection.mutable.ListBuffer
 
-case class Tui() {
-  def printTui(): Unit = {
-    val board = Board().toString()
-    print(board)
-  }
+case class Tui(controller: Controller) {
+  var state : State = TuiGameStart(controller ,this)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  /*
+
 
   def readPlayerCount(): Int = {
     print("Input number of Players: ")
@@ -34,10 +94,14 @@ case class Tui() {
 
   def processInputLine(input: String): Int = {
     input match {
-      case "q" => -1
-      case "n" => 5
-      case "s" => val players = getPlayerList(); println(players.head.startingHand); players.length
+      case "2" => {
+
+      }
+      case "3" => 5
+      case "4" => val players = getPlayerList(); println(players.head.startingHand); players.length
       case _ => 2
     }
   }
+
+   */
 }
