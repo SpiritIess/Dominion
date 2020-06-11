@@ -9,14 +9,9 @@ case class TuiPlayerOneTurn(controller : Controller, tui:Tui) extends State {
   override def processInputLine(input: String): Unit =
     input match {
       case "1" => {
-        val (handList,playerDrawPile) = (
-          player.updateHand(player.handList,
-            player.handList.head.processEffect(0, player.handList, player.playerDrawPile)._1,
-            player.handList.head.processEffect(0, player.handList, player.playerDrawPile)._2))
-        player.hand= handList
+        val (handList,playerDrawPile) = player.handList.head.processEffect(0, player.handList, player.playerDrawPile)
+        player.hand = handList
         player.playerDrawPile = playerDrawPile
-        println(handList.toString())
-        println(playerDrawPile.toString())
       }
       case "2" => Dominion.playerList(0).handList(1).processEffect(1,Dominion.playerList(0).handList,Dominion.playerList(0).playerDrawPile)
       case "3" => Dominion.playerList(0).handList(2).processEffect(2,Dominion.playerList(0).handList,Dominion.playerList(0).playerDrawPile)
