@@ -12,10 +12,12 @@ class Tui {
       case "3" => //play card3
       case "4" => //play card4
       case "5" => //play card5
-      case "b" => { //buying process starts
-        //val currentGold = player.currentHand.countGold
-        //println(s"you have $currentGold Gold, which card do you want to buy?")
+      /*
+      case "b" => {
+        val currentGold = player.currentHand.countGold
+        println(s"you have $currentGold Gold, which card do you want to buy?")
       }
+      */
     }
   }
 

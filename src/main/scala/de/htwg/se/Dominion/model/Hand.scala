@@ -6,10 +6,5 @@ case class Hand(drawPile: List[Card]) {
   override def toString:String = handList.toString()
 
   def updateHand(oldHand:List[Card], newDrawPile:List[Card], newCards:List[Card]) : (List[Card], List[Card]) = (oldHand.++:(newCards), newDrawPile)
-  /*def countGold:Int = {
-    val handCards = List(card1, card2, card3, card4, card5 /*,additionally drawn cards*/)
-
-
-  }*/
 }
 
