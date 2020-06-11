@@ -1,24 +1,43 @@
 package de.htwg.se.Dominion.aview
 
-import de.htwg.se.Dominion.model.{Board, Card, Hand, Pile, Player, PlayerDrawPile}
+import de.htwg.se.Dominion.model.{Board, Player}
 
-class Tui {
+import scala.collection.mutable.ListBuffer
 
-  def processInputLine(input: String, player:Player) : Unit = {
-    println("please press the number of the card you want to play from your hand, or press \"b\" to skip the Action-phase and start the buying-phase:\n")
-    input match {
-      case "1" => //play card1
-      case "2" => //play card2
-      case "3" => //play card3
-      case "4" => //play card4
-      case "5" => //play card5
-      /*
-      case "b" => {
-        val currentGold = player.currentHand.countGold
-        println(s"you have $currentGold Gold, which card do you want to buy?")
-      }
-      */
-    }
+case class Tui() {
+  def printTui(): Unit = {
+    val board = Board().toString()
+    print(board)
   }
 
+  def readPlayerCount(): Int = {
+    print("Input number of Players: ")
+    scala.io.StdIn.readInt()
+  }
+
+  def getPlayerNames(playerCount: Int = readPlayerCount()) : List[String] = {
+    var playerList = new ListBuffer[String]()
+    for (x <- 1 to playerCount) {
+      print("Input player " + x  + " name: ")
+      playerList += scala.io.StdIn.readLine()
+    }
+    playerList.toList
+  }
+
+  def getPlayerList(playerNames: List[String] = getPlayerNames()): List[Player] = {
+    var playerList = new ListBuffer[Player]
+    for (x <- playerNames) {
+      playerList += Player(x)
+    }
+    playerList.toList
+  }
+
+  def processInputLine(input: String): Int = {
+    input match {
+      case "q" => -1
+      case "n" => 5
+      case "s" => val players = getPlayerList(); println(players.head.startingHand); players.length
+      case _ => 2
+    }
+  }
 }
