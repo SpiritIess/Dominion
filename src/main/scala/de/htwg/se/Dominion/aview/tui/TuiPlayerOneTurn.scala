@@ -5,18 +5,16 @@ import de.htwg.se.Dominion.controller.Controller
 import de.htwg.se.Dominion.aview.tui.TuiTwoPlayers
 
 case class TuiPlayerOneTurn(controller : Controller, tui:Tui) extends State {
+  val player = Dominion.playerList(0)
   override def processInputLine(input: String): Unit =
     input match {
       case "1" => {
         val (handList,playerDrawPile) = (
-          Dominion.playerList(0).updateHand(
-            Dominion.playerList(0).handList,
-            Dominion.playerList(0).handList.head.processEffect(0, Dominion.playerList(0).handList,
-                                                                Dominion.playerList(0).playerDrawPile)._1,
-            Dominion.playerList(0).handList.head.processEffect(0, Dominion.playerList(0).handList,
-            Dominion.playerList(0).playerDrawPile)._2))
-        Dominion.playerList(0).hand= handList
-        Dominion.playerList(0).playerDrawPile = playerDrawPile
+          player.updateHand(player.handList,
+            player.handList.head.processEffect(0, player.handList, player.playerDrawPile)._1,
+            player.handList.head.processEffect(0, player.handList, player.playerDrawPile)._2))
+        player.hand= handList
+        player.playerDrawPile = playerDrawPile
         println(handList.toString())
         println(playerDrawPile.toString())
       }
