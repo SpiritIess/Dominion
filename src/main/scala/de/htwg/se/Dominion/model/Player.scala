@@ -2,8 +2,8 @@ package de.htwg.se.Dominion.model
 
 case class Player(name: String, mayDraw: Boolean = true, mayBuy: Boolean = true, mayPlayAction : Boolean = true) {
    override def toString:String = name
-   val startingPile = PlayerDrawPile(Pile.startPile).shuffle
-   //val startingPile = PlayerDrawPile(Pile().moatPile).shuffle for testing reasons
+   //val startingPile = PlayerDrawPile(Pile.startPile).shuffle
+   val startingPile = PlayerDrawPile(Pile.testMoatPile).shuffle //for testing purposes
    val (handList,newDrawPile) = PlayerDrawPile(startingPile).drawAdditional(5)
    var hand = handList
    var playerDrawPile =newDrawPile

@@ -5,6 +5,10 @@ object Pile { //initializing all piles with their respective cards and their amo
     CardSet.copperCard, CardSet.copperCard, CardSet.copperCard, CardSet.propertyCard,
     CardSet.propertyCard, CardSet.propertyCard)
 
+  val testMoatPile = List(CardSet.moatCard, CardSet.moatCard, CardSet.moatCard, CardSet.moatCard,
+    CardSet.moatCard, CardSet.moatCard, CardSet.moatCard, CardSet.moatCard,
+    CardSet.moatCard, CardSet.moatCard)
+
   val piles: Map[Card, Int] = Map((CardSet.copperCard, 60),
     (CardSet.silverCard, 40),
     (CardSet.goldCard, 30),

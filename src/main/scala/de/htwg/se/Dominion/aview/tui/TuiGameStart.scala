@@ -12,7 +12,7 @@ case class TuiGameStart(controller: Controller, tui: Tui) extends State{
         printTui()
         handle()
       }
-      case "3" => {
+      /*case "3" => {
         controller.setGameState(GameState.threePlayers)
         //tui.state = TuiThreePlayers(controller, tui)
         printTui();
@@ -24,7 +24,11 @@ case class TuiGameStart(controller: Controller, tui: Tui) extends State{
         printTui();
         handle()
       }
-      case "q" => println("you chose to quit the game\n")
+       */
+      case "q" => {
+        controller.setGameState(GameState.endScreen)
+        println("you chose to quit the game\n")
+      }
       case _ => println("type a number between '2' and '4' or press 'q' to quit!\n")
     }
   }

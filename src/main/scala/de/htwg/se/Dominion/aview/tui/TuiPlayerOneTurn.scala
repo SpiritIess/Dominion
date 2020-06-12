@@ -13,7 +13,8 @@ case class TuiPlayerOneTurn(controller : Controller, tui:Tui) extends State {
         player.hand = handList
         player.playerDrawPile = playerDrawPile
       }
-      case "2" => Dominion.playerList(0).handList(1).processEffect(1,Dominion.playerList(0).handList,Dominion.playerList(0).playerDrawPile)
+      case _ => println("bad input choose a card (only most-left one can be played)")
+      /*case "2" => Dominion.playerList(0).handList(1).processEffect(1,Dominion.playerList(0).handList,Dominion.playerList(0).playerDrawPile)
       case "3" => Dominion.playerList(0).handList(2).processEffect(2,Dominion.playerList(0).handList,Dominion.playerList(0).playerDrawPile)
       case "4" => Dominion.playerList(0).handList(3).processEffect(3,Dominion.playerList(0).handList,Dominion.playerList(0).playerDrawPile)
       case "5" => Dominion.playerList(0).handList(4).processEffect(4,Dominion.playerList(0).handList,Dominion.playerList(0).playerDrawPile)
@@ -21,6 +22,8 @@ case class TuiPlayerOneTurn(controller : Controller, tui:Tui) extends State {
       case "7" => Dominion.playerList(0).handList(6).processEffect(6,Dominion.playerList(0).handList,Dominion.playerList(0).playerDrawPile)
       case "8" => Dominion.playerList(0).handList(7).processEffect(7,Dominion.playerList(0).handList,Dominion.playerList(0).playerDrawPile)
       case "9" => Dominion.playerList(0).handList(8).processEffect(8,Dominion.playerList(0).handList,Dominion.playerList(0).playerDrawPile)
+
+       */
     }
 
   override def printTui(): Unit = ???
