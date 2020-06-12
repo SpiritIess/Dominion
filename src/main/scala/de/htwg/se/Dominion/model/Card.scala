@@ -20,18 +20,13 @@ case class Card(cardID: Int, name: String, cardType: Int, cost:Int,
 
     def processEffect(position : Int, currentHand: List[Card], drawPile: List[Card]): (List[Card], List[Card]) = {
     if (cardType != 3) {
-      println("error: only an action card has an effect when played!")
+      println("error: only an action card has an effect when played! Choose an action card!")
       (currentHand, drawPile)
     }
     else {
       name match {
         case "moat" => {
           val (newCards,newDrawPile) = PlayerDrawPile(drawPile).drawAdditional(extraDraws)
-          //println(currentHand.toString()) klappt
-          val temp = removeCardFromHand(position,currentHand)
-          println(temp.toString())
-          println((temp:::newCards).toString())
-          println(newDrawPile.toString())
           (removeCardFromHand(position,currentHand):::newCards, newDrawPile)
         }
       }
