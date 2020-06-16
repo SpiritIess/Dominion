@@ -11,24 +11,15 @@ case class Card(cardID: Int, name: String, cardType: Int, cost:Int,
 
   override def toString: String = name
 
-  def removeCardFromHand(position : Int, currentHand: List[Card]) : List[Card] = {
-    val tempLeft = currentHand.dropRight(position+1)
-    val tempRight = currentHand.drop(currentHand.length-position)
-    println(tempRight)
-    tempLeft ::: tempRight
-  }
-
-    def processEffect(position : Int, currentHand: List[Card], drawPile: List[Card]): (List[Card], List[Card]) = {
+  def processEffect(position : Int, currentHand: Hand, drawPile: PlayerDrawPile): (Hand, PlayerDrawPile) = {
     if (cardType != 3) {
       println("error: only an action card has an effect when played! Choose an action card!")
       (currentHand, drawPile)
     }
     else {
       name match {
-        case "moat" => {
-          val (newCards,newDrawPile) = PlayerDrawPile(drawPile).drawAdditional(extraDraws)
-          (removeCardFromHand(position,currentHand):::newCards, newDrawPile)
-        }
+        case "moat" => val (newCards,newDrawPile) = drawPile.drawAdditional(extraDraws)
+          (Hand(currentHand.removeCardFromHand(position).handCards:::newCards), newDrawPile)
       }
     }
   }

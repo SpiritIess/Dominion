@@ -12,14 +12,14 @@ class PlayerSpec extends WordSpec with Matchers {
       player.toString should be("Jakob Strakhof")
     }
     "have copper cards in the startingPile" in {
-      player.startingPile.contains(CardSet.copperCard) should be (false) //true, wenn der startingPile nicht mehr aus moat-cards besteht
-      player.startingPile.contains(CardSet.moatCard) should be (true)
+      player.startingPile.pile.contains(CardSet.copperCard) should be (false) //true, wenn der startingPile nicht mehr aus moat-cards besteht
+      player.startingPile.pile.contains(CardSet.moatCard) should be (true)
     }
     "have province cards in the startingPile" in {
-      player.startingPile.contains(CardSet.propertyCard) should be (false) //genau, wie bei contains(CardSet.copperCard)
+      player.startingPile.pile.contains(CardSet.propertyCard) should be (false) //genau, wie bei contains(CardSet.copperCard)
     }
     "after drawing 5 cards the size of playerDrawPile should be reduced by 5" in {
-      player.playerDrawPile.size should be(5)
+      player.playerDrawPile.pile.size should be(5)
     }
   }}
 

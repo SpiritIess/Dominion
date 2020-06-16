@@ -3,16 +3,17 @@ package de.htwg.se.Dominion.aview.tui
 import de.htwg.se.Dominion.Dominion
 import de.htwg.se.Dominion.controller.Controller
 import de.htwg.se.Dominion.aview.tui.TuiTwoPlayers
+import de.htwg.se.Dominion.model.Player
 
 case class TuiPlayerOneTurn(controller : Controller, tui:Tui) extends State {
-  val player = Dominion.playerList(0)
+  val player: Player = Dominion.playerList.head
   override def processInputLine(input: String): Unit =
     input match {
-      case "1" => {
-        val (handList,playerDrawPile) = player.handList.head.processEffect(0, player.handList, player.playerDrawPile)
+      case "1" =>
+        val (handList,playerDrawPile) = player.hand.handCards.head.processEffect(0, player.hand, player.playerDrawPile)
         player.hand = handList
         player.playerDrawPile = playerDrawPile
-      }
+
       case _ => println("bad input choose a card (only most-left one can be played)")
       /*case "2" => Dominion.playerList(0).handList(1).processEffect(1,Dominion.playerList(0).handList,Dominion.playerList(0).playerDrawPile)
       case "3" => Dominion.playerList(0).handList(2).processEffect(2,Dominion.playerList(0).handList,Dominion.playerList(0).playerDrawPile)

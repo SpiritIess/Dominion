@@ -5,11 +5,11 @@ import scala.util.Random
 case class PlayerDrawPile(pile : List[Card]) {
   override def toString:String = pile.toString()
 
-  def drawOne : (Card, List[Card]) = (pile.head, pile.tail)
+  def drawOne : (Card, PlayerDrawPile) = (pile.head, PlayerDrawPile(pile.tail))
 
-  def drawAdditional(amount: Int) : (List[Card], List[Card]) = (pile.take(amount), pile.takeRight(pile.length-amount))
+  def drawAdditional(amount: Int) : (List[Card], PlayerDrawPile) = (pile.take(amount), PlayerDrawPile(pile.takeRight(pile.length-amount)))
 
-  def shuffle : List[Card] = Random.shuffle(pile)
+  def shuffle : PlayerDrawPile = PlayerDrawPile(Random.shuffle(pile))
 }
 
 
