@@ -1,24 +1,15 @@
 package de.htwg.se.Dominion.model
-import de.htwg.se.Dominion.model.CardSet
 
 import scala.util.Random
 
 case class PlayerDrawPile(pile : List[Card]) {
   override def toString:String = pile.toString()
 
-  //function used to draw a Card from pile, returns drawn Card and freshly created pile without drawn card
-  def drawOne(/*amount: Int = 1*/) : (Card, List[Card]) = {
-    val drawnCard = pile.head
-    val newPile = pile.drop(1)
-    return (drawnCard, newPile)
+  def drawOne : (Card, PlayerDrawPile) = (pile.head, PlayerDrawPile(pile.tail))
 
-  }
+  def drawAdditional(amount: Int) : (List[Card], PlayerDrawPile) = (pile.take(amount), PlayerDrawPile(pile.takeRight(pile.length-amount)))
 
-  //function used to shuffle pile, returns new, shuffled pile
-  def shuffle(): List[Card] = {
-    val x = Random.shuffle(pile)
-    return x
-  }
+  def shuffle : PlayerDrawPile = PlayerDrawPile(Random.shuffle(pile))
 }
 
 
