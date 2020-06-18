@@ -9,7 +9,7 @@ class PlayerDrawPileSpec extends WordSpec with Matchers {
     val playerDrawPile = PlayerDrawPile(Pile.startPile)
 
     "have a nice string representation" in {
-      playerDrawPile.toString should be ("List(Copper, Copper, Copper, Copper, Copper, Copper, Copper, property, property, property)")
+      playerDrawPile.toString should be ("List(Copper, Copper, Copper, Copper, Copper, Copper, Copper, Property, Property, Property)")
     }
     "should not be in the same order after shuffling" in {
       playerDrawPile.shuffle should not be List(CardSet.copperCard, CardSet.copperCard, CardSet.copperCard, CardSet.copperCard,

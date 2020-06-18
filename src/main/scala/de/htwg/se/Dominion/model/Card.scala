@@ -18,7 +18,8 @@ case class Card(cardID: Int, name: String, cardType: Int, cost:Int,
     }
     else {
       name match {
-        case "moat" => val (newCards,newDrawPile) = drawPile.drawAdditional(extraDraws)
+        case "Moat" => val (newCards,newDrawPile) = drawPile.drawAdditional(extraDraws)
+          currentHand.mayPlayAction -= 1
           (Hand(currentHand.removeCardFromHand(position).handCards:::newCards), newDrawPile)
       }
     }

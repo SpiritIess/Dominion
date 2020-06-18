@@ -1,11 +1,11 @@
 package de.htwg.se.Dominion.aview.tui
 
 import de.htwg.se.Dominion.Dominion
-import de.htwg.se.Dominion.controller.{Controller, GameState}
+import de.htwg.se.Dominion.controller.{Controller, GameState, TurnState}
 import org.scalatest.{Matchers, WordSpec}
 
-class TuiPlayerOneTurnSpec extends WordSpec with Matchers{
-  "A Dominion Tui with the state 'playerOneTurn'" should {
+class TuiPlayerTurnSpec extends WordSpec with Matchers{
+  "A Dominion Tui with the state 'playerTurn'" should {
     val controller = new Controller
     val tui = Tui(controller)
     controller.setGameState(GameState.twoPlayers)
@@ -16,8 +16,9 @@ class TuiPlayerOneTurnSpec extends WordSpec with Matchers{
     "have a player whose turn it is" in {
       player should be (Dominion.playerList.head)
     }
-    "have an initial gameState" in {
+    "have an initial gameState and an initial TurnState" in {
       controller.gameState should be (GameState.playerOneTurn)
+      controller.turnState should be (TurnState.actionPhase)
     }
     "process the effect of a card, when given the number of the card " +
       "(only card1 works up until now with only 'moat':(draw 2), being implemented in processEffect)" in {

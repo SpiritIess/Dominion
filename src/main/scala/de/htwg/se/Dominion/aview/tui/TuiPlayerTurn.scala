@@ -20,9 +20,10 @@ case class TuiPlayerTurn(controller : Controller, tui:Tui) extends State {
       val inputNumber = input.toInt
       if (inputNumber > 0 && inputNumber < 10) {
         val (handList, playerDrawPile) = player.hand.handCards.head.processEffect(inputNumber - 1, player.hand, player.playerDrawPile)
-        if (player.mayPlayAction == 1)
+        if (player.hand.mayPlayAction == 0) {
           print(s"No more Actions available for ${player.name}, moving to Buying-Phase, please press 'Enter' to confirm\n")
           controller.setTurnState(TurnState.buyingPhase)
+        }
         player.hand = handList
         player.playerDrawPile = playerDrawPile
       } else if (inputNumber == 0) {
@@ -30,25 +31,11 @@ case class TuiPlayerTurn(controller : Controller, tui:Tui) extends State {
         controller.setTurnState(TurnState.buyingPhase)
       }
     } else if (controller.turnState == TurnState.buyingPhase) {
-      player.hand.handValue += countGold(player.hand)
+      player.hand.handValue += player.hand.countGold()
       println(s"Player ${player.name}, has ${player.hand.handValue} money, which card/s do you want to buy?\n")
     } else {
       println("bad input, please press a number from 1 to 9 on your keyboard and confirm with 'Enter'.\n")
     }
   }
-
-  def countGold(hand: Hand) : Int = {
-    var handVal = 0
-    for(i<-0 to hand.handCards.length - 1) {
-      if(hand.handCards(i).cardType == 1) {
-        handVal += player.hand.handCards(i).extraGold
-      }
-    }
-    println(handVal)
-    handVal
-  }
-
-  override def printTui(): Unit = ???
-
-  override def handle(): Unit = ???
 }
+

@@ -7,7 +7,7 @@ import org.scalatest.{Matchers, WordSpec}
 class TuiTwoPlayersSpec extends WordSpec with Matchers {
   "Dominion Tui with state twoPlayers" should {
     val controller = new Controller
-    val tui = new Tui(controller)
+    val tui = Tui(controller)
     controller.setGameState(GameState.twoPlayers)
     tui.state = TuiTwoPlayers(controller, tui)
 

@@ -4,7 +4,7 @@ import org.scalatest.{Matchers, WordSpec}
 
 class HandSpec extends WordSpec with Matchers {
   "A Hand" when {
-    val drawPile = PlayerDrawPile(List.fill(10)(CardSet.copperCard))
+    val drawPile = PlayerDrawPile(Pile.testPile)
     val (handCards, newDrawPile) = drawPile.drawAdditional(5)
     val startingHand = Hand(handCards)
     "drawing from a pile of Copper-cards" should {
@@ -20,16 +20,19 @@ class HandSpec extends WordSpec with Matchers {
       newDrawPile1.pile.size should be (4)
     }
     "have a copper card" in {
-      startingHand.handCards.head should be (CardSet.copperCard)
+      startingHand.handCards.head should be (CardSet.moatCard)
     }
     "have a nice String representation" in {
-      startingHand.toString should be ("Copper, Copper, Copper, Copper, Copper")
+      startingHand.toString should be ("Moat, Copper, Property, Moat, Moat")
     }
   }
   "removing a card from it" should {
     val newHand = startingHand.removeCardFromHand(1)
     "only have 4 cards left" in {
       newHand.handCards.size should be(4)
+    }
+    "return the amount of money in ones hand" in {
+      startingHand.countGold() should be (1)
     }
   }}
 

@@ -23,12 +23,5 @@ class TuiGameStartSpec extends WordSpec with Matchers {
       tui.state.processInputLine("2")
       controller.gameState should be (GameState.twoPlayers)
     }
-    val controller2 = new Controller
-    val tui2 = new Tui(controller2)
-    "not change the gameState when calling 'handle()' or 'printTui()'" in {
-      tui2.state.handle()
-      tui2.state.printTui()
-      controller2.gameState should be (GameState.startScreen)
-    }
   }
 }

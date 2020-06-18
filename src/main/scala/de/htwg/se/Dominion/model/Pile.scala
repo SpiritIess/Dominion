@@ -5,7 +5,7 @@ object Pile { //initializing all piles with their respective cards and their amo
     CardSet.copperCard, CardSet.copperCard, CardSet.copperCard, CardSet.propertyCard,
     CardSet.propertyCard, CardSet.propertyCard)
 
-  val testMoatPile = List(CardSet.moatCard, CardSet.moatCard, CardSet.moatCard, CardSet.moatCard,
+  val testPile = List(CardSet.moatCard, CardSet.copperCard, CardSet.propertyCard, CardSet.moatCard,
     CardSet.moatCard, CardSet.moatCard, CardSet.moatCard, CardSet.moatCard,
     CardSet.moatCard, CardSet.moatCard)
 
