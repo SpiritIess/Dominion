@@ -1,6 +1,7 @@
 package de.htwg.se.Dominion.model
 
 case class Hand(handCards: List[Card]) {
+  var handValue = 0
 
 //  val (handList,newDrawPile) = PlayerDrawPile(drawPile).drawAdditional(5)
 

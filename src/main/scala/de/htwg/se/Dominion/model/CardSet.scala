@@ -1,9 +1,9 @@
 package de.htwg.se.Dominion.model
 
 object CardSet {
-  val copperCard: Card = Card(1, "Copper", 1, 0, 0, 0, 0, 0)
-  val silverCard: Card = Card(2, "Silver", 1, 0, 3, 0, 0, 0)
-  val goldCard: Card = Card(3, "gold", 1, 0, 6, 0, 0, 0)
+  val copperCard: Card = Card(1, "Copper", 1, 0, 0, 0, 1, 0)
+  val silverCard: Card = Card(2, "Silver", 1, 0, 3, 0, 2, 0)
+  val goldCard: Card = Card(3, "gold", 1, 0, 6, 0, 3, 0)
   val propertyCard: Card = Card(4, "property", 2, 2, 0, 0, 0, 0)
   val dukedomCard: Card = Card(5, "dukedom", 2, 5, 0, 0, 0, 0)
   val provinceCard: Card = Card(6, "province", 2, 8, 0, 0, 0, 0)

@@ -12,9 +12,10 @@ case class TuiTwoPlayers(controller: Controller, tui: Tui) extends State{
     playerArray = input.split(" ")
     printTui()
     handle()
-    controller.gameState = GameState.playerOneTurn
-    tui.state = TuiPlayerOneTurn(controller,tui)
-    println(s"${playerArray(0)}, choose an action-card from your hand!\n")
+    controller.setGameState(GameState.playerOneTurn)
+    tui.state = TuiPlayerTurn(controller,tui)
+    println(s"${playerArray(0)}, choose an action-card from your hand, " +
+      s"or press '0' to skip to the Buying-Phase and confirm your decision by pressing 'Enter'!\n")
   }
   def handle(): Unit = {
     Dominion.playerList += Player(playerArray(0))

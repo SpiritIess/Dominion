@@ -21,7 +21,7 @@ class TuiTwoPlayersSpec extends WordSpec with Matchers {
       Dominion.playerList(0).toString should be("Jakob")
       Dominion.playerList(1).toString should be("Carsten")
       controller.gameState should be (GameState.playerOneTurn)
-      tui.state should be (TuiPlayerOneTurn(controller,tui))
+      tui.state should be (TuiPlayerTurn(controller,tui))
     }
   }
 }
