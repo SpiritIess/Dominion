@@ -18,7 +18,7 @@ case class TuiPlayerTurn(controller : Controller, tui:Tui) extends State {
   override def processInputLine(input: String): Unit = {
     if (controller.turnState == TurnState.actionPhase) {
       val inputNumber = input.toInt
-      if (inputNumber > 0 && inputNumber < 10) {
+      if (inputNumber > 0 && inputNumber <= player.hand.handCards.length) {
         val (handList, playerDrawPile) = player.hand.handCards.head.processEffect(inputNumber - 1, player.hand, player.playerDrawPile)
         if (player.hand.mayPlayAction == 0) {
           print(s"No more Actions available for ${player.name}, moving to Buying-Phase, please press 'Enter' to confirm\n")
@@ -34,7 +34,7 @@ case class TuiPlayerTurn(controller : Controller, tui:Tui) extends State {
       player.hand.handValue = player.hand.countGold()  // potentially redundant since countGold is called on initialization of new Hand
       println(s"Player ${player.name}, has ${player.hand.handValue} money, which card/s do you want to buy?\n")
     } else {
-      println("bad input, please press a number from 1 to 9 on your keyboard and confirm with 'Enter'.\n")
+      println("bad input, please type in the number of the wanted card on your keyboard and confirm with 'Enter'.\n")
     }
   }
 }
