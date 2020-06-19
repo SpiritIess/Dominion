@@ -1,7 +1,7 @@
 package de.htwg.se.Dominion.model
 
 import de.htwg.se.Dominion.Dominion
-import de.htwg.se.Dominion.aview.tui.{Tui, TuiProcessEffect}
+import de.htwg.se.Dominion.aview.tui.Tui
 
 //cardtype: 1-> money, 2-> points, 3-> action
 case class Card(cardID: Int, name: String, cardType: Int, cost:Int,
