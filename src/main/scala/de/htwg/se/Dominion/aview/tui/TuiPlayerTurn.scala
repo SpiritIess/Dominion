@@ -31,7 +31,7 @@ case class TuiPlayerTurn(controller : Controller, tui:Tui) extends State {
         controller.turnState = TurnState.buyingPhase
       }
     } else if (controller.turnState == TurnState.buyingPhase) {
-      player.hand.handValue += player.hand.countGold()
+      player.hand.handValue = player.hand.countGold()  // potentially redundant since countGold is called on initialization of new Hand
       println(s"Player ${player.name}, has ${player.hand.handValue} money, which card/s do you want to buy?\n")
     } else {
       println("bad input, please press a number from 1 to 9 on your keyboard and confirm with 'Enter'.\n")

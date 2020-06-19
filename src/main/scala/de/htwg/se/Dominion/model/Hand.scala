@@ -1,7 +1,7 @@
 package de.htwg.se.Dominion.model
 
 case class Hand(handCards: List[Card]) {
-  var handValue = 0
+  var handValue: Int = countGold()
   var mayPlayAction = 1
   var mayBuy = 1
 
@@ -19,7 +19,7 @@ case class Hand(handCards: List[Card]) {
   }
   def countGold() : Int = {
     var handVal = 0
-    for(i<-0 to this.handCards.length - 1) {
+    for(i<-0 until this.handCards.length - 1) {
       if(this.handCards(i).cardType == 1) {
         handVal += this.handCards(i).extraGold
       }
