@@ -8,7 +8,7 @@ class TuiTwoPlayersSpec extends WordSpec with Matchers {
   "Dominion Tui with state twoPlayers" should {
     val controller = new Controller
     val tui = Tui(controller)
-    controller.setGameState(GameState.twoPlayers)
+    controller.gameState = GameState.twoPlayers
     tui.state = TuiTwoPlayers(controller, tui)
 
     "have an initial gameState" in {
@@ -17,9 +17,9 @@ class TuiTwoPlayersSpec extends WordSpec with Matchers {
     "when given two strings, seperated by a space as input " +
     "it should add the two names to playerList and have the " +
     "gameState set to 'playerOneTurn'" in {
-      tui.state.processInputLine("Jakob Carsten")
-      Dominion.playerList(0).toString should be("Jakob")
-      Dominion.playerList(1).toString should be("Carsten")
+      tui.state.processInputLine("Jakob Karsten")
+      Dominion.playerList.head.toString should be("Jakob")
+      Dominion.playerList(1).toString should be("Karsten")
       controller.gameState should be (GameState.playerOneTurn)
       tui.state should be (TuiPlayerTurn(controller,tui))
     }

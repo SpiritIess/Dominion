@@ -9,11 +9,11 @@ class ControllerSpec extends WordSpec with Matchers {
       controller.gameState should be(GameState.startScreen)
     }
     "be able to switch states" in {
-      controller.setGameState(GameState.playerOneTurn)
+      controller.gameState = GameState.playerOneTurn
       controller.gameState should be(GameState.playerOneTurn)
     }
     "be able to end the game" in {
-      controller.setGameState(GameState.endScreen)
+      controller.gameState = GameState.endScreen
       controller.gameState should be(GameState.endScreen)
     }
   }

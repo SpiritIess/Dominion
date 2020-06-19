@@ -8,7 +8,7 @@ class TuiPlayerTurnSpec extends WordSpec with Matchers{
   "A Dominion Tui with the state 'playerTurn'" should {
     val controller = new Controller
     val tui = Tui(controller)
-    controller.setGameState(GameState.twoPlayers)
+    controller.gameState = GameState.twoPlayers
     tui.state = TuiTwoPlayers(controller, tui)
     tui.state.processInputLine("Jakob Carsten")
     val player = Dominion.playerList.head
