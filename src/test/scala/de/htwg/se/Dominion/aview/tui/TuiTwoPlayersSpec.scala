@@ -2,7 +2,10 @@ package de.htwg.se.Dominion.aview.tui
 
 import de.htwg.se.Dominion.Dominion
 import de.htwg.se.Dominion.controller.{Controller, GameState}
+import de.htwg.se.Dominion.model.Player
 import org.scalatest.{Matchers, WordSpec}
+
+import scala.collection.mutable.ListBuffer
 
 class TuiTwoPlayersSpec extends WordSpec with Matchers {
   "Dominion Tui with state twoPlayers" should {
@@ -17,6 +20,7 @@ class TuiTwoPlayersSpec extends WordSpec with Matchers {
     "when given two strings, seperated by a space as input " +
     "it should add the two names to playerList and have the " +
     "gameState set to 'playerOneTurn'" in {
+      Dominion.playerList = new ListBuffer[Player]
       tui.state.processInputLine("Jakob Karsten")
       Dominion.playerList.head.toString should be("Jakob")
       Dominion.playerList(1).toString should be("Karsten")
