@@ -4,7 +4,7 @@ import org.scalatest.{Matchers, WordSpec}
 
 class HandSpec extends WordSpec with Matchers {
   "A Hand" when {
-    val drawPile = PlayerDrawPile(Pile.testPile)
+    val drawPile = DrawPile(Pile.testPile)
     val (handCards, newDrawPile) = drawPile.drawAdditional(5)
     val startingHand = Hand(handCards)
     "drawing from a pile of Copper-cards" should {

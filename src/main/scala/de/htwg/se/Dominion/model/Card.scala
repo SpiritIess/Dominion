@@ -11,7 +11,7 @@ case class Card(cardID: Int, name: String, cardType: Int, cost:Int,
 
   override def toString: String = name
 
-  def processEffect(position : Int, currentHand: Hand, drawPile: PlayerDrawPile): (Hand, PlayerDrawPile) = {
+  def processEffect(position : Int, currentHand: Hand, drawPile: DrawPile): (Hand, DrawPile) = {
     if (cardType != 3) {
       println("error: only an action card has an effect when played! Choose an action card!")
       (currentHand, drawPile)

@@ -2,14 +2,14 @@ package de.htwg.se.Dominion
 
 import de.htwg.se.Dominion.aview.tui.Tui
 import de.htwg.se.Dominion.controller.Controller
-import de.htwg.se.Dominion.model.{Board, Card, CardSet, Hand, Pile, Player, PlayerDrawPile}
+import de.htwg.se.Dominion.model.{Board, Card, CardSet, Hand, Pile, Player, DrawPile}
 
 import scala.collection.mutable.ListBuffer
 import scala.io.StdIn.readLine
 
 object Dominion {
   val controller = new Controller
-  val tui = Tui(controller)
+  val tui: Tui = Tui(controller)
   var playerList = new ListBuffer[Player]
 
   def main(args: Array[String]): Unit = {
