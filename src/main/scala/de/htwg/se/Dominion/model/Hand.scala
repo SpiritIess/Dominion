@@ -1,10 +1,9 @@
 package de.htwg.se.Dominion.model
 
 case class Hand(handCards: List[Card]) {
-  var handValue: Int = countGold()
+  var value: Int = countGold()
   var mayPlayAction = 1
   var mayBuy = 1
-
 //  val (handList,newDrawPile) = PlayerDrawPile(drawPile).drawAdditional(5)
 
 //  override def toString:String = handList.toString()

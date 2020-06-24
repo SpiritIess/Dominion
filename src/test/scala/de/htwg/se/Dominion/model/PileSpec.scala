@@ -72,6 +72,5 @@ class PileSpec extends WordSpec with Matchers {
     "have a workshopPile with 10 cards in it" in {
       Pile.piles(CardSet.workshopCard) should be (10)
     }
-
   }}
 }

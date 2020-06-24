@@ -22,6 +22,4 @@ class PlayerSpec extends WordSpec with Matchers {
       player.playerDrawPile.pile.size should be(5)
     }
   }}
-
-
 }
