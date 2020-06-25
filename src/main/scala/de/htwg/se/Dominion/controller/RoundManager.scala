@@ -1,8 +1,11 @@
 package de.htwg.se.Dominion.controller
 
+import de.htwg.se.Dominion.Dominion
 import de.htwg.se.Dominion.aview.tui.{Tui, TuiBuyPhase}
 import de.htwg.se.Dominion.model.{Board, Card, Player}
 import de.htwg.se.Dominion.controller.TurnState
+
+import scala.collection.mutable.ListBuffer
 
 case class RoundManager(controller: Controller) {
 
@@ -25,5 +28,9 @@ case class RoundManager(controller: Controller) {
     println(s"Player ${player.name}, has ${player.hand.value} money, which card/s do you want to buy (one by one)?\n")
   }
 
+  def getPlayerList(tui: Tui, player: Player, index:Int): ListBuffer[Player] = {
+    processCardEffect(tui, player, index)
+    Dominion.playerList
+  }
 
 }

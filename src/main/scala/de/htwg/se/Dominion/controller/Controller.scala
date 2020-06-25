@@ -23,8 +23,8 @@ class Controller(var gameState: GameState.Value = GameState.startScreen,
     notifyObservers
   }
 
-  def play(player: Player, index: Int): Unit = {
-    undoManager.doStep(new PlayCommand(player: Player, index: Int, this))
+  def play(tui: Tui, player: Player, index: Int): Unit = {
+    undoManager.doStep(new PlayCommand(tui, player, index, this))
     notifyObservers
   }
 
@@ -42,6 +42,16 @@ class Controller(var gameState: GameState.Value = GameState.startScreen,
     print(Board)
     println("type in the names of the players, using a space as seperator\n")
     notifyObservers
+  }
+
+  def updatePlayerList(playerString: String): List[Player] = {
+    val playerArray = playerString.split(" ")
+    println(playerArray.mkString("\n"))
+    println(Board.toString())
+    playerArray.foreach(i => {
+      Dominion.playerList += Player(i)
+    })
+    Dominion.playerList.toList
   }
 
   def quitGame(tui:Tui): Unit = {
