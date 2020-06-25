@@ -9,10 +9,6 @@ import de.htwg.se.Dominion.util.Observable
 class Controller(var gameState: GameState.Value = GameState.startScreen,
                  var turnState: TurnState.Value = TurnState.actionPhase) extends Observable{
 
-  def printBoard:Unit = {
-    val boardString = Board.toString
-    println(boardString)
-  }
 
   def startGame: Unit = {
     gameState = GameState.startScreen
@@ -24,18 +20,19 @@ class Controller(var gameState: GameState.Value = GameState.startScreen,
     turnState = TurnState.actionPhase
     notifyObservers
   }
+
   def actionToBuyPhase(tui:Tui, player: Player): Unit = {
     println("Ending Action-Phase. Beginning Buy-Phase. Please Press Enter to confirm!\n")
     turnState = TurnState.buyingPhase
     tui.state = TuiBuyPhase(this, tui, player)
     notifyObservers
-    printBoard
+    println(Board())
     println(s"Player ${player.name}, has ${player.hand.value} money, which card/s do you want to buy (one by one)?\n")
   }
 
   def processCardEffect(tui:Tui, player: Player, index: Int):Unit = {
     val (handList, playerDrawPile) = player.hand.handCards(index - 1).processEffect(index - 1, player.hand, player.playerDrawPile)
-    notifyObservers
+    //notifyObservers
     if (player.hand.mayPlayAction == 0) {
       print(s"No more Actions available for ${player.name}, moving to Buying-Phase, please press 'Enter' to confirm\n")
       actionToBuyPhase(tui, player)
@@ -56,7 +53,7 @@ class Controller(var gameState: GameState.Value = GameState.startScreen,
   def setUpPlayers(tui:Tui, amount:Int): Unit = {
     gameState = GameState.setUpPlayers
     tui.state = TuiPlayerSetup(this, tui, amount)
-    print(Board.toString())
+    print(Board)
     println("type in the names of the players, using a space as seperator\n")
     notifyObservers
   }
@@ -67,7 +64,7 @@ class Controller(var gameState: GameState.Value = GameState.startScreen,
     println("you chose to quit the game\n")
     notifyObservers
   }
-
+    //noch nicht richtig, kann von player 2 nur zu player 3 nicht zu 1
   def nextPlayer(tui:Tui, player: Player): Unit = {
     if (player.name.equals(Dominion.playerList.head.name)) {
       tui.state = TuiActionPhase(this, tui, Dominion.playerList(1))
@@ -90,13 +87,22 @@ class Controller(var gameState: GameState.Value = GameState.startScreen,
       notifyObservers
     }
   }
-
-  def discardCard(player: Player, card: Card) : Unit = {
-    player.playerDiscardPile.discardCard(card)
+  //funktioniert nicht
+  def discardCard(player: Player, card: Card, positon: Int) : Unit = {
+    player.playerDiscardPile = player.playerDiscardPile.discardCard(card)
+    player.hand = player.hand.removeCardFromHand(positon)
     notifyObservers
   }
+  //funktioniert auch nicht
   def discardCards(player:Player, cards: List[Card]) :Unit = {
-    player.playerDiscardPile.discardCards(cards)
+    player.playerDiscardPile = player.playerDiscardPile.discardCards(cards)
+    for (i <- 0 until cards.length){
+      player.hand = player.hand.removeCardFromHand(0)
+    }
+    notifyObservers
+  }
+  def putOnDiscardPile(player: Player, card: Card): Unit = {
+    player.playerDiscardPile = player.playerDiscardPile.discardCard(card)
     notifyObservers
   }
 }

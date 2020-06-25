@@ -4,7 +4,7 @@ case class Player(name: String) {
    override def toString:String = name
    //val startingPile = PlayerDrawPile(Pile.startPile).shuffle
    val startingPile: DrawPile = DrawPile(Pile.testPile)
-   val (handList,newDrawPile) = startingPile.drawAdditional(5)
+   private val (handList,newDrawPile) = startingPile.drawAdditional(5)
    var hand: Hand = Hand(handList)
    var playerDrawPile: DrawPile = newDrawPile
    var playerDiscardPile: DiscardPile = DiscardPile()

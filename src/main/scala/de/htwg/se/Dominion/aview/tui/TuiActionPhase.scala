@@ -7,6 +7,7 @@ import de.htwg.se.Dominion.model.{CardSet, Hand, Player}
 import de.htwg.se.Dominion.util.Observer
 
 case class TuiActionPhase(controller : Controller, tui: Tui, player:Player) extends Observer with State {
+  controller.add(this)
   println(player.hand.toString, "\n")
   controller.startTurn
 
