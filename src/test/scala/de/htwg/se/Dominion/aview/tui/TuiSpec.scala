@@ -9,5 +9,10 @@ class TuiSpec extends  WordSpec with Matchers{
     "have an initial state" in {
       tui.state should be (TuiGameStart(controller, tui))
     }
+    /*
+    "do nothing yet when calling update method" in {
+      val updated =  tui
+      tui.update should be ()
+    }*/
   }
 }

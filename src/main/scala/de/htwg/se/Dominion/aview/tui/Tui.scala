@@ -8,12 +8,11 @@ import de.htwg.se.Dominion.util.Observer
 
 import scala.collection.mutable.ListBuffer
 
-case class Tui(controller: Controller) extends Observer with State {
+case class Tui(controller: Controller) extends Observer {
   controller.add(this)
   var state: State = TuiGameStart(controller, this)
   controller.startGame
 
   override def update: Unit = {}
 
-  override def processInputLine(input: String): Unit = {}
 }

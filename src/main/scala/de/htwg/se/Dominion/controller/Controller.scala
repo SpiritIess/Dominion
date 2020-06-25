@@ -58,11 +58,12 @@ class Controller(var gameState: GameState.Value = GameState.startScreen,
     notifyObservers
   }
 
-  def quitGame(tui:Tui): Unit = {
+  def quitGame(tui:Tui): GameState.gameState = {
     gameState = GameState.endScreen
     //tui.state = TuiEndScreen(this, tui)
     println("you chose to quit the game\n")
     notifyObservers
+    gameState
   }
     //noch nicht richtig, kann von player 2 nur zu player 3 nicht zu 1
   def nextPlayer(tui:Tui, player: Player): Unit = {
@@ -87,13 +88,11 @@ class Controller(var gameState: GameState.Value = GameState.startScreen,
       notifyObservers
     }
   }
-  //funktioniert nicht
   def discardCard(player: Player, card: Card, positon: Int) : Unit = {
     player.playerDiscardPile = player.playerDiscardPile.discardCard(card)
     player.hand = player.hand.removeCardFromHand(positon)
     notifyObservers
   }
-  //funktioniert auch nicht
   def discardCards(player:Player, cards: List[Card]) :Unit = {
     player.playerDiscardPile = player.playerDiscardPile.discardCards(cards)
     for (i <- 0 until cards.length){

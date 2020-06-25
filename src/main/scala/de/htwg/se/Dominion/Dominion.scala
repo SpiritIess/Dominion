@@ -10,7 +10,7 @@ import scala.io.StdIn.readLine
 object Dominion {
   var board :Board = Board()
   val controller = new Controller()
-  val tui : Tui = Tui(controller)
+  var tui : Tui = Tui(controller)
   controller.notifyObservers
   var playerList = new ListBuffer[Player]
 
