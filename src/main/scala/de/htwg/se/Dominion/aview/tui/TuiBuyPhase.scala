@@ -37,7 +37,7 @@ case class TuiBuyPhase(controller : Controller, tui:Tui, player: Player) extends
     if(player.hand.mayBuy == 0) {
       println("no buys left, next players turn!\n")
       player.playerDiscardPile.discardCards(player.hand.handCards)
-      controller.nextPlayer(tui, player)
+      controller.callNextPlayer(tui, player)
     } else if(player.hand.mayBuy > 0) {
       print(Board.toString())
       println(s"Player ${player.name}, has ${player.hand.value} money, which card/s do you want to buy (one by one)?\n")

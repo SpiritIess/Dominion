@@ -17,7 +17,7 @@ case class TuiPlayerSetup(controller: Controller, tui: Tui, amount:Int) extends 
       Dominion.playerList += Player(i)
     })
     Dominion.playerList.toList
-    controller.firstTurn(tui)
+    controller.callNextPlayer(tui, Dominion.playerList(amount - 1))
   }
 
   override def update: Unit = {
