@@ -23,7 +23,7 @@ class Controller(var gameState: GameState.Value = GameState.startScreen,
   }
 
   def play(tui: Tui, player: Player, index: Int): Unit = {
-    undoManager.doStep(new PlayCommand(turnState, tui, player, index, this))
+    undoManager.doStep(new AnyCommand(turnState, tui, player, index, this))
     notifyObservers
   }
 
@@ -88,9 +88,24 @@ class Controller(var gameState: GameState.Value = GameState.startScreen,
     if (nextPlayerIndex == Dominion.playerList.length) {
       tui.state = TuiActionPhase(this, tui, Dominion.playerList.head)
       gameState = GameState.playerTurn
+      turnState = TurnState.actionPhase
     } else {
       tui.state = TuiActionPhase(this, tui, Dominion.playerList(nextPlayerIndex))
       gameState = GameState.playerTurn
+      turnState = TurnState.actionPhase
+    }
+  }
+
+  def callPreviousPlayer(tui: Tui, player:Player): Unit = {
+    val prevPlayerIndex = Dominion.playerList.indexOf(player) - 1
+    if (prevPlayerIndex == -1) {
+      tui.state = TuiActionPhase(this, tui, Dominion.playerList(Dominion.playerList.length))
+      gameState = GameState.playerTurn
+      turnState = TurnState.actionPhase
+    }else {
+      tui.state = TuiActionPhase(this, tui, Dominion.playerList(prevPlayerIndex))
+      gameState = GameState.playerTurn
+      turnState = TurnState.actionPhase
     }
   }
 

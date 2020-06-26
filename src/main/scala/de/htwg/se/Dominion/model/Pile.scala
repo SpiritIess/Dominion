@@ -25,5 +25,4 @@ object Pile { //initializing all piles with their respective cards and their amo
     (CardSet.smithyCard, 10),
     (CardSet.conversionCard, 10),
     (CardSet.workshopCard, 10))
-
 }
