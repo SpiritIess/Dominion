@@ -1,6 +1,7 @@
 package de.htwg.se.Dominion.aview.tui
 
-import de.htwg.se.Dominion.controller.{Controller, GameState}
+import de.htwg.se.Dominion.controller.Controller
+import de.htwg.se.Dominion.controller.GameState
 import org.scalatest.{Matchers, WordSpec}
 
 class TuiGameStartSpec extends WordSpec with Matchers {

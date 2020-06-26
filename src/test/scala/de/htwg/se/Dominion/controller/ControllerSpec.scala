@@ -2,6 +2,7 @@ package de.htwg.se.Dominion.controller
 
 import de.htwg.se.Dominion.Dominion
 import de.htwg.se.Dominion.aview.tui.{Tui, TuiActionPhase, TuiBuyPhase}
+import de.htwg.se.Dominion.controller.Controller
 import de.htwg.se.Dominion.model.{CardSet, Player}
 import de.htwg.se.Dominion.util.Observer
 import org.scalatest.{Matchers, WordSpec}
@@ -48,7 +49,7 @@ class ControllerSpec extends WordSpec with Matchers {
       controller.setUpPlayers(tui, 2)
       tui.state.processInputLine("Jakob Karsten")
       observer.updated should be (true)
-      controller.gameState should be (GameState.playerOneTurn)
+      controller.gameState should be (GameState.playerTurn)
       Dominion.playerList.length should be (2)
       Dominion.playerList.head should be (Player("Jakob"))
       Dominion.playerList(1) should be (Player("Karsten"))

@@ -1,12 +1,12 @@
 package de.htwg.se.Dominion.aview.tui
 
 import de.htwg.se.Dominion.aview.tui.{State, TuiPlayerSetup}
-import de.htwg.se.Dominion.controller.{Controller, GameState}
+import de.htwg.se.Dominion.controller.Controller
 import de.htwg.se.Dominion.model.Board
 import de.htwg.se.Dominion.util.Observer
 
 case class TuiGameStart(controller: Controller, tui: Tui) extends Observer with State{
-  controller.add(this)
+  //controller.add(this)
   override def processInputLine(input: String): Unit = {
     input match {
       case "2" => controller.setUpPlayers(tui,2)

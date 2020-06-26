@@ -10,22 +10,21 @@ import scala.collection.mutable.ListBuffer
 case class RoundManager(controller: Controller) {
 
   def processCardEffect(tui:Tui, player: Player, index: Int):Unit = {
-    val (handList, playerDrawPile) = player.hand.handCards(index - 1).processEffect(index - 1, player.hand, player.playerDrawPile)
-    if (player.hand.mayPlayAction == 0) {
+    val (handList, playerDrawPile) = player.hand.handCards(index - 1).processEffect(index - 1, player)
+    player.hand = handList
+    player.playerDrawPile = playerDrawPile
+    if (player.mayPlayAction == 0) {
       print(s"No more Actions available for ${player.name}, moving to Buying-Phase, please press 'Enter' to confirm\n")
       actionToBuyPhase(tui, player)
     }
-    player.hand = handList
-    player.playerDrawPile = playerDrawPile
   }
 
   def actionToBuyPhase(tui:Tui, player: Player): Unit = {
     println("Ending Action-Phase. Beginning Buy-Phase. Please Press Enter to confirm!\n")
-//    controller.turnState = TurnState.buyingPhase
+    controller.turnState = TurnState.buyingPhase
     tui.state = TuiBuyPhase(controller, tui, player)
-
     println(Board())
-    println(s"Player ${player.name}, has ${player.hand.value} money, which card/s do you want to buy (one by one)?\n")
+    println(s"Player ${player.name}, has ${player.handValue} money, which card/s do you want to buy (one by one)?\n")
   }
 
   def getPlayerList(tui: Tui, player: Player, index:Int): ListBuffer[Player] = {

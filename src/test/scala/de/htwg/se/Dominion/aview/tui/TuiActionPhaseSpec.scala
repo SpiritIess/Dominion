@@ -2,7 +2,8 @@ package de.htwg.se.Dominion.aview.tui
 
 import de.htwg.se.Dominion.Dominion
 import de.htwg.se.Dominion.aview.tui.TuiPlayerSetup
-import de.htwg.se.Dominion.controller.{Controller, GameState, TurnState}
+import de.htwg.se.Dominion.controller.Controller
+import de.htwg.se.Dominion.controller.{GameState, TurnState}
 import org.scalatest.{Matchers, WordSpec}
 
 class TuiActionPhaseSpec extends WordSpec with Matchers{
@@ -15,7 +16,7 @@ class TuiActionPhaseSpec extends WordSpec with Matchers{
     val player = Dominion.playerList.head
 
     "have an initial gameState and an initial TurnState" in {
-      controller.gameState should be (GameState.playerOneTurn)
+      controller.gameState should be (GameState.playerTurn)
       controller.turnState should be (TurnState.actionPhase)
     }
     "process the effect of a card, when given the number of the card " +

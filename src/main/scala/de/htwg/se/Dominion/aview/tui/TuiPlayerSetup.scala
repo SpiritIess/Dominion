@@ -7,7 +7,7 @@ import de.htwg.se.Dominion.model.{Board, Player}
 import de.htwg.se.Dominion.util.Observer
 
 case class TuiPlayerSetup(controller: Controller, tui: Tui, amount:Int) extends Observer with State {
-  controller.add(this)
+  //controller.add(this)
 
   override def processInputLine(input: String): Unit = {
     controller.updatePlayerList(input)

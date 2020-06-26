@@ -1,9 +1,8 @@
 package de.htwg.se.Dominion.controller
 
 import de.htwg.se.Dominion.Dominion
-import de.htwg.se.Dominion.aview.tui.{TuiActionPhase, TuiBuyPhase, TuiPlayerSetup}
-import de.htwg.se.Dominion.aview.tui.Tui
-import de.htwg.se.Dominion.model.{Board, Card, DiscardPile, DrawPile, Hand, Player}
+import de.htwg.se.Dominion.aview.tui.{Tui, TuiActionPhase, TuiPlayerSetup}
+import de.htwg.se.Dominion.model.{Board, Card, Player}
 import de.htwg.se.Dominion.util.{Observable, UndoManager}
 
 class Controller(var gameState: GameState.Value = GameState.startScreen,
@@ -39,7 +38,7 @@ class Controller(var gameState: GameState.Value = GameState.startScreen,
   def setUpPlayers(tui:Tui, amount:Int): Unit = {
     gameState = GameState.setUpPlayers
     tui.state = TuiPlayerSetup(this, tui, amount)
-    print(Board)
+    println(Board.toString())
     println("type in the names of the players, using a space as seperator\n")
     notifyObservers
   }
@@ -88,8 +87,10 @@ class Controller(var gameState: GameState.Value = GameState.startScreen,
     val nextPlayerIndex = Dominion.playerList.indexOf(player) + 1
     if (nextPlayerIndex == Dominion.playerList.length) {
       tui.state = TuiActionPhase(this, tui, Dominion.playerList.head)
+      gameState = GameState.playerTurn
     } else {
       tui.state = TuiActionPhase(this, tui, Dominion.playerList(nextPlayerIndex))
+      gameState = GameState.playerTurn
     }
   }
 
