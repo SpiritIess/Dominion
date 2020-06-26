@@ -15,9 +15,9 @@ case class TuiActionPhase(controller : Controller, tui: Tui, player:Player) exte
     if (controller.turnState == TurnState.actionPhase) {
       val inputNumber = input.toInt
       if (inputNumber > 0 && inputNumber <= player.hand.handCards.length) {
-        controller.processCardEffect(tui, player, inputNumber)
+        controller.roundManager.getPlayerList(tui, player, inputNumber)
       } else if (inputNumber == 0) {
-        controller.actionToBuyPhase(tui, player)
+        controller.roundManager.actionToBuyPhase(tui, player)
       }
     } else {
       println("bad input, please type in the number of the wanted card on your keyboard and confirm with 'Enter'.\n")
