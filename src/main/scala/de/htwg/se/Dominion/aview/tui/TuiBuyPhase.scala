@@ -7,7 +7,9 @@ import de.htwg.se.Dominion.util.Observer
 
 case class TuiBuyPhase(controller : Controller, tui:Tui, player: Player) extends Observer with State {
   //controller.add(this)
-  override def update: Unit = {
+  override def update: Boolean = {
+    printBoard
+    true
   }
 
   def printBoard:Unit = {
@@ -35,8 +37,10 @@ case class TuiBuyPhase(controller : Controller, tui:Tui, player: Player) extends
       case "14" => card = CardSet.conversionCard
       case "15" => card = CardSet.workshopCard
     }
-    controller.putOnDiscardPile(player, card)
-    player.handValue -= card.cost
+    if(player.handValue >= card.cost) {
+      controller.putOnDiscardPile(player, card)
+      player.handValue -= card.cost
+    }
     if(player.mayBuy == 0) {
       println("no buys left, next players turn!\n")
       player.playerDiscardPile = player.playerDiscardPile.discardCards(player.hand.handCards)

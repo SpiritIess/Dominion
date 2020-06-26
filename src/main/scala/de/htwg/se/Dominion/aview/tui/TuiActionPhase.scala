@@ -25,6 +25,8 @@ case class TuiActionPhase(controller : Controller, tui: Tui, player:Player) exte
     }
   }
 
-  override def update: Unit = {}
+  override def update: Boolean = {
+    true
+  }
 
 }

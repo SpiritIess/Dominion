@@ -13,6 +13,8 @@ case class Tui(controller: Controller) extends Observer {
   var state: State = TuiGameStart(controller, this)
   controller.startGame
 
-  override def update: Unit = {}
+  override def update: Boolean = {
+    true
+  }
 
 }

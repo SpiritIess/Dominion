@@ -7,6 +7,7 @@ import org.scalatest.{Matchers, WordSpec}
 
 class TuiBuyPhaseSpec extends WordSpec with Matchers{
   "A Dominion TuiBuyPhase" should {
+    Dominion.playerList = Dominion.playerList.drop(Dominion.playerList.size)
     val controller = new Controller
     val tui = Tui(controller)
     controller.gameState = GameState.setUpPlayers
@@ -18,7 +19,7 @@ class TuiBuyPhaseSpec extends WordSpec with Matchers{
       controller.gameState should be (GameState.playerTurn)
       controller.turnState should be (TurnState.buyingPhase)
     }
-    "buy a card, when input = '2', a silverCard, put it on the DiscardPile and subtract its cost" +
+    "buy a card, when input = '2', a silverCard, put it on the DiscardPile and subtract its cost " +
       "and make it the next players turn" in {
       val oldValue = player.handValue
       tui.state.processInputLine("2")

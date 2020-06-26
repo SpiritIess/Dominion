@@ -23,7 +23,7 @@ case class RoundManager(controller: Controller) {
     println("Ending Action-Phase. Beginning Buy-Phase. Please Press Enter to confirm!\n")
     controller.turnState = TurnState.buyingPhase
     tui.state = TuiBuyPhase(controller, tui, player)
-    println(Board())
+    println(Board.toString())
     println(s"Player ${player.name}, has ${player.handValue} money, which card/s do you want to buy (one by one)?\n")
   }
 
@@ -31,5 +31,4 @@ case class RoundManager(controller: Controller) {
     processCardEffect(tui, player, index)
     Dominion.playerList
   }
-
 }

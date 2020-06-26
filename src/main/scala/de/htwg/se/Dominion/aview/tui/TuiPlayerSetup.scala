@@ -14,7 +14,9 @@ case class TuiPlayerSetup(controller: Controller, tui: Tui, amount:Int) extends 
     controller.callNextPlayer(tui, Dominion.playerList(amount - 1))
   }
 
-  override def update: Unit = {
+  override def update: Boolean = {
+    println(Dominion.playerList.toString())
+    true
   }
 
 }

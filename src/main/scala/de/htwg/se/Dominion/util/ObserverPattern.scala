@@ -1,7 +1,10 @@
 package de.htwg.se.Dominion.util
 
 class TestObject extends Observer {
-  def update: Unit = println("Ping")
+  def update: Boolean = {
+    println("Ping")
+    true
+  }
 }
 
 object ObserverPattern {

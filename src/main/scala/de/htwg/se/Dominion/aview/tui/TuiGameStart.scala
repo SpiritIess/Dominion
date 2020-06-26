@@ -21,5 +21,7 @@ case class TuiGameStart(controller: Controller, tui: Tui) extends Observer with 
     }
   }
 
-  override def update: Unit = {}
+  override def update: Boolean = {
+    true
+  }
 }

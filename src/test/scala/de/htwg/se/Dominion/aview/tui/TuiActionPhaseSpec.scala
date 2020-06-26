@@ -8,6 +8,7 @@ import org.scalatest.{Matchers, WordSpec}
 
 class TuiActionPhaseSpec extends WordSpec with Matchers{
   "A Dominion ActionPhaseTui " should{
+    Dominion.playerList = Dominion.playerList.drop(Dominion.playerList.size)
     val controller = new Controller
     val tui = Tui(controller)
     controller.gameState = GameState.setUpPlayers
