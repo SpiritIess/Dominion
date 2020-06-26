@@ -23,7 +23,7 @@ class Controller(var gameState: GameState.Value = GameState.startScreen,
   }
 
   def play(tui: Tui, player: Player, index: Int): Unit = {
-    undoManager.doStep(new PlayCommand(tui, player, index, this))
+    undoManager.doStep(new PlayCommand(turnState, tui, player, index, this))
     notifyObservers
   }
 
