@@ -27,5 +27,4 @@ class TuiActionPhaseSpec extends WordSpec with Matchers{
       player.playerDrawPile.pile.size should be (3)
     }
   }
-
 }
