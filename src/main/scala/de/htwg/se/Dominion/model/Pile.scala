@@ -9,7 +9,7 @@ object Pile { //initializing all piles with their respective cards and their amo
     CardSet.moatCard, CardSet.copperCard, CardSet.copperCard, CardSet.moatCard,
     CardSet.moatCard, CardSet.moatCard)
 
-  val piles: Map[Card, Int] = Map((CardSet.copperCard, 60),
+  var piles: Map[Card, Int] = Map((CardSet.copperCard, 60),
     (CardSet.silverCard, 40),
     (CardSet.goldCard, 30),
     (CardSet.propertyCard, 24),

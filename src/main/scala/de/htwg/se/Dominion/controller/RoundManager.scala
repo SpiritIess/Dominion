@@ -33,10 +33,10 @@ case class RoundManager(controller: Controller) {
   def getPlayerList(turnState: TurnState.Value, tui: Tui, player: Player, index:Int): (ListBuffer[Player], TurnState.Value) = {
     if (turnState == TurnState.actionPhase) {
       processCardEffect(tui, player, index)
-      controller.turnState = TurnState.buyingPhase
+//      controller.turnState = TurnState.buyingPhase
     } else if (turnState == TurnState.buyingPhase) {
       actionToBuyPhase(tui:Tui, player: Player)
-      controller.turnState = TurnState.cleanUp
+//      controller.turnState = TurnState.cleanUp
     }
     (Dominion.playerList, turnState)
   }

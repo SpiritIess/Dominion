@@ -2,7 +2,7 @@ package de.htwg.se.Dominion.aview.tui
 
 import de.htwg.se.Dominion.aview.tui.Tui
 import de.htwg.se.Dominion.controller.{Controller, TurnState}
-import de.htwg.se.Dominion.model.{Board, Card, CardSet, DiscardPile, Player}
+import de.htwg.se.Dominion.model.{Board, Card, CardSet, DiscardPile, Pile, Player}
 import de.htwg.se.Dominion.util.Observer
 
 case class TuiBuyPhase(controller : Controller, tui:Tui, player: Player) extends Observer with State {
@@ -39,6 +39,7 @@ case class TuiBuyPhase(controller : Controller, tui:Tui, player: Player) extends
         case "15" => card = CardSet.workshopCard
       }
       if (player.handValue >= card.cost) {
+        Pile.piles = Pile.piles + (card -> (Pile.piles(card) - 1))
         controller.putOnDiscardPile(player, card)
         player.handValue -= card.cost
       }
