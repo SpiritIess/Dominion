@@ -4,18 +4,32 @@ package de.htwg.se.Dominion.model
 case class Card(cardID: Int, name: String, cardType: Int, cost:Int,
                 extraBuys: Int, extraActions: Int, extraGold: Int,
                 extraDraws: Int) {
+
   def usesAction: Boolean = cardType == 3
 
-  override def toString:String = name
+  override def toString: String = name
 
-  //  case class Effect(cardID: Int) {
-  //    val effect: Unit = cardID match {
-  //      case 8 => //Burggraben
-  //      case 11 => //Keller
-  //      case 13 => //Miliz
-  //      case 14 => //Mine
-  //      case 16 => //Umbau
-  //      case 17 => //Werkstatt
-  //    }
-  //  }
+  def processEffect(position : Int, player: Player): (Hand, DrawPile) = {
+    if (cardType != 3) {
+      println("error: only an action card has an effect when played! Choose an action card!")
+      (player.hand, player.playerDrawPile)
+    }
+    else {
+      player.mayPlayAction -= 1
+      name match {
+        case "Moat" => val (newCards,newDrawPile) = player.playerDrawPile.drawAdditional(extraDraws)
+          //currentHand.mayPlayAction += CardSet.moatCard.extraActions
+          (Hand(player.hand.removeCardFromHand(position).handCards:::newCards), newDrawPile)
+        case "Village" => val (newCards, newDrawPile) = player.playerDrawPile.drawAdditional(extraDraws)
+          //currentHand.mayPlayAction += CardSet.villageCard.extraActions
+          (Hand(player.hand.removeCardFromHand(position).handCards:::newCards), newDrawPile)
+        case "Lumberjack" => player.mayBuy += extraBuys
+          player.handValue += 2
+          (Hand(player.hand.removeCardFromHand(position).handCards),player.playerDrawPile)
+        /*case "Cellar" => currentHand.mayPlayAction += extraActions - 1
+          println("Please type in all the positions of the cards you want to remove from your hand:\n")
+          */
+      }
+    }
+  }
 }

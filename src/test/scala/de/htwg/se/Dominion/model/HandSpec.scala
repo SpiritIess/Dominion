@@ -1,31 +1,39 @@
 package de.htwg.se.Dominion.model
 
-import org.junit.runner.RunWith
 import org.scalatest.{Matchers, WordSpec}
-import org.scalatest.junit.JUnitRunner
 
-@RunWith(classOf[JUnitRunner])
 class HandSpec extends WordSpec with Matchers {
-  "A Hand" when { "drawing from a pile of Copper-cards" should {
-    val drawPile = List.fill(10)(CardSet.copperCard)
-    val startingHand = Hand(drawPile)
-    val (card1, newDrawPile1) = PlayerDrawPile(drawPile).drawOne()
-    val (card2, newDrawPile2) = PlayerDrawPile(drawPile).drawOne()
-    val (card3, newDrawPile3) = PlayerDrawPile(drawPile).drawOne()
-    val (card4, newDrawPile4) = PlayerDrawPile(drawPile).drawOne()
-    val (card5, newDrawPile5) = PlayerDrawPile(drawPile).drawOne()
-    "have a drawPile to draw from" in  {
-      drawPile.length should be (10)
+  "A Hand" when {
+    val drawPile = DrawPile(Pile.testPile)
+    val (handCards, newDrawPile) = drawPile.drawAdditional(5)
+    val startingHand = Hand(handCards)
+    "drawing from a pile of Copper-cards" should {
+      val (card1, newDrawPile1) = newDrawPile.drawOne
+      val (card2, newDrawPile2) = newDrawPile1.drawOne
+      val (card3, newDrawPile3) = newDrawPile2.drawOne
+      val (card4, newDrawPile4) = newDrawPile3.drawOne
+      val (card5, newDrawPile5) = newDrawPile4.drawOne
+      "contain 5 Cards" in  {
+        handCards.length should be (5)
+      }
+      "should reduce the size of drawPile when one card was drawn" in {
+        newDrawPile1.pile.size should be (4)
+      }
+      "have a copper card" in {
+        startingHand.handCards.head should be (CardSet.moatCard)
+      }
+      "have a nice String representation" in {
+        startingHand.toString should be ("Moat, Copper, Property, Moat, Moat")
+      }
     }
-    "should reduce the size of drawPile when one card was drawn" in {
-      newDrawPile1.size should be (9)
-    }
-    "have a card" in {
-      card1.toString should be ("Copper")
-    }
-    "have a nice String representation" in {
-      startingHand.toString should be ("Copper, Copper, Copper, Copper, Copper")
-    }
-  }}
+    "removing a card from it" should {
+      val newHand = startingHand.removeCardFromHand(1)
+      "only have 4 cards left" in {
+        newHand.handCards.size should be(4)
+      }
+      "return the amount of money in ones hand" in {
+        startingHand.countGold() should be (1)
+      }
+    }}
 
 }

@@ -1,15 +1,26 @@
 package de.htwg.se.Dominion
 
-import de.htwg.se.Dominion.model.{Board, Card, CardSet, Player}
+import de.htwg.se.Dominion.aview.tui.Tui
+import de.htwg.se.Dominion.controller.Controller
+import de.htwg.se.Dominion.model.{Board, Card, CardSet, Hand, Pile, Player, PlayerPile}
+
+import scala.collection.mutable.ListBuffer
+import scala.io.StdIn.readLine
 
 object Dominion {
-  def main(args: Array[String]): Unit = {
-    println("Dominion\n")
-    val student1 = Player("Jakob Strakhof")
-    val student2 = Player("Karsten Huber")
-    println("Hello, " + student1.name + " and " + student2)
+  var board :Board = Board()
+  val controller = new Controller()
+  var tui : Tui = Tui(controller)
+  controller.notifyObservers
+  var playerList = new ListBuffer[Player]
 
-    val board = Board().printBoard()
-    print(board)
+  def main(args: Array[String]): Unit = {
+    var input: String = ""
+    var test = 0
+    println("please type in the number of players (from 2 to 4) or press 'q' to quit")
+    do {
+      input = readLine()
+      tui.state.processInputLine(input)
+    } while (input != "q")
   }
 }

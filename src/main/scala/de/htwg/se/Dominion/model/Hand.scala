@@ -1,18 +1,28 @@
 package de.htwg.se.Dominion.model
 
-case class Hand(drawPile: List[Card]) {
-  val (card1, newDrawPile1) = PlayerDrawPile(drawPile).drawOne()
-  //println(card1, newDrawPile1)
-  val (card2, newDrawPile2) = PlayerDrawPile(newDrawPile1).drawOne()
-  //println(card2, newDrawPile2)
-  val (card3, newDrawPile3) = PlayerDrawPile(newDrawPile2).drawOne()
-  //println(card3, newDrawPile3)
-  val (card4, newDrawPile4) = PlayerDrawPile(newDrawPile3).drawOne()
-  //println(card4, newDrawPile4)
-  val (card5, newDrawPile5) = PlayerDrawPile(newDrawPile4).drawOne()
-  //println(card5, newDrawPile5)
+case class Hand(handCards: List[Card]) {
 
-  override def toString:String = {
-    s"""${card1.toString}, ${card2.toString}, ${card3.toString}, ${card4.toString}, ${card5.toString}"""
+//  val (handList,newDrawPile) = PlayerDrawPile(drawPile).drawAdditional(5)
+
+//  override def toString:String = handList.toString()
+
+  override def toString:String = handCards.mkString(", ")
+
+//  def updateHand(oldHand:List[Card], newCards:List[Card], newDrawPile:List[Card]) : (List[Card], List[Card]) = (oldHand.++:(newCards), newDrawPile)
+  def removeCardFromHand(position : Int) : Hand = {
+    val tempLeft = handCards.dropRight(position + 1)
+    val tempRight = handCards.drop(handCards.length-position)
+    Hand(tempLeft ::: tempRight)
+  }
+  def countGold() : Int = {
+    var handVal = 0
+    for(i<-0 until this.handCards.length - 1) {
+      if(this.handCards(i).cardType == 1) {
+        handVal += this.handCards(i).extraGold
+      }
+    }
+    println(handVal)
+    handVal
   }
 }
+
