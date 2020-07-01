@@ -55,8 +55,9 @@ case class Card(cardID: Int, name: String, cardType: Int, cost:Int,
             moneyCardCounter += 1
             tempMoneyCardsList = List(tempCard)
           }
+          //vars vlt in schleife definieren
           do {
-            (tempCard, tempDrawPile) = tempDrawPile.drawOne
+            (tempCard, tempDrawPile) = tempDrawPile.drawOne;
             if(tempCard.cardType == 1) {
               moneyCardCounter += 1
               tempMoneyCardsList = tempMoneyCardsList ::: List(tempCard)
