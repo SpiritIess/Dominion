@@ -13,7 +13,7 @@ class AnyCommand(turnState: TurnState.Value, tui: Tui, player: Player, index: In
   var mementoPlayer = player
 
   override def doStep: Unit = {
-    val tmp = controller.roundManager.getPlayerList(turnState, tui, player, index)
+    val tmp = controller.roundManager.processCommand(turnState, tui, player, index)
     Dominion.playerList = tmp._1
     controller.turnState = tmp._2
   }

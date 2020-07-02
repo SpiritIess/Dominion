@@ -31,14 +31,14 @@ case class RoundManager(controller: Controller) {
   def cleanUp(): Unit = {
   }
 
-  def processCommand(turnState: TurnState.Value, tui: Tui, player: Player, index:Int): ListBuffer[Player] = {
+  def processCommand(turnState: TurnState.Value, tui: Tui, player: Player, index:Int): (ListBuffer[Player],TurnState.Value)= {
     if (turnState == TurnState.actionPhase) {
       processCardEffect(tui, player, index)
     } else if (turnState == TurnState.buyingPhase) {
       actionToBuyPhase(tui:Tui, player: Player)
 //      controller.turnState = TurnState.cleanUp
     }
-    Dominion.playerList
+    (Dominion.playerList, turnState)
   }
 
 
