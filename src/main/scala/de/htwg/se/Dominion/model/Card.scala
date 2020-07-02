@@ -46,27 +46,26 @@ case class Card(cardID: Int, name: String, cardType: Int, cost:Int,
           (player.hand, player.playerDrawPile)
         }
         case "Adventurer" => {
-          var (tempCard,tempDrawPile) = player.playerDrawPile.drawOne
-          //var tempDrawPile = newDrawPile
-          var tempCardsList = List(tempCard)
-          var tempMoneyCardsList = List(tempCard)
+          var temp = player.playerDrawPile.drawOne
+          var tempCardsList = List(temp._1)
+          var tempMoneyCardsList = List(temp._1)
           var moneyCardCounter = 0
-          if(tempCard.cardType == 1) {
+          if(temp._1.cardType == 1) {
             moneyCardCounter += 1
-            tempMoneyCardsList = List(tempCard)
+            tempMoneyCardsList = List(temp._1)
           }
           //vars vlt in schleife definieren
           do {
-            (tempCard, tempDrawPile) = tempDrawPile.drawOne;
-            if(tempCard.cardType == 1) {
+            temp = temp._2.drawOne
+            if(temp._1.cardType == 1) {
               moneyCardCounter += 1
-              tempMoneyCardsList = tempMoneyCardsList ::: List(tempCard)
+              tempMoneyCardsList = tempMoneyCardsList ::: List(temp._1)
             } else {
-              tempCardsList = tempCardsList ::: List(tempCard)
+              tempCardsList = tempCardsList ::: List(temp._1)
             }
           } while (moneyCardCounter < 2)
           player.playerDiscardPile.discardCards(tempCardsList ::: List(this))
-          (Hand(player.hand.removeCardFromHand(position).handCards ::: tempMoneyCardsList),tempDrawPile)
+          (Hand(player.hand.removeCardFromHand(position).handCards ::: tempMoneyCardsList),temp._2)
         }
         case "Laboratory" => {
           val (newCards,newDrawPile) = player.playerDrawPile.drawAdditional(extraDraws)

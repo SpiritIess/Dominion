@@ -15,14 +15,14 @@ object Pile { //initializing all piles with their respective cards and their amo
     (CardSet.propertyCard, 24),
     (CardSet.dukedomCard, 12),
     (CardSet.provinceCard, 12),
+    (CardSet.gardenCard, 12),
     (CardSet.moatCard, 10),
     (CardSet.villageCard, 10),
     (CardSet.lumberjackCard, 10),
-    (CardSet.cellarCard, 10),
-    (CardSet.marketCard, 10),
-    (CardSet.militiaCard, 10),
-    (CardSet.mineCard, 10),
     (CardSet.smithyCard, 10),
-    (CardSet.conversionCard, 10),
-    (CardSet.workshopCard, 10))
+    (CardSet.moneyLenderCard, 10),
+    (CardSet.marketCard, 10),
+    (CardSet.adventurerCard, 10),
+    (CardSet.labCard, 10),
+    (CardSet.funFairCard, 10))
 }

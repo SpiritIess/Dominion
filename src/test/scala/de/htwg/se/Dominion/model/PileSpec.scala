@@ -33,6 +33,10 @@ class PileSpec extends WordSpec with Matchers {
       Pile.piles(CardSet.provinceCard) should be (12)
     }
 
+    "have a cellarPile with 10 cards in it" in {
+      Pile.piles(CardSet.gardenCard) should be (12)
+    }
+
     "have a moatPile with 10 cards in it" in {
       Pile.piles(CardSet.moatCard) should be (10)
     }
@@ -45,32 +49,28 @@ class PileSpec extends WordSpec with Matchers {
       Pile.piles(CardSet.lumberjackCard) should be (10)
     }
 
-    "have a cellarPile with 10 cards in it" in {
-      Pile.piles(CardSet.cellarCard) should be (10)
-    }
-
     "have a marketPile with 10 cards in it" in {
-      Pile.piles(CardSet.marketCard) should be (10)
-    }
-
-    "have a militiaPile with 10 cards in it" in {
-      Pile.piles(CardSet.militiaCard) should be (10)
-    }
-
-    "have a minePile with 10 cards in it" in {
-      Pile.piles(CardSet.mineCard) should be (10)
-    }
-
-    "have a smithyPile with 10 cards in it" in {
       Pile.piles(CardSet.smithyCard) should be (10)
     }
 
+    "have a militiaPile with 10 cards in it" in {
+      Pile.piles(CardSet.moneyLenderCard) should be (10)
+    }
+
+    "have a minePile with 10 cards in it" in {
+      Pile.piles(CardSet.marketCard) should be (10)
+    }
+
+    "have a smithyPile with 10 cards in it" in {
+      Pile.piles(CardSet.adventurerCard) should be (10)
+    }
+
     "have a conversionPile with 10 cards in it" in {
-      Pile.piles(CardSet.conversionCard) should be (10)
+      Pile.piles(CardSet.labCard) should be (10)
     }
 
     "have a workshopPile with 10 cards in it" in {
-      Pile.piles(CardSet.workshopCard) should be (10)
+      Pile.piles(CardSet.funFairCard) should be (10)
     }
   }}
 }
