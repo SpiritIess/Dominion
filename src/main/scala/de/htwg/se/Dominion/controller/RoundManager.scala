@@ -20,7 +20,8 @@ case class RoundManager(controller: Controller) {
   }
 
   def actionToBuyPhase(tui:Tui, player: Player): Unit = {
-    println("Ending Action-Phase. Beginning Buy-Phase. Please Press Enter to confirm!\n")
+    println("Ending Action-Phase. Beginning Buy-Phase.\n")
+    player.handValue += player.hand.countGold()
     controller.turnState = TurnState.buyingPhase
     tui.state = TuiBuyPhase(controller, tui, player)
     println(Board())
@@ -30,15 +31,14 @@ case class RoundManager(controller: Controller) {
   def cleanUp(): Unit = {
   }
 
-  def getPlayerList(turnState: TurnState.Value, tui: Tui, player: Player, index:Int): (ListBuffer[Player], TurnState.Value) = {
+  def processCommand(turnState: TurnState.Value, tui: Tui, player: Player, index:Int): ListBuffer[Player] = {
     if (turnState == TurnState.actionPhase) {
       processCardEffect(tui, player, index)
-//      controller.turnState = TurnState.buyingPhase
     } else if (turnState == TurnState.buyingPhase) {
       actionToBuyPhase(tui:Tui, player: Player)
 //      controller.turnState = TurnState.cleanUp
     }
-    (Dominion.playerList, turnState)
+    Dominion.playerList
   }
 
 

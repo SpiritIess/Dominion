@@ -2,7 +2,7 @@ package de.htwg.se.Dominion.aview.tui
 
 import de.htwg.se.Dominion.Dominion
 import de.htwg.se.Dominion.aview.tui.Tui
-import de.htwg.se.Dominion.controller.{Controller, GameState}
+import de.htwg.se.Dominion.controller.{Controller, GameState, TurnState}
 import de.htwg.se.Dominion.model.{Board, Player}
 import de.htwg.se.Dominion.util.Observer
 

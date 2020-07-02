@@ -17,13 +17,13 @@ class HandSpec extends WordSpec with Matchers {
         handCards.length should be (5)
       }
       "should reduce the size of drawPile when one card was drawn" in {
-        newDrawPile1.pile.size should be (4)
+        newDrawPile1.pile.size should be (13)
       }
       "have a copper card" in {
-        startingHand.handCards.head should be (CardSet.moatCard)
+        startingHand.handCards.head should be (CardSet.copperCard)
       }
       "have a nice String representation" in {
-        startingHand.toString should be ("Moat, Copper, Property, Moat, Moat")
+        startingHand.toString should be ("Copper, Dukedom, Garden, Village, Smithy")
       }
     }
     "removing a card from it" should {
