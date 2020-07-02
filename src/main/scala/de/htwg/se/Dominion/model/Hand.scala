@@ -10,8 +10,8 @@ case class Hand(handCards: List[Card]) {
 
 //  def updateHand(oldHand:List[Card], newCards:List[Card], newDrawPile:List[Card]) : (List[Card], List[Card]) = (oldHand.++:(newCards), newDrawPile)
   def removeCardFromHand(position : Int) : Hand = {
-    val tempLeft = handCards.dropRight(position + 1)
-    val tempRight = handCards.drop(handCards.length-position)
+    val tempLeft = handCards.take(position)
+    val tempRight = handCards.takeRight(handCards.size - position - 1)
     Hand(tempLeft ::: tempRight)
   }
   def countGold() : Int = {
