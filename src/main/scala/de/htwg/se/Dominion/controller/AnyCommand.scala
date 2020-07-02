@@ -13,8 +13,9 @@ class AnyCommand(turnState: TurnState.Value, tui: Tui, player: Player, index: In
   var mementoPlayer = player
 
   override def doStep: Unit = {
-    Dominion.playerList= controller.roundManager.getPlayerList(turnState, tui, player, index)._1
-    controller.turnState = controller.roundManager.getPlayerList(turnState, tui, player, index)._2
+    val tmp = controller.roundManager.getPlayerList(turnState, tui, player, index)
+    Dominion.playerList = tmp._1
+    controller.turnState = tmp._2
   }
 
   override def undoStep: Unit = {

@@ -16,7 +16,7 @@ class PlayerSpec extends WordSpec with Matchers {
       player.startingPile.pile.contains(CardSet.moatCard) should be (true)
     }
     "have province cards in the startingPile" in {
-      player.startingPile.pile.contains(CardSet.propertyCard) should be (true)
+      player.startingPile.pile.contains(CardSet.provinceCard) should be (true)
     }
     "after drawing 5 cards the size of playerDrawPile should be reduced by 5" in {
       player.playerDrawPile.pile.size should be(5)
