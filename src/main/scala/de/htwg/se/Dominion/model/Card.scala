@@ -54,7 +54,6 @@ case class Card(cardID: Int, name: String, cardType: Int, cost:Int,
             moneyCardCounter += 1
             tempMoneyCardsList = List(temp._1)
           }
-          //vars vlt in schleife definieren
           do {
             temp = temp._2.drawOne
             if(temp._1.cardType == 1) {

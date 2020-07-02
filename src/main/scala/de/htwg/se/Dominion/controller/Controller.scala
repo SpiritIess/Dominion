@@ -37,9 +37,9 @@ class Controller(var gameState: GameState.Value = GameState.startScreen,
 
   def setUpPlayers(tui:Tui, amount:Int): Unit = {
     gameState = GameState.setUpPlayers
-    tui.state = TuiPlayerSetup(this, tui, amount)
     println(Board.toString())
     println("type in the names of the players, using a space as seperator\n")
+    tui.state = TuiPlayerSetup(this, tui, amount)
     notifyObservers
   }
 
@@ -86,13 +86,13 @@ class Controller(var gameState: GameState.Value = GameState.startScreen,
   def callNextPlayer(tui:Tui, player: Player): Unit = {
     val nextPlayerIndex = Dominion.playerList.indexOf(player) + 1
     if (nextPlayerIndex == Dominion.playerList.length) {
+      gameState = GameState.playerTurn
+      turnState = TurnState.actionPhase
       tui.state = TuiActionPhase(this, tui, Dominion.playerList.head)
-      gameState = GameState.playerTurn
-      turnState = TurnState.actionPhase
     } else {
-      tui.state = TuiActionPhase(this, tui, Dominion.playerList(nextPlayerIndex))
       gameState = GameState.playerTurn
       turnState = TurnState.actionPhase
+      tui.state = TuiActionPhase(this, tui, Dominion.playerList(nextPlayerIndex))
     }
   }
 
