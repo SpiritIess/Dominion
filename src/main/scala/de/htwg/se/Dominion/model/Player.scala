@@ -8,7 +8,7 @@ case class Player(name: String) {
    var hand: Hand = Hand(handList)
    var playerDrawPile: DrawPile = newDrawPile
    var playerDiscardPile: DiscardPile = DiscardPile()
-   var handValue: Int = hand.countGold()
+   var handValue: Int = 0
    var mayPlayAction = 1
    var mayBuy = 1
    //val processedEffectHand = Hand(playerDrawPile).updateHand(handList, processEffect().drawPile, newHandList)

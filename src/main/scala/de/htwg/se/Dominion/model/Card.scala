@@ -19,35 +19,44 @@ case class Card(cardID: Int, name: String, cardType: Int, cost:Int,
       name match {
         case "Moat" => {
           val (newCards, newDrawPile) = player.playerDrawPile.drawAdditional(extraDraws)
-          player.playerDiscardPile.discardCard(this)
-          (Hand(player.hand.removeCardFromHand(position).handCards ::: newCards), newDrawPile)
+          player.playerDiscardPile = player.playerDiscardPile.discardCard(this)
+          val newHand = player.hand.removeCardFromHand(position)
+          (Hand(newHand.handCards ::: newCards), newDrawPile)
         }
         case "Village" => {
-          val (newCards, newDrawPile) = player.playerDrawPile.drawAdditional(extraDraws)
-          player.playerDiscardPile.discardCard(this)
-          (Hand(player.hand.removeCardFromHand(position).handCards ::: newCards), newDrawPile)
+          val (newCard, newDrawPile) = player.playerDrawPile.drawOne
+          player.mayPlayAction += extraActions
+          player.playerDiscardPile = player.playerDiscardPile.discardCard(this)
+          val newHand = player.hand.removeCardFromHand(position)
+          (Hand(newHand.handCards ::: List(newCard)), newDrawPile)
         }
         case "Lumberjack" => {
           player.mayBuy += extraBuys
           player.handValue += extraGold
-          player.playerDiscardPile.discardCard(this)
-          (Hand(player.hand.removeCardFromHand(position).handCards), player.playerDrawPile)
+          player.playerDiscardPile = player.playerDiscardPile.discardCard(this)
+          val newHand = player.hand.removeCardFromHand(position)
+          (Hand(newHand.handCards), player.playerDrawPile)
+          //(Hand(player.hand.removeCardFromHand(position).handCards), player.playerDrawPile)
         }
         case "Moneylender" => {
           for (i <- 0 until player.hand.handCards.length - 1) {
             if (player.hand.handCards(i) == CardSet.copperCard) {
-              player.playerDiscardPile.discardCard(this)
+              player.playerDiscardPile = player.playerDiscardPile.discardCard(this)
               player.handValue += extraGold
-              (Hand(player.hand.removeCardFromHand(position).handCards), player.playerDrawPile)
+              var newHand = player.hand.removeCardFromHand(position)
+              newHand = newHand.removeCardFromHand(i)
+              return (Hand(newHand.handCards), player.playerDrawPile)
+              //(Hand(player.hand.removeCardFromHand(position).handCards), player.playerDrawPile)
             }
           }
           println("No copper cards in hand, can't process effect!")
-          player.playerDiscardPile.discardCard(this)
+          player.playerDiscardPile = player.playerDiscardPile.discardCard(this)
           (player.hand, player.playerDrawPile)
         }
         case "Adventurer" => {
           var temp = player.playerDrawPile.drawOne
-          var tempCardsList = List(temp._1)
+          var tempCardsList = List(CardSet.gardenCard)
+          tempCardsList = tempCardsList.drop(1)
           var tempMoneyCardsList = List(temp._1)
           var moneyCardCounter = 0
           if(temp._1.cardType == 1) {
@@ -63,33 +72,43 @@ case class Card(cardID: Int, name: String, cardType: Int, cost:Int,
               tempCardsList = tempCardsList ::: List(temp._1)
             }
           } while (moneyCardCounter < 2)
-          player.playerDiscardPile.discardCards(tempCardsList ::: List(this))
-          (Hand(player.hand.removeCardFromHand(position).handCards ::: tempMoneyCardsList),temp._2)
+          player.playerDiscardPile = player.playerDiscardPile.discardCards(tempCardsList ::: List(this))
+          val newHand = player.hand.removeCardFromHand(position)
+          (Hand(newHand.handCards ::: tempMoneyCardsList),temp._2)
         }
         case "Laboratory" => {
           val (newCards,newDrawPile) = player.playerDrawPile.drawAdditional(extraDraws)
           player.mayPlayAction += extraActions
-          player.playerDiscardPile.discardCard(this)
-          (Hand(player.hand.removeCardFromHand(position).handCards:::newCards), newDrawPile)
+          player.playerDiscardPile = player.playerDiscardPile.discardCard(this)
+          val newHand = player.hand.removeCardFromHand(position)
+          (Hand(newHand.handCards ::: newCards), newDrawPile)
+          //(Hand(player.hand.removeCardFromHand(position).handCards:::newCards), newDrawPile)
         }
         case "Funfair" => {
           player.handValue += extraGold
           player.mayBuy += extraBuys
           player.mayPlayAction += extraActions
-          player.playerDiscardPile.discardCard(this)
-          (Hand(player.hand.removeCardFromHand(position).handCards), player.playerDrawPile)
+          player.playerDiscardPile = player.playerDiscardPile.discardCard(this)
+          val newHand = player.hand.removeCardFromHand(position)
+          (Hand(newHand.handCards), player.playerDrawPile)
+          //(Hand(player.hand.removeCardFromHand(position).handCards), player.playerDrawPile)
         }
         case "Smithy" => {
           val (newCards,newDrawPile) = player.playerDrawPile.drawAdditional(extraDraws)
-          player.playerDiscardPile.discardCard(this)
-          (Hand(player.hand.removeCardFromHand(position).handCards:::newCards), newDrawPile)
+          player.playerDiscardPile = player.playerDiscardPile.discardCard(this)
+          val newHand = player.hand.removeCardFromHand(position)
+          (Hand(newHand.handCards ::: newCards), newDrawPile)
+          //(Hand(player.hand.removeCardFromHand(position).handCards:::newCards), newDrawPile)
         }
         case "Market" => {
           val (newCards,newDrawPile) = player.playerDrawPile.drawAdditional(extraDraws)
+          player.handValue += extraGold
           player.mayPlayAction += extraActions
           player.mayBuy += extraBuys
-          player.playerDiscardPile.discardCard(this)
-          (Hand(player.hand.removeCardFromHand(position).handCards:::newCards), newDrawPile)
+          player.playerDiscardPile = player.playerDiscardPile.discardCard(this)
+          val newHand = player.hand.removeCardFromHand(position)
+          (Hand(newHand.handCards ::: newCards), newDrawPile)
+          //(Hand(player.hand.removeCardFromHand(position).handCards:::newCards), newDrawPile)
         }
       }
     }

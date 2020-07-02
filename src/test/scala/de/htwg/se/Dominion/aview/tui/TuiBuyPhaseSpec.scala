@@ -22,9 +22,9 @@ class TuiBuyPhaseSpec extends WordSpec with Matchers{
     "buy a card, when input = '2', a silverCard, put it on the DiscardPile and subtract its cost " +
       "and make it the next players turn" in {
       val oldValue = player.handValue
-      tui.state.processInputLine("2")
+      tui.state.processInputLine("1")
       player.playerDiscardPile.pile.length should be (6)
-      player.handValue should be (oldValue - CardSet.silverCard.cost)
+      player.handValue should be (oldValue - CardSet.copperCard.cost)
     }
   }
 
