@@ -55,7 +55,7 @@ object SwingGui {
     controller.gameState match {
       case GameState.startScreen => new GuiGameStart(tui, controller)
       case GameState.setUpPlayers => new GuiPlayerSetup(tui, controller)
-      case GameState.playerTurn => new GuiPlayerTurn(controller)
+      case GameState.playerTurn => new GuiActionPhase(tui, controller)
       case GameState.endScreen => new GuiEndScreen(controller)
     }
   }

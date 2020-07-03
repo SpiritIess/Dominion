@@ -22,7 +22,7 @@ class GuiActionPhase(tui:Tui, controller: Controller) extends BoxPanel(Orientati
     case None => print("Failed getting a player"); System.exit(-1); Player("?")
   }
   val myFont = new Font("Charlemagne Std Bold", java.awt.Font.BOLD, 15)
-  val infoPanel = new BoxPanel(Orientation.Vertical) {
+  val infoPanel: BoxPanel = new BoxPanel(Orientation.Vertical) {
     contents += new Label("Player: " + player)
     contents += new Label("Actions: " + player.mayPlayAction)
     contents += new Label("Buys: " + player.mayBuy)
@@ -33,7 +33,7 @@ class GuiActionPhase(tui:Tui, controller: Controller) extends BoxPanel(Orientati
   contents += new BorderPanel {
     layout(infoPanel) = North
   }
-  val deckPanel = new BoxPanel(Orientation.Vertical) {
+  val deckPanel: BoxPanel = new BoxPanel(Orientation.Vertical) {
     contents += new Label {
       private val temp = new ImageIcon("src/main/scala/de/htwg/se/Dominion/aview/resources/card_back.jpg").getImage
       private val resize = temp.getScaledInstance(177, 276, java.awt.Image.SCALE_SMOOTH)
@@ -52,7 +52,7 @@ class GuiActionPhase(tui:Tui, controller: Controller) extends BoxPanel(Orientati
 
 
   //Eigentlich will ich, dass jedes mal wenn eine action karte gespielt wird, das handPanel neu erstellt wird. WIE??
-  val handPanel = new BoxPanel(Orientation.Horizontal) {
+  val handPanel: BoxPanel = new BoxPanel(Orientation.Horizontal) {
     val Hand: List[Card] = controller.getPlayer.get.hand.handCards
     val labelList: IndexedSeq[Label] = for (i <- Hand.indices) yield new Label {
       private val temp = new ImageIcon("src/main/scala/de/htwg/se/Dominion/aview/resources/" + Hand(i).name + ".jpg").getImage
@@ -60,11 +60,11 @@ class GuiActionPhase(tui:Tui, controller: Controller) extends BoxPanel(Orientati
       icon = new ImageIcon(resize)
       listenTo(mouse.clicks)
       reactions += {
-        case _: MouseClicked => {
-          println(s"Card number ${i + 1} was clicked ")
+        case _: MouseClicked =>
+          println(s"Card number ${i + 1} " + Hand(i) + " was clicked ")
           controller.roundManager.processCardEffect(tui, player, i + 1)
           //das handPanel muss aktualisiert und neu ausgegeben werden, cards werden korrekt processed
-        }
+
       }
     }
     labelList.foreach(x => contents += x)
@@ -82,22 +82,22 @@ class GuiActionPhase(tui:Tui, controller: Controller) extends BoxPanel(Orientati
   val okButton = new Button("Okay")
   val doneButton = new Button("Done")
 
-  val optionPanelQuestion = new BoxPanel(Orientation.Vertical) {
+  val optionPanelQuestion: BoxPanel = new BoxPanel(Orientation.Vertical) {
     controller.turnState match {
-      case TurnState.actionPhase => {
+      case TurnState.actionPhase =>
         contents += new Label("Which Card do you want to Play?")
         contents += new Label("Click on it")
-      }
-      case TurnState.buyingPhase => {
+
+      case TurnState.buyingPhase =>
         contents += new Label("Which Card do you want to buy?")
         contents += new Label("Click on its pile")
-      }
+
     }
 
   }
   val prevButton = new Button("\u2190")
 
-  val playerPanel = new BoxPanel(Orientation.Horizontal){
+  val playerPanel: BoxPanel = new BoxPanel(Orientation.Horizontal){
     contents += deckPanel
     contents += handPanel
     contents += optionPanelQuestion
