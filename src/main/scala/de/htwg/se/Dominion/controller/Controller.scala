@@ -43,13 +43,14 @@ class Controller(var gameState: GameState.Value = GameState.startScreen,
     notifyObservers
   }
 
-  def updatePlayerList(playerString: String): List[Player] = {
+  def updatePlayerList(tui: Tui, playerString: String): List[Player] = {
     val playerArray = playerString.split(" ")
     println(playerArray.mkString("\n"))
     println(Board.toString())
     playerArray.foreach(i => {
       Dominion.playerList += Player(i)
     })
+    callNextPlayer(tui, Dominion.playerList.last)
     Dominion.playerList.toList
   }
 

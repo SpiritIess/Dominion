@@ -10,8 +10,7 @@ case class TuiPlayerSetup(controller: Controller, tui: Tui, amount:Int) extends 
   //controller.add(this)
 
   override def processInputLine(input: String): Unit = {
-    controller.updatePlayerList(input)
-    controller.callNextPlayer(tui, Dominion.playerList(amount - 1))
+    controller.updatePlayerList(tui, input)
   }
 
   override def update: Boolean = {

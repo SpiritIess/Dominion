@@ -8,12 +8,14 @@ import scala.swing._
 import scala.swing.event._
 import Swing._
 
-class GuiPlayerSetup(tui: Tui, controller: Controller) extends BoxPanel(Orientation.Vertical){
-  val twoPlayerButton: Button = new Button("2 Players") {
-  }
+class GuiPlayerSetup(tui: Tui, controller: Controller) extends BoxPanel(Orientation.Vertical) {
 
-  contents += new FlowPanel() {
-    contents += new Label("Welcome to our version of Dominion!")
+
+  val nameTextBox: TextField = new TextField() {
+    listenTo(keys)
+    reactions += {
+      case KeyPressed(_, Key.Enter, _, _) => controller.updatePlayerList(tui, text)
+    }
   }
 
   contents += new FlowPanel() {
@@ -25,27 +27,19 @@ class GuiPlayerSetup(tui: Tui, controller: Controller) extends BoxPanel(Orientat
   }
 
   contents += new FlowPanel() {
-    contents += new Label("How many Players are you?") {
+    contents += new Label("type in the names of the players, using a space as seperator") {
     }
   }
 
-  contents += new FlowPanel() {
-    contents += twoPlayerButton
-
-  }
+  contents += nameTextBox
+  contents += Swing.RigidBox(new Dimension(0,20))
 
 
-  listenTo(twoPlayerButton)
-
-
-  reactions += {
-    //    case ButtonClicked(`twoPlayerButton`) => controller.eval("2")
-    //    case ButtonClicked(`threePlayerButton`) => controller.eval("3")
-    //    case ButtonClicked(`fourPlayerButton`) => controller.eval("4")
-    case ButtonClicked(`twoPlayerButton`) => {
-      controller.setUpPlayers(tui, 2)
-      print("Button 2 pressed")
-    }
-  }
+//  reactions += {
+//    case ButtonClicked(`someButton`) => {
+//      controller.setUpPlayers(tui, 2)
+//      print("Button 2 pressed")
+//    }
+//  }
 
 }
