@@ -2,6 +2,7 @@ package de.htwg.se.Dominion.aview.gui
 
 import java.awt.BorderLayout
 
+import de.htwg.se.Dominion.aview.tui.Tui
 import de.htwg.se.Dominion.controller.{Controller, GameState}
 import de.htwg.se.Dominion.util.{Observable, Observer}
 import javax.swing.{JFrame, JScrollPane, JTextArea}
@@ -13,13 +14,13 @@ import scala.io.Source._
 
 class CellClicked(val row: Int, val column: Int) extends Event
 
-class SwingGui(controller: Controller) extends Frame with Observer{
+class SwingGui(tui: Tui, controller: Controller) extends Frame with Observer{
   controller.add(this)
 //  listenTo(controller)
 
   title = "Dominion"
 
-  contents = new GuiGameStart(controller)
+  contents = new GuiGameStart(tui, controller)
 
 //  contents = new BorderPanel {
 //  }
@@ -43,17 +44,17 @@ class SwingGui(controller: Controller) extends Frame with Observer{
   }
 
   override def update: Boolean = {
-    contents = SwingGui.getPanel(controller)
+    contents = SwingGui.getPanel(tui, controller)
 
     redraw()
     true
   }
 }
 object SwingGui {
-  def getPanel(controller: Controller): Panel = {
+  def getPanel(tui: Tui, controller: Controller): Panel = {
     controller.gameState match {
-      case GameState.startScreen => new GuiGameStart(controller)
-      case GameState.setUpPlayers => new GuiPlayerSetup(controller)
+      case GameState.startScreen => new GuiGameStart(tui, controller)
+      case GameState.setUpPlayers => new GuiPlayerSetup(tui, controller)
       case GameState.playerTurn => new GuiPlayerTurn(controller)
       case GameState.endScreen => new GuiEndScreen(controller)
     }

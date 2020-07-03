@@ -12,7 +12,7 @@ object Dominion {
   var board :Board = Board()
   val controller = new Controller()
   var tui : Tui = Tui(controller)
-  var gui : SwingGui = new SwingGui(controller)
+  var gui : SwingGui = new SwingGui(tui, controller)
   controller.notifyObservers
   var playerList = new ListBuffer[Player]
 

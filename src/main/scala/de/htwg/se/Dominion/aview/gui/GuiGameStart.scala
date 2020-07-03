@@ -1,5 +1,6 @@
 package de.htwg.se.Dominion.aview.gui
 
+import de.htwg.se.Dominion.aview.tui.Tui
 import de.htwg.se.Dominion.controller.Controller
 import javax.swing.ImageIcon
 
@@ -7,7 +8,7 @@ import scala.swing._
 import scala.swing.event._
 import Swing._
 
-class GuiGameStart(controller: Controller) extends BoxPanel(Orientation.Vertical){
+class GuiGameStart(tui: Tui, controller: Controller) extends BoxPanel(Orientation.Vertical){
 
   val twoPlayerButton: Button = new Button("2 Players") {
   }
@@ -38,5 +39,20 @@ class GuiGameStart(controller: Controller) extends BoxPanel(Orientation.Vertical
     contents += twoPlayerButton
     contents += threePlayerButton
     contents += fourPlayerButton
+  }
+
+
+  listenTo(twoPlayerButton)
+  listenTo(threePlayerButton)
+  listenTo(fourPlayerButton)
+
+  reactions += {
+//    case ButtonClicked(`twoPlayerButton`) => controller.eval("2")
+//    case ButtonClicked(`threePlayerButton`) => controller.eval("3")
+//    case ButtonClicked(`fourPlayerButton`) => controller.eval("4")
+    case ButtonClicked(`twoPlayerButton`) => {
+      controller.setUpPlayers(tui, 2)
+      print("Button 2 pressed")
+    }
   }
 }
