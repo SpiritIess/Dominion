@@ -9,6 +9,7 @@ import de.htwg.se.Dominion.util.{Observable, UndoManager}
 class Controller(var gameState: GameState.Value = GameState.startScreen,
                  var turnState: TurnState.Value = TurnState.actionPhase) extends Observable{
 
+  private var currentPlayer: Option[Player] = None
   private val undoManager = new UndoManager
   var roundManager: RoundManager = RoundManager(this)
 
@@ -26,6 +27,10 @@ class Controller(var gameState: GameState.Value = GameState.startScreen,
   def play(tui: Tui, player: Player, index: Int): Unit = {
     undoManager.doStep(new AnyCommand(turnState, tui, player, index, this))
     notifyObservers
+  }
+
+  def getPlayer: Option[Player] =  {
+    currentPlayer
   }
 
 //  def firstTurn(tui:Tui): Unit ={
@@ -62,41 +67,21 @@ class Controller(var gameState: GameState.Value = GameState.startScreen,
     println("you chose to quit the game\n")
     notifyObservers
   }
-    //noch nicht richtig, kann von player 2 nur zu player 3 nicht zu 1
-//  def nextPlayer(tui:Tui, player: Player): Unit = {
-//    if (player.name.equals(Dominion.playerList.head.name)) {
-//      tui.state = TuiActionPhase(this, tui, Dominion.playerList(1))
-//      gameState = GameState.playerTwoTurn
-//      notifyObservers
-//    }
-//    else if (player.name.equals(Dominion.playerList(1).name)) {
-//      tui.state = TuiActionPhase(this, tui, Dominion.playerList(2))
-//      gameState = GameState.playerThreeTurn
-//      notifyObservers
-//    }
-//    else if (player.name.equals(Dominion.playerList(2).name)) {
-//      tui.state = TuiActionPhase(this, tui, Dominion.playerList(3))
-//      gameState = GameState.playerFourTurn
-//      notifyObservers
-//    }
-//    else if (player.name.equals(Dominion.playerList(3).name)) {
-//      tui.state = TuiActionPhase(this, tui, Dominion.playerList.head)
-//      gameState = GameState.playerOneTurn
-//      notifyObservers
-//    }
-//  }
 
   def callNextPlayer(tui:Tui, player: Player): Unit = {
+    var nextPlayer: Option[Player] = None
     val nextPlayerIndex = Dominion.playerList.indexOf(player) + 1
+
     if (nextPlayerIndex == Dominion.playerList.length) {
-      gameState = GameState.playerTurn
-      turnState = TurnState.actionPhase
-      tui.state = TuiActionPhase(this, tui, Dominion.playerList.head)
+      nextPlayer = Some(Dominion.playerList.head)
     } else {
-      gameState = GameState.playerTurn
-      turnState = TurnState.actionPhase
-      tui.state = TuiActionPhase(this, tui, Dominion.playerList(nextPlayerIndex))
+      nextPlayer = Some(Dominion.playerList(nextPlayerIndex))
     }
+
+    gameState = GameState.playerTurn
+    turnState = TurnState.actionPhase
+    currentPlayer = nextPlayer
+    tui.state = TuiActionPhase(this, tui, nextPlayer.get)
   }
 
   def callPreviousPlayer(tui: Tui, player:Player): Unit = {
