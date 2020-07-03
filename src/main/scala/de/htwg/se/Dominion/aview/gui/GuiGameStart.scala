@@ -54,5 +54,13 @@ class GuiGameStart(tui: Tui, controller: Controller) extends BoxPanel(Orientatio
       controller.setUpPlayers(tui, 2)
       print("Button 2 pressed")
     }
+    case ButtonClicked(`threePlayerButton`) => {
+      controller.setUpPlayers(tui, 3)
+      print("Button 3 pressed")
+    }
+    case ButtonClicked(`fourPlayerButton`) => {
+      controller.setUpPlayers(tui, 4)
+      print("Button 4 pressed")
+    }
   }
 }

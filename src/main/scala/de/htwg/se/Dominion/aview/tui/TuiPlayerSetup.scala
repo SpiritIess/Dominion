@@ -8,7 +8,7 @@ import de.htwg.se.Dominion.util.Observer
 
 case class TuiPlayerSetup(controller: Controller, tui: Tui, amount:Int) extends Observer with State {
   //controller.add(this)
-
+  //println("type in the names of the players, using a space as seperator\n")
   override def processInputLine(input: String): Unit = {
     controller.updatePlayerList(input)
     controller.callNextPlayer(tui, Dominion.playerList(amount - 1))

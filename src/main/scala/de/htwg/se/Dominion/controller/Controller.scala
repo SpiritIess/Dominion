@@ -1,6 +1,7 @@
 package de.htwg.se.Dominion.controller
 
 import de.htwg.se.Dominion.Dominion
+import de.htwg.se.Dominion.aview.gui.{GuiPlayerSetup, SwingGui}
 import de.htwg.se.Dominion.aview.tui.{Tui, TuiActionPhase, TuiPlayerSetup}
 import de.htwg.se.Dominion.model.{Board, Card, Player}
 import de.htwg.se.Dominion.util.{Observable, UndoManager}
@@ -37,16 +38,17 @@ class Controller(var gameState: GameState.Value = GameState.startScreen,
 
   def setUpPlayers(tui:Tui, amount:Int): Unit = {
     gameState = GameState.setUpPlayers
-    println(Board.toString())
-    println("type in the names of the players, using a space as seperator\n")
+    println(Board().toString())
+    //println("type in the names of the players, using a space as seperator\n")
     tui.state = TuiPlayerSetup(this, tui, amount)
+    //SwingGui.content = new GuiPlayerSetup(this, tui)
     notifyObservers
   }
 
   def updatePlayerList(playerString: String): List[Player] = {
     val playerArray = playerString.split(" ")
     println(playerArray.mkString("\n"))
-    println(Board.toString())
+    println(Board().toString)
     playerArray.foreach(i => {
       Dominion.playerList += Player(i)
     })

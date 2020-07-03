@@ -9,8 +9,9 @@ import scala.swing.event._
 import Swing._
 
 class GuiPlayerSetup(tui: Tui, controller: Controller) extends BoxPanel(Orientation.Vertical){
-  val twoPlayerButton: Button = new Button("2 Players") {
-  }
+  val twoPlayerButton: Button = new Button("2 Players") {}
+  val threePlayerButton: Button = new Button("3 Players"){}
+  val fourPlayerButton : Button = new Button("4 Players"){}
 
   contents += new FlowPanel() {
     contents += new Label("Welcome to our version of Dominion!")
@@ -31,6 +32,8 @@ class GuiPlayerSetup(tui: Tui, controller: Controller) extends BoxPanel(Orientat
 
   contents += new FlowPanel() {
     contents += twoPlayerButton
+    contents += threePlayerButton
+    contents += fourPlayerButton
 
   }
 
@@ -39,13 +42,17 @@ class GuiPlayerSetup(tui: Tui, controller: Controller) extends BoxPanel(Orientat
 
 
   reactions += {
-    //    case ButtonClicked(`twoPlayerButton`) => controller.eval("2")
-    //    case ButtonClicked(`threePlayerButton`) => controller.eval("3")
-    //    case ButtonClicked(`fourPlayerButton`) => controller.eval("4")
     case ButtonClicked(`twoPlayerButton`) => {
       controller.setUpPlayers(tui, 2)
       print("Button 2 pressed")
     }
+    case ButtonClicked(`threePlayerButton`) => {
+      controller.setUpPlayers(tui, 3)
+      print("Button 3 pressed")
+    }
+    case ButtonClicked(`fourPlayerButton`) => {
+      controller.setUpPlayers(tui, 4)
+      print("Button 4 pressed")
+    }
   }
-
 }
