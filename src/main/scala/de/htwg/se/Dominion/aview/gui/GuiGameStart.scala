@@ -41,26 +41,13 @@ class GuiGameStart(tui: Tui, controller: Controller) extends BoxPanel(Orientatio
     contents += fourPlayerButton
   }
 
-
   listenTo(twoPlayerButton)
   listenTo(threePlayerButton)
   listenTo(fourPlayerButton)
 
   reactions += {
-//    case ButtonClicked(`twoPlayerButton`) => controller.eval("2")
-//    case ButtonClicked(`threePlayerButton`) => controller.eval("3")
-//    case ButtonClicked(`fourPlayerButton`) => controller.eval("4")
-    case ButtonClicked(`twoPlayerButton`) => {
-      controller.setUpPlayers(tui, 2)
-      print("Button 2 pressed")
-    }
-    case ButtonClicked(`threePlayerButton`) => {
-      controller.setUpPlayers(tui, 3)
-      print("Button 3 pressed")
-    }
-    case ButtonClicked(`fourPlayerButton`) => {
-      controller.setUpPlayers(tui, 4)
-      print("Button 4 pressed")
-    }
+    case ButtonClicked(`twoPlayerButton`) => controller.setUpPlayers(tui, 2)
+    case ButtonClicked(`threePlayerButton`) => controller.setUpPlayers(tui, 3)
+    case ButtonClicked(`fourPlayerButton`) => controller.setUpPlayers(tui, 4)
   }
 }
