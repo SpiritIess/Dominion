@@ -13,7 +13,10 @@ import Swing._
 
 class GuiPlayerTurn(controller: Controller) extends BoxPanel(Orientation.Vertical){
   preferredSize = new Dimension(1800, 1200)
-  val player: Player = controller.getPlayer.get
+  val player: Player = controller.getPlayer match {
+    case Some(p) => p
+    case None => print("Failed getting a player"); System.exit(-1); Player("?")
+  }
   val infoPanel = new BoxPanel(Orientation.Vertical) {
     contents += new Label("Player: " + player)
     contents += new Label("Actions: " + player.mayPlayAction)
