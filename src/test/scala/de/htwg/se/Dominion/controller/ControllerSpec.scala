@@ -30,7 +30,7 @@ class ControllerSpec extends WordSpec with Matchers {
       controller.gameState should be (GameState.startScreen)
     }
     "notify its Observer when starting a players turn" in {
-      controller.startTurn
+      controller.startTurn(tui)
       observer.updated should be (true)
       controller.turnState should be(TurnState.actionPhase)
     }

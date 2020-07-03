@@ -19,8 +19,9 @@ class Controller(var gameState: GameState.Value = GameState.startScreen,
     notifyObservers
   }
 
-  def startTurn(): Unit = {
+  def startTurn(tui: Tui): Unit = {
     turnState = TurnState.actionPhase
+    callNextPlayer(tui, Dominion.playerList.last)
     notifyObservers
   }
 
@@ -57,7 +58,8 @@ class Controller(var gameState: GameState.Value = GameState.startScreen,
     playerArray.foreach(i => {
       Dominion.playerList += Player(i)
     })
-    callNextPlayer(tui, Dominion.playerList.last)
+    startTurn(tui)
+
     Dominion.playerList.toList
   }
 
