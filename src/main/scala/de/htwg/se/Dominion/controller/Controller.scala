@@ -3,7 +3,7 @@ package de.htwg.se.Dominion.controller
 import de.htwg.se.Dominion.Dominion
 import de.htwg.se.Dominion.aview.gui.{GuiPlayerSetup, SwingGui}
 import de.htwg.se.Dominion.aview.tui.{Tui, TuiActionPhase, TuiPlayerSetup}
-import de.htwg.se.Dominion.model.{Board, Card, Player}
+import de.htwg.se.Dominion.model.{Board, Card, CardSet, Player}
 import de.htwg.se.Dominion.util.{Observable, UndoManager}
 
 class Controller(var gameState: GameState.Value = GameState.startScreen,
@@ -23,6 +23,28 @@ class Controller(var gameState: GameState.Value = GameState.startScreen,
     turnState = TurnState.actionPhase
     callNextPlayer(tui, Dominion.playerList.last)
     notifyObservers
+  }
+
+  def getScore: Map[Player, Int] = {
+    var score: Map[Player, Int] = Map()
+    Dominion.playerList.foreach(x => score = score + (x -> getDeckScore(x)))
+    score
+  }
+
+  def getDeckScore(player: Player): Int = {
+    var deckScore: Int = 0
+    deckScore += getPileScore(player, player.playerDrawPile.pile)
+    deckScore += getPileScore(player, player.playerDiscardPile.pile)
+    deckScore
+  }
+
+  def getPileScore(player: Player, cards: List[Card]): Int = {
+    cards match {
+      case CardSet.propertyCard =>  1
+      case CardSet.dukedomCard =>  2
+      case CardSet.provinceCard =>  3
+      case CardSet.gardenCard => (player.playerDrawPile.pile.length + player.playerDiscardPile.pile.length) / 10
+    }
   }
 
   def play(tui: Tui, player: Player, index: Int): Unit = {
@@ -65,8 +87,8 @@ class Controller(var gameState: GameState.Value = GameState.startScreen,
 
   def quitGame(tui:Tui): Unit = {
     gameState = GameState.endScreen
-    //tui.state = TuiEndScreen(this, tui)
-    println("you chose to quit the game\n")
+//    tui.state = TuiEndScreen(this, tui)
+//    println("you chose to quit the game\n")
     notifyObservers
   }
 
@@ -106,7 +128,7 @@ class Controller(var gameState: GameState.Value = GameState.startScreen,
 
   def discardCards(player:Player, cards: List[Card]) :Unit = {
     player.playerDiscardPile = player.playerDiscardPile.discardCards(cards)
-    for (i <- 0 until cards.length){
+    for (i <- cards.indices){
       player.hand = player.hand.removeCardFromHand(0)
     }
   }
@@ -115,12 +137,12 @@ class Controller(var gameState: GameState.Value = GameState.startScreen,
     player.playerDiscardPile = player.playerDiscardPile.discardCard(card)
   }
 
-  def undo: Unit = {
+  def undo(): Unit = {
     undoManager.undoStep
     notifyObservers
   }
 
-  def redo: Unit = {
+  def redo(): Unit = {
     undoManager.redoStep
     notifyObservers
   }
