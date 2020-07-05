@@ -39,21 +39,7 @@ case class TuiBuyPhase(controller : Controller, tui:Tui, player: Player) extends
         case "15" => card = CardSet.labCard
         case "16" => card = CardSet.funFairCard
       }
-      if (player.handValue >= card.cost) {
-        Pile.piles = Pile.piles + (card -> (Pile.piles(card) - 1))
-        controller.putOnDiscardPile(player, card)
-        player.handValue -= card.cost
-      } else {
-        println("Not enough money in hand, please choose a different card!\n")
-      }
-      if (player.mayBuy == 0) {
-        println("no buys left, next players turn!\n")
-        player.playerDiscardPile = player.playerDiscardPile.discardCards(player.hand.handCards)
-        controller.callNextPlayer(tui, player)
-      } else if (player.mayBuy > 0) {
-        print(Board.toString())
-        println(s"Player ${player.name}, has ${player.handValue} money, which card/s do you want to buy (one by one)?\n")
-      }
+      controller.roundManager.processBuy(tui, player, card)
     } else {
       println("trying to buy in a phase different from buying-phase!\n")
     }

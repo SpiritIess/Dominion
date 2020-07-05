@@ -55,6 +55,11 @@ class Controller(var gameState: GameState.Value = GameState.startScreen,
     notifyInController
   }
 
+  def buyCard(tui: Tui, player:Player, card:Card) :Unit = {
+    undoManager.doStep(new AnyCommand(turnState, tui, player, 0, this, card))
+    notifyInController
+  }
+
   def getPlayer: Option[Player] =  {
     currentPlayer
   }
@@ -124,6 +129,7 @@ class Controller(var gameState: GameState.Value = GameState.startScreen,
     turnState = TurnState.actionPhase
     currentPlayer = nextPlayer
     tui.state = TuiActionPhase(this, tui, nextPlayer.get)
+    notifyInController
   }
 
   def callPreviousPlayer(tui: Tui, player:Player): Unit = {
@@ -132,10 +138,12 @@ class Controller(var gameState: GameState.Value = GameState.startScreen,
       tui.state = TuiActionPhase(this, tui, Dominion.playerList(Dominion.playerList.length))
       gameState = GameState.playerTurn
       turnState = TurnState.actionPhase
+      notifyInController
     }else {
       tui.state = TuiActionPhase(this, tui, Dominion.playerList(prevPlayerIndex))
       gameState = GameState.playerTurn
       turnState = TurnState.actionPhase
+      notifyInController
     }
   }
 

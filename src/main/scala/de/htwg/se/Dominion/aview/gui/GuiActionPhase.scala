@@ -64,12 +64,24 @@ class GuiActionPhase(tui:Tui, controller: Controller) extends BoxPanel(Orientati
   }
 
 
-  /*
-  val cardStackPanel = new FlowPanel() {
-    val cardStacks: Map[Card, Int] = Pile.piles
-    val labelList : immutable.IndexedSeq[Label] = for (i<- cardStacks.foreach(x => x.))
+  val drawPilesPanel = new BoxPanel(Orientation.Horizontal) {
+    val decks: Map[Card, Int] = Pile.piles
+    val labelList: Iterable[Label] = for (i <- decks) yield new Label {
+      private val temp = new ImageIcon("src/main/scala/de/htwg/se/Dominion/aview/resources/" + i._1.name + ".jpg").getImage
+      private val resize = temp.getScaledInstance(150, 250, java.awt.Image.SCALE_SMOOTH)
+      icon = new ImageIcon(resize)
+      text = "Count: " + i._2
+      font = myFont
+      listenTo(mouse.clicks)
+      reactions += {
+        case _: MouseClicked => {
+          controller.roundManager.processBuy(tui, player, i._1)
+        }
+      }
+    }
+    labelList.foreach(x => contents += x)
   }
-  */
+
   val yesButton = new Button("Yes")
   val noButton = new Button("No")
   val okButton = new Button("Okay")
@@ -84,9 +96,7 @@ class GuiActionPhase(tui:Tui, controller: Controller) extends BoxPanel(Orientati
       case TurnState.buyingPhase =>
         contents += new Label("Which Card do you want to buy?")
         contents += new Label("Click on its pile")
-
     }
-
   }
   val prevButton = new Button("\u2190")
 
@@ -95,9 +105,10 @@ class GuiActionPhase(tui:Tui, controller: Controller) extends BoxPanel(Orientati
     contents += handPanel
     contents += optionPanelQuestion
   }
+
   contents += new BorderPanel {
     layout(infoPanel) = North
-    layout(deckPanel) = Center
+    layout(drawPilesPanel) = Center
     layout(playerPanel) = South
     layout(prevButton) = West
   }
