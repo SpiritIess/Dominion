@@ -45,7 +45,6 @@ class SwingGui(tui: Tui, controller: Controller) extends Frame with Observer{
 
   override def update: Boolean = {
     contents = SwingGui.getPanel(tui, controller)
-
     redraw()
     true
   }

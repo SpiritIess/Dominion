@@ -2,8 +2,8 @@ package de.htwg.se.Dominion.controller
 
 import de.htwg.se.Dominion.Dominion
 import de.htwg.se.Dominion.aview.gui.{GuiPlayerSetup, SwingGui}
-import de.htwg.se.Dominion.aview.tui.{Tui, TuiActionPhase, TuiPlayerSetup}
-import de.htwg.se.Dominion.model.{Board, Card, CardSet, Player}
+import de.htwg.se.Dominion.aview.tui.{Tui, TuiActionPhase, TuiPlayerSetup, TuiEndScreen}
+import de.htwg.se.Dominion.model.{Board, Card, CardSet, Pile, Player}
 import de.htwg.se.Dominion.util.{Observable, UndoManager}
 
 class Controller(var gameState: GameState.Value = GameState.startScreen,
@@ -13,16 +13,19 @@ class Controller(var gameState: GameState.Value = GameState.startScreen,
   private val undoManager = new UndoManager
   var roundManager: RoundManager = RoundManager(this)
 
-  def startGame(): Unit = {
+  def startGame: Unit = {
     gameState = GameState.startScreen
     println("enter the number of players\n")
+    notifyInController
+  }
+  def notifyInController:Unit = {
     notifyObservers
   }
 
   def startTurn(tui: Tui): Unit = {
     turnState = TurnState.actionPhase
     callNextPlayer(tui, Dominion.playerList.last)
-    notifyObservers
+    notifyInController
   }
 
   def getScore: Map[Player, Int] = {
@@ -49,7 +52,7 @@ class Controller(var gameState: GameState.Value = GameState.startScreen,
 
   def play(tui: Tui, player: Player, index: Int): Unit = {
     undoManager.doStep(new AnyCommand(turnState, tui, player, index, this))
-    notifyObservers
+    notifyInController
   }
 
   def getPlayer: Option[Player] =  {
@@ -63,6 +66,21 @@ class Controller(var gameState: GameState.Value = GameState.startScreen,
 //      s"or press '0' to skip to the Buying-Phase and confirm your decision by pressing 'Enter'!\n")
 //    notifyObservers
 //  }
+  def isEndGame(tui:Tui) : Unit = {
+    var emptyPileCounter : Int = 0
+    for(i<-  Pile.piles) {
+      if(emptyPileCounter != 3) {
+        if (i._2 == 0) {
+          emptyPileCounter += 1
+        }
+      } else {
+        println("Game-End-condition is met, calculating winner!\n")
+        tui.state = TuiEndScreen(this)
+        gameState = GameState.endScreen
+        notifyInController
+      }
+    }
+  }
 
   def setUpPlayers(tui:Tui, amount:Int): Unit = {
     gameState = GameState.setUpPlayers
@@ -70,7 +88,7 @@ class Controller(var gameState: GameState.Value = GameState.startScreen,
     //println("type in the names of the players, using a space as seperator\n")
     tui.state = TuiPlayerSetup(this, tui, amount)
     //SwingGui.content = new GuiPlayerSetup(this, tui)
-    notifyObservers
+    notifyInController
   }
 
   def updatePlayerList(tui: Tui, playerString: String): List[Player] = {
@@ -89,7 +107,7 @@ class Controller(var gameState: GameState.Value = GameState.startScreen,
     gameState = GameState.endScreen
 //    tui.state = TuiEndScreen(this, tui)
 //    println("you chose to quit the game\n")
-    notifyObservers
+    notifyInController
   }
 
   def callNextPlayer(tui:Tui, player: Player): Unit = {
@@ -139,11 +157,11 @@ class Controller(var gameState: GameState.Value = GameState.startScreen,
 
   def undo(): Unit = {
     undoManager.undoStep
-    notifyObservers
+    notifyInController
   }
 
   def redo(): Unit = {
     undoManager.redoStep
-    notifyObservers
+    notifyInController
   }
 }

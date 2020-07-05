@@ -6,6 +6,7 @@ import de.htwg.se.Dominion.Dominion
 import de.htwg.se.Dominion.aview.tui.Tui
 import de.htwg.se.Dominion.controller.{Controller, GameState, TurnState}
 import de.htwg.se.Dominion.model.{Card, Pile, Player}
+import de.htwg.se.Dominion.util.Observer
 import javax.swing.{BorderFactory, ImageIcon}
 
 import scala.swing.BorderPanel.Position._
@@ -44,14 +45,8 @@ class GuiActionPhase(tui:Tui, controller: Controller) extends BoxPanel(Orientati
       font = myFont
     }
   }
-
   contents += deckPanel
 
-  var s: String = ""
-  var l: ListBuffer[Int] = ListBuffer()
-
-
-  //Eigentlich will ich, dass jedes mal wenn eine action karte gespielt wird, das handPanel neu erstellt wird. WIE??
   val handPanel: BoxPanel = new BoxPanel(Orientation.Horizontal) {
     val Hand: List[Card] = controller.getPlayer.get.hand.handCards
     val labelList: IndexedSeq[Label] = for (i <- Hand.indices) yield new Label {
@@ -63,8 +58,6 @@ class GuiActionPhase(tui:Tui, controller: Controller) extends BoxPanel(Orientati
         case _: MouseClicked =>
           println(s"Card number ${i + 1} " + Hand(i) + " was clicked ")
           controller.roundManager.processCardEffect(tui, player, i + 1)
-          //das handPanel muss aktualisiert und neu ausgegeben werden, cards werden korrekt processed
-
       }
     }
     labelList.foreach(x => contents += x)
