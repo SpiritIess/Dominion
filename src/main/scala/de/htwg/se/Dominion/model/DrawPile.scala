@@ -9,12 +9,14 @@ case class DrawPile(pile : List[Card]) extends PlayerPile(pile) {
   def drawAdditional(amount: Int) : (List[Card], DrawPile) = (pile.take(amount), DrawPile(pile.takeRight(pile.length - amount)))
 
   def ensureDrawCapacity(amount: Int, discardPile : DiscardPile) : (List[Card], DrawPile) = {
-    var handCards = pile.take(1)
+//    var handCards = pile.take(1)
     if(amount > pile.size) {
       val temp = amount - pile.size
-      (handCards,this) = drawAdditional(pile.size)
-      this = refresh(discardPile)
-      return drawAdditional(temp)
+//      (handCards,this) = drawAdditional(pile.size)
+      drawAdditional(pile.size)
+//      this = refresh(discardPile)
+      refresh(discardPile)
+      drawAdditional(amount)
     } else {
       drawAdditional(amount)
     }

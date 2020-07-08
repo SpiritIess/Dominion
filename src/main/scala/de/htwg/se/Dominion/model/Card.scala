@@ -17,7 +17,7 @@ case class Card(cardID: Int, name: String, cardType: Int, cost:Int,
     else {
       player.mayPlayAction -= 1
       if(player.playerDrawPile.isEmpty) {
-        player.playerDrawPile.refresh(player.playerDiscardPile)
+        player.playerDrawPile = player.playerDrawPile.refresh(player.playerDiscardPile)
       }
       name match {
         case "Moat" => {
@@ -31,7 +31,7 @@ case class Card(cardID: Int, name: String, cardType: Int, cost:Int,
           player.mayPlayAction += extraActions
           player.playerDiscardPile = player.playerDiscardPile.discardCard(this)
           val newHand = player.hand.removeCardFromHand(position)
-          (Hand(newHand.handCards ::: List(newCard)), newDrawPile)
+          (Hand(newHand.handCards ::: newCard), newDrawPile)
         }
         case "Lumberjack" => {
           player.mayBuy += extraBuys

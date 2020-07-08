@@ -3,7 +3,7 @@ package de.htwg.se.Dominion.controller
 import de.htwg.se.Dominion.Dominion
 import de.htwg.se.Dominion.aview.gui.{GuiPlayerSetup, SwingGui}
 import de.htwg.se.Dominion.aview.tui.{Tui, TuiActionPhase, TuiEndScreen, TuiPlayerSetup}
-import de.htwg.se.Dominion.model.{Board, Card, CardSet, Hand, Pile, Player}
+import de.htwg.se.Dominion.model.{Board, Card, CardSet, DrawPile, Hand, Pile, Player}
 import de.htwg.se.Dominion.util.{Observable, UndoManager}
 
 class Controller(var gameState: GameState.Value = GameState.startScreen,
