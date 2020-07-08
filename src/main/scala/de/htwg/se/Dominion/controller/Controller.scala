@@ -2,8 +2,8 @@ package de.htwg.se.Dominion.controller
 
 import de.htwg.se.Dominion.Dominion
 import de.htwg.se.Dominion.aview.gui.{GuiPlayerSetup, SwingGui}
-import de.htwg.se.Dominion.aview.tui.{Tui, TuiActionPhase, TuiPlayerSetup, TuiEndScreen}
-import de.htwg.se.Dominion.model.{Board, Card, CardSet, Pile, Player}
+import de.htwg.se.Dominion.aview.tui.{Tui, TuiActionPhase, TuiEndScreen, TuiPlayerSetup}
+import de.htwg.se.Dominion.model.{Board, Card, CardSet, Hand, Pile, Player}
 import de.htwg.se.Dominion.util.{Observable, UndoManager}
 
 class Controller(var gameState: GameState.Value = GameState.startScreen,
@@ -48,6 +48,10 @@ class Controller(var gameState: GameState.Value = GameState.startScreen,
       case CardSet.provinceCard =>  3
       case CardSet.gardenCard => (player.playerDrawPile.pile.length + player.playerDiscardPile.pile.length) / 10
     }
+  }
+
+  def actionToBuyPhase(tui: Tui, player: Player): Unit = {
+    roundManager.actionToBuyPhase(tui, player)
   }
 
   def play(tui: Tui, player: Player, index: Int): Unit = {
@@ -128,8 +132,18 @@ class Controller(var gameState: GameState.Value = GameState.startScreen,
     gameState = GameState.playerTurn
     turnState = TurnState.actionPhase
     currentPlayer = nextPlayer
+    playerReset()
     tui.state = TuiActionPhase(this, tui, nextPlayer.get)
     notifyInController
+  }
+
+  def playerReset(): Unit = {
+    currentPlayer.get.mayBuy = 1
+    currentPlayer.get.mayPlayAction = 1
+//    val (hand, drawpile) = currentPlayer.get.playerDrawPile.drawAdditional(5)
+//    currentPlayer.get.hand = Hand(hand)
+//    currentPlayer.get.playerDrawPile = drawpile
+
   }
 
   def callPreviousPlayer(tui: Tui, player:Player): Unit = {

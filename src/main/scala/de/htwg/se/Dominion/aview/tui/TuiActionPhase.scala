@@ -7,9 +7,9 @@ import de.htwg.se.Dominion.controller.TurnState
 import de.htwg.se.Dominion.model.{CardSet, Hand, Player}
 import de.htwg.se.Dominion.util.Observer
 
-case class TuiActionPhase(controller : Controller, tui: Tui, player:Player) extends Observer with State {
+case class TuiActionPhase(controller : Controller, tui: Tui, player:Player) extends State {
 //  controller.add(this)
-  println(player.hand.toString, "\n")
+  print(player.hand + "\n\n")
 
 
   override def processInputLine(input: String): Unit = {
@@ -26,8 +26,8 @@ case class TuiActionPhase(controller : Controller, tui: Tui, player:Player) exte
 
   }
 
-  override def update: Boolean = {
-    true
-  }
+//  override def update: Boolean = {
+//    true
+//  }
 
 }

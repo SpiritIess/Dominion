@@ -61,11 +61,11 @@ class ControllerSpec extends WordSpec with Matchers {
 //      controller.turnState should be (TurnState.actionPhase)
       //tui.state should be (TuiActionPhase(controller, tui, player))
 //    }
-    "notify its Observers after quitting the game" in {
-      controller.quitGame(tui)
-      observer.updated should be (true)
-      controller.gameState should be (GameState.endScreen)
-    }
+//    "notify its Observers after quitting the game" in {
+//      controller.quitGame(tui)
+//      observer.updated should be (true)
+//      controller.gameState should be (GameState.endScreen)
+//    }
     "notify its Observers after discarding a Card to the DiscardPile" in {
       val player2 = Player("Markus")
       val handIndex = 1

@@ -9,7 +9,7 @@ import Swing._
 import scala.collection.parallel.immutable
 
 class GuiEndScreen(controller: Controller) extends BoxPanel(Orientation.Vertical){
-  val myFont = new Font("Charlemagne Std Bold", java.awt.Font.BOLD, 15)
+//  val myFont = new Font("Charlemagne Std Bold", java.awt.Font.BOLD, 15)
   val quitButton = new Button("Quit")
   listenTo(quitButton)
 
@@ -17,7 +17,7 @@ class GuiEndScreen(controller: Controller) extends BoxPanel(Orientation.Vertical
     val score: Map[Player, Int] = controller.getScore
     val labelList: Iterable[Label] = for (i <- score) yield new Label {
       text = i._1 + ", Points: " + i._2
-      font = myFont
+//      font = myFont
     }
     labelList.foreach(x => contents += x)
   }

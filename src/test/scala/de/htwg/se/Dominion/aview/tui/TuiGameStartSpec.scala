@@ -17,10 +17,10 @@ class TuiGameStartSpec extends WordSpec with Matchers {
       tui.state.processInputLine("5")
       controller.gameState should be (GameState.startScreen)
     }
-    "change its gameState to 'endScreen' when one inputs 'q'" in {
-      tui.state.processInputLine("q")
-      controller.gameState should be (GameState.endScreen)
-    }
+//    "change its gameState to 'endScreen' when one inputs 'q'" in {
+//      tui.state.processInputLine("q")
+//      controller.gameState should be (GameState.endScreen)
+//    }
     "change its gameState to 'setUpPlayers' when a number between 2 and 4 is put as input" in {
       tui.state.processInputLine("2")
       controller.gameState should be (GameState.setUpPlayers)

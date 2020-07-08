@@ -5,17 +5,17 @@ import de.htwg.se.Dominion.controller.{Controller, TurnState}
 import de.htwg.se.Dominion.model.{Board, Card, CardSet, DiscardPile, Pile, Player}
 import de.htwg.se.Dominion.util.Observer
 
-case class TuiBuyPhase(controller : Controller, tui:Tui, player: Player) extends Observer with State {
+case class TuiBuyPhase(controller : Controller, tui:Tui, player: Player) extends State {
   //controller.add(this)
-  override def update: Boolean = {
-    printBoard
-    true
-  }
-
-  def printBoard:Unit = {
-    val boardString = Board.toString
-    println(boardString)
-  }
+//  override def update: Boolean = {
+//    printBoard
+//    true
+//  }
+//
+//  def printBoard:Unit = {
+//    val boardString = Board.toString
+//    println(boardString)
+//  }
 
   override def processInputLine(input: String): Unit = {
     if (controller.turnState == TurnState.buyingPhase) {
@@ -39,7 +39,8 @@ case class TuiBuyPhase(controller : Controller, tui:Tui, player: Player) extends
         case "15" => card = CardSet.labCard
         case "16" => card = CardSet.funFairCard
       }
-      controller.roundManager.processBuy(tui, player, card)
+      controller.buyCard(tui, player, card)
+//      controller.roundManager.processBuy(tui, player, card)
     } else {
       println("trying to buy in a phase different from buying-phase!\n")
     }
