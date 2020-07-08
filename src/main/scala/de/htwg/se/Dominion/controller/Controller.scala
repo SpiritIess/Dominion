@@ -99,12 +99,11 @@ class Controller(var gameState: GameState.Value = GameState.startScreen,
   def updatePlayerList(tui: Tui, playerString: String): List[Player] = {
     val playerArray = playerString.split(" ")
     println(playerArray.mkString("\n"))
-    println(Board().toString)
+    //println(Board().toString)
     playerArray.foreach(i => {
       Dominion.playerList += Player(i)
     })
     startTurn(tui)
-
     Dominion.playerList.toList
   }
 
@@ -115,16 +114,35 @@ class Controller(var gameState: GameState.Value = GameState.startScreen,
     notifyInController
   }
 
+  def refreshPlayer(player: Player) :Unit = {
+    player.hand = player.hand.emtpyHand
+    if(player.playerDrawPile.pile.size >= 5) {
+      val (handList, newDrawPile) = player.playerDrawPile.drawAdditional(5)
+      player.hand = Hand(handList)
+      player.playerDrawPile = newDrawPile
+    } else {
+      val temp = player.playerDrawPile.drawAdditional(player.playerDrawPile.pile.size)
+      player.playerDrawPile = DrawPile(player.playerDrawPile.pile).refresh(player.playerDiscardPile)
+      player.playerDiscardPile.refresh
+      val (handList, newDrawPile) = player.playerDrawPile.drawAdditional(5 - temp._1.size)
+      player.hand = Hand(handList)
+      player.playerDrawPile = newDrawPile
+    }
+  }
+
   def callNextPlayer(tui:Tui, player: Player): Unit = {
     var nextPlayer: Option[Player] = None
     val nextPlayerIndex = Dominion.playerList.indexOf(player) + 1
-
     if (nextPlayerIndex == Dominion.playerList.length) {
       nextPlayer = Some(Dominion.playerList.head)
     } else {
       nextPlayer = Some(Dominion.playerList(nextPlayerIndex))
     }
-
+    if(player.mayPlayAction == 0) {
+      refreshPlayer(player)
+    }
+    player.mayBuy = 1
+    player.mayPlayAction = 1
     gameState = GameState.playerTurn
     turnState = TurnState.actionPhase
     currentPlayer = nextPlayer

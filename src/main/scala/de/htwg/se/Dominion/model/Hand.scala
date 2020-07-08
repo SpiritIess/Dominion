@@ -8,7 +8,10 @@ case class Hand(handCards: List[Card]) {
 
   override def toString:String = handCards.mkString(", ")
 
-//  def updateHand(oldHand:List[Card], newCards:List[Card], newDrawPile:List[Card]) : (List[Card], List[Card]) = (oldHand.++:(newCards), newDrawPile)
+  def emtpyHand: Hand = {
+    val newHand = handCards.drop(handCards.size)
+    Hand(newHand)
+  }
   def removeCardFromHand(position : Int) : Hand = {
     val tempLeft = handCards.take(position)
     val tempRight = handCards.takeRight(handCards.size - position - 1)

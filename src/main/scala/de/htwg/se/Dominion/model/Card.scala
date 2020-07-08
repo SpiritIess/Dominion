@@ -16,15 +16,18 @@ case class Card(cardID: Int, name: String, cardType: Int, cost:Int,
     }
     else {
       player.mayPlayAction -= 1
+      if(player.playerDrawPile.isEmpty) {
+        player.playerDrawPile.refresh(player.playerDiscardPile)
+      }
       name match {
         case "Moat" => {
-          val (newCards, newDrawPile) = player.playerDrawPile.drawAdditional(extraDraws)
+          val (newCards, newDrawPile) = player.playerDrawPile.ensureDrawCapacity(extraDraws,player.playerDiscardPile)
           player.playerDiscardPile = player.playerDiscardPile.discardCard(this)
           val newHand = player.hand.removeCardFromHand(position)
           (Hand(newHand.handCards ::: newCards), newDrawPile)
         }
         case "Village" => {
-          val (newCard, newDrawPile) = player.playerDrawPile.drawOne
+          val (newCard, newDrawPile) = player.playerDrawPile.ensureDrawCapacity(extraDraws,player.playerDiscardPile)
           player.mayPlayAction += extraActions
           player.playerDiscardPile = player.playerDiscardPile.discardCard(this)
           val newHand = player.hand.removeCardFromHand(position)

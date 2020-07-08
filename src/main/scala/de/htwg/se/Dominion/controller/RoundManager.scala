@@ -17,7 +17,7 @@ case class RoundManager(controller: Controller){
     player.playerDrawPile = playerDrawPile
     controller.notifyInController
     if (player.mayPlayAction == 0) {
-      print(s"No more Actions available for ${player.name}, moving to Buying-Phase, please press 'Enter' to confirm\n")
+      //print(s"No more Actions available for ${player.name}, moving to Buying-Phase, please press 'Enter' to confirm\n")
       actionToBuyPhase(tui, player)
     }
   }
@@ -28,6 +28,7 @@ case class RoundManager(controller: Controller){
       Pile.piles = Pile.piles + (card -> (Pile.piles(card) - 1))
       controller.putOnDiscardPile(player, card)
       player.handValue -= card.cost
+      player.mayBuy -= 1
       controller.notifyInController
     } else {
       println("Not enough money in hand, please choose a different card!\n")
@@ -37,8 +38,9 @@ case class RoundManager(controller: Controller){
       player.playerDiscardPile = player.playerDiscardPile.discardCards(player.hand.handCards)
       controller.callNextPlayer(tui, player)
     } else if (player.mayBuy > 0) {
-      print(Board.toString())
-      println(s"Player ${player.name}, has ${player.handValue} money, which card/s do you want to buy (one by one)?\n")
+      //print(Board.toString())
+      //println(s"Player ${player.name}, has ${player.handValue} money, which card/s do you want to buy (one by one)?\n")
+      controller.notifyInController
     }
   }
 
@@ -47,8 +49,8 @@ case class RoundManager(controller: Controller){
     player.handValue += player.hand.countGold()
     controller.turnState = TurnState.buyingPhase
     tui.state = TuiBuyPhase(controller, tui, player)
-    println(Board())
-    println(s"Player ${player.name}, has ${player.handValue} money, which card/s do you want to buy (one by one)?\n")
+    //println(Board())
+    //println(s"Player ${player.name}, has ${player.handValue} money, which card/s do you want to buy (one by one)?\n")
     controller.notifyInController
   }
 

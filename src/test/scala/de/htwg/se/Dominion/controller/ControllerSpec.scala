@@ -54,13 +54,6 @@ class ControllerSpec extends WordSpec with Matchers {
       Dominion.playerList.head should be (Player("Jakob"))
       Dominion.playerList(1) should be (Player("Karsten"))
     }
-//    "notify its Observer after starting the first turn of the game" in {
-//      controller.callNextPlayer(tui, )
-//      observer.updated should be (true)
-//      controller.gameState should be (GameState.playerOneTurn)
-//      controller.turnState should be (TurnState.actionPhase)
-      //tui.state should be (TuiActionPhase(controller, tui, player))
-//    }
     "notify its Observers after quitting the game" in {
       controller.quitGame(tui)
       observer.updated should be (true)
