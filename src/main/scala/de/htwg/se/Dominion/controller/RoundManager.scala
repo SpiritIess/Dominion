@@ -33,11 +33,11 @@ case class RoundManager(controller: Controller){
     } else {
       println("Not enough money in hand, please choose a different card!\n")
     }
-    if (player.mayBuy == 0) {
+    if (player.mayBuy <= 0) {
       println("no buys left, next players turn!\n")
       player.playerDiscardPile = player.playerDiscardPile.discardCards(player.hand.handCards)
       controller.callNextPlayer(tui, player)
-    } else if (player.mayBuy > 0) {
+    } else {
 //      print(Board.toString())
       println(s"Player ${player.name}, has ${player.handValue} money, which card/s do you want to buy (one by one)?\n")
     }
@@ -59,7 +59,7 @@ case class RoundManager(controller: Controller){
     if (turnState == TurnState.actionPhase) {
       processCardEffect(tui, player, index)
     } else if (turnState == TurnState.buyingPhase) {
-      actionToBuyPhase(tui:Tui, player: Player)
+//      actionToBuyPhase(tui:Tui, player: Player)
       processBuy(tui, player, card)
     }
     (Dominion.playerList, turnState)

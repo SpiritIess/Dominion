@@ -140,6 +140,7 @@ class Controller(var gameState: GameState.Value = GameState.startScreen,
   def playerReset(): Unit = {
     currentPlayer.get.mayBuy = 1
     currentPlayer.get.mayPlayAction = 1
+    currentPlayer.get.handValue = 0
 //    val (hand, drawpile) = currentPlayer.get.playerDrawPile.drawAdditional(5)
 //    currentPlayer.get.hand = Hand(hand)
 //    currentPlayer.get.playerDrawPile = drawpile

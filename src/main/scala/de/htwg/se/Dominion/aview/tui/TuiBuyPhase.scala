@@ -19,7 +19,7 @@ case class TuiBuyPhase(controller : Controller, tui:Tui, player: Player) extends
 
   override def processInputLine(input: String): Unit = {
     if (controller.turnState == TurnState.buyingPhase) {
-      player.mayBuy -= 1
+//      player.mayBuy -= 1
       var card: Card = CardSet.copperCard
       input match {
         case "1" => card = CardSet.copperCard

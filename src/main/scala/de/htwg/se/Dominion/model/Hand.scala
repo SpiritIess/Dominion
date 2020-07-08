@@ -21,7 +21,7 @@ case class Hand(handCards: List[Card]) {
         handVal += this.handCards(i).extraGold
       }
     }
-    println(handVal)
+//    println(handVal)
     handVal
   }
 }
