@@ -14,37 +14,37 @@ class Controller(var gameState: GameState.Value = GameState.startScreen,
 
   private var currentPlayer: Option[Player] = None
   private val undoManager = new UndoManager
-  var roundManager: RoundManager = RoundManager(this)
+  override var roundManager: RoundManager = RoundManager(this)
 
-  def startGame: Unit = {
+  override def startGame: Unit = {
     gameState = GameState.startScreen
     println("enter the number of players\n")
     notifyInController
   }
-  def notifyInController:Unit = {
+  override def notifyInController:Unit = {
     notifyObservers
   }
 
-  def startTurn(tui: Tui): Unit = {
+  override def startTurn(tui: Tui): Unit = {
     turnState = TurnState.actionPhase
     callNextPlayer(tui, Dominion.playerList.last)
     notifyInController
   }
 
-  def getScore: Map[Player, Int] = {
+  override def getScore: Map[Player, Int] = {
     var score: Map[Player, Int] = Map()
     Dominion.playerList.foreach(x => score = score + (x -> getDeckScore(x)))
     score
   }
 
-  def getDeckScore(player: Player): Int = {
+  override def getDeckScore(player: Player): Int = {
     var deckScore: Int = 0
     deckScore += getPileScore(player, player.playerDrawPile.pile)
     deckScore += getPileScore(player, player.playerDiscardPile.pile)
     deckScore
   }
 
-  def getPileScore(player: Player, cards: List[Card]): Int = {
+  override def getPileScore(player: Player, cards: List[Card]): Int = {
     cards match {
       case CardSet.propertyCard =>  1
       case CardSet.dukedomCard =>  2
@@ -53,32 +53,32 @@ class Controller(var gameState: GameState.Value = GameState.startScreen,
     }
   }
 
-  def actionToBuyPhase(tui: Tui, player: Player): Unit = {
+  override def actionToBuyPhase(tui: Tui, player: Player): Unit = {
     roundManager.actionToBuyPhase(tui, player)
   }
 
-  def play(tui: Tui, player: Player, index: Int): Unit = {
+  override def play(tui: Tui, player: Player, index: Int): Unit = {
     undoManager.doStep(new AnyCommand(turnState, tui, player, index, this))
     notifyInController
   }
 
-  def buyCard(tui: Tui, player:Player, card:Card) :Unit = {
+  override def buyCard(tui: Tui, player:Player, card:Card) :Unit = {
     undoManager.doStep(new AnyCommand(turnState, tui, player, 0, this, card))
     notifyInController
   }
 
-  def getPlayer: Option[Player] =  {
+  override def getPlayer: Option[Player] =  {
     currentPlayer
   }
 
-//  def firstTurn(tui:Tui): Unit ={
-//    gameState = GameState.playerOneTurn
-//    tui.state = TuiActionPhase(this, tui, Dominion.playerList.head)
-//    println(s"${Dominion.playerList.head}, choose an action-card from your hand, " +
-//      s"or press '0' to skip to the Buying-Phase and confirm your decision by pressing 'Enter'!\n")
-//    notifyObservers
-//  }
-  def isEndGame(tui:Tui) : Unit = {
+  //  def firstTurn(tui:Tui): Unit ={
+  //    gameState = GameState.playerOneTurn
+  //    tui.state = TuiActionPhase(this, tui, Dominion.playerList.head)
+  //    println(s"${Dominion.playerList.head}, choose an action-card from your hand, " +
+  //      s"or press '0' to skip to the Buying-Phase and confirm your decision by pressing 'Enter'!\n")
+  //    notifyObservers
+  //  }
+  override def isEndGame(tui:Tui) : Unit = {
     var emptyPileCounter : Int = 0
     for(i<-  Pile.piles) {
       if(emptyPileCounter != 3) {
@@ -94,7 +94,7 @@ class Controller(var gameState: GameState.Value = GameState.startScreen,
     }
   }
 
-  def setUpPlayers(tui:Tui, amount:Int): Unit = {
+  override def setUpPlayers(tui:Tui, amount:Int): Unit = {
     gameState = GameState.setUpPlayers
     println(Board().toString())
     //println("type in the names of the players, using a space as seperator\n")
@@ -103,7 +103,7 @@ class Controller(var gameState: GameState.Value = GameState.startScreen,
     notifyInController
   }
 
-  def updatePlayerList(tui: Tui, playerString: String): List[Player] = {
+  override def updatePlayerList(tui: Tui, playerString: String): List[Player] = {
     val playerArray = playerString.split(" ")
     println(playerArray.mkString("\n"))
     //println(Board().toString)
@@ -114,14 +114,14 @@ class Controller(var gameState: GameState.Value = GameState.startScreen,
     Dominion.playerList.toList
   }
 
-  def quitGame(tui:Tui): Unit = {
+  override def quitGame(tui:Tui): Unit = {
     gameState = GameState.endScreen
-//    tui.state = TuiEndScreen(this, tui)
-//    println("you chose to quit the game\n")
+    //    tui.state = TuiEndScreen(this, tui)
+    //    println("you chose to quit the game\n")
     notifyInController
   }
 
-  def refreshPlayer(player: Player) :Unit = {
+  override def refreshPlayer(player: Player) :Unit = {
     if(player.playerDrawPile.pile.size >= 5) {
       val (handList, newDrawPile) = player.playerDrawPile.drawAdditional(5)
       player.hand = Hand(handList)
@@ -136,7 +136,7 @@ class Controller(var gameState: GameState.Value = GameState.startScreen,
     }
   }
 
-  def callNextPlayer(tui:Tui, player: Player): Unit = {
+  override def callNextPlayer(tui:Tui, player: Player): Unit = {
     var nextPlayer: Option[Player] = None
     val nextPlayerIndex = Dominion.playerList.indexOf(player) + 1
     if (nextPlayerIndex == Dominion.playerList.length) {
@@ -144,7 +144,7 @@ class Controller(var gameState: GameState.Value = GameState.startScreen,
     } else {
       nextPlayer = Some(Dominion.playerList(nextPlayerIndex))
     }
-    if(player.hand.handCards.isEmpty == false) {
+    if(player.hand.handCards.nonEmpty) {
       player.playerDiscardPile = player.playerDiscardPile.discardCards(player.hand.handCards)
       player.hand = player.hand.emtpyHand
     }
@@ -159,17 +159,17 @@ class Controller(var gameState: GameState.Value = GameState.startScreen,
     notifyInController
   }
 
-  def playerReset(): Unit = {
+  override def playerReset(): Unit = {
     currentPlayer.get.mayBuy = 1
     currentPlayer.get.mayPlayAction = 1
     currentPlayer.get.handValue = 0
-//    val (hand, drawpile) = currentPlayer.get.playerDrawPile.drawAdditional(5)
-//    currentPlayer.get.hand = Hand(hand)
-//    currentPlayer.get.playerDrawPile = drawpile
+    //    val (hand, drawpile) = currentPlayer.get.playerDrawPile.drawAdditional(5)
+    //    currentPlayer.get.hand = Hand(hand)
+    //    currentPlayer.get.playerDrawPile = drawpile
 
   }
 
-  def callPreviousPlayer(tui: Tui, player:Player): Unit = {
+  override def callPreviousPlayer(tui: Tui, player:Player): Unit = {
     val prevPlayerIndex = Dominion.playerList.indexOf(player) - 1
     if (prevPlayerIndex == -1) {
       tui.state = TuiActionPhase(this, tui, Dominion.playerList(Dominion.playerList.length))
@@ -184,30 +184,29 @@ class Controller(var gameState: GameState.Value = GameState.startScreen,
     }
   }
 
-  def discardCard(player: Player, card: Card, positon: Int) : Unit = {
+  override def discardCard(player: Player, card: Card, positon: Int) : Unit = {
     player.playerDiscardPile = player.playerDiscardPile.discardCard(card)
     player.hand = player.hand.removeCardFromHand(positon)
   }
 
-  def discardCards(player:Player, cards: List[Card]) :Unit = {
+  override def discardCards(player:Player, cards: List[Card]) :Unit = {
     player.playerDiscardPile = player.playerDiscardPile.discardCards(cards)
     for (i <- cards.indices){
       player.hand = player.hand.removeCardFromHand(0)
     }
   }
 
-  def putOnDiscardPile(player: Player, card: Card): Unit = {
+  override def putOnDiscardPile(player: Player, card: Card): Unit = {
     player.playerDiscardPile = player.playerDiscardPile.discardCard(card)
   }
 
-  def undo: Unit = {
+  override def undo: Unit = {
     undoManager.undoStep
     notifyInController
   }
 
-  def redo: Unit = {
+  override def redo: Unit = {
     undoManager.redoStep
     notifyInController
   }
-
 }

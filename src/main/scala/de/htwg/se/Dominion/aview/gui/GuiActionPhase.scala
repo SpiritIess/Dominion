@@ -4,7 +4,7 @@ import java.awt.Color
 
 import de.htwg.se.Dominion.Dominion
 import de.htwg.se.Dominion.aview.tui.Tui
-import de.htwg.se.Dominion.controller.controllerComponent.Controller
+import de.htwg.se.Dominion.controller.controllerComponent.{Controller, ControllerInterface}
 import de.htwg.se.Dominion.controller.{GameState, TurnState}
 import de.htwg.se.Dominion.model.playerComponent.Player
 import de.htwg.se.Dominion.model.cardComponent.{Card, CardSet}
@@ -21,7 +21,7 @@ import scala.collection.mutable.ListBuffer
 import scala.collection.{immutable, mutable}
 import scala.swing.BorderPanel.Position
 
-class GuiActionPhase(tui:Tui, controller: Controller) extends BoxPanel(Orientation.Vertical){
+class GuiActionPhase(tui:Tui, controller: ControllerInterface) extends BoxPanel(Orientation.Vertical){
   preferredSize = new Dimension(1400, 1000)
   val player: Player = controller.getPlayer match {
     case Some(p) => p

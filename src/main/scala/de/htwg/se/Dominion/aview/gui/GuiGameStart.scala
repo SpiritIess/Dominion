@@ -1,14 +1,14 @@
 package de.htwg.se.Dominion.aview.gui
 
 import de.htwg.se.Dominion.aview.tui.Tui
-import de.htwg.se.Dominion.controller.controllerComponent.Controller
+import de.htwg.se.Dominion.controller.controllerComponent.{Controller, ControllerInterface}
 import javax.swing.ImageIcon
 
 import scala.swing._
 import scala.swing.event._
 import Swing._
 
-class GuiGameStart(tui: Tui, controller: Controller) extends BoxPanel(Orientation.Vertical){
+class GuiGameStart(tui: Tui, controller: ControllerInterface) extends BoxPanel(Orientation.Vertical){
 
   val twoPlayerButton: Button = new Button("2 Players") {
   }

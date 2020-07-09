@@ -2,16 +2,18 @@ package de.htwg.se.Dominion
 
 import de.htwg.se.Dominion.aview.gui.SwingGui
 import de.htwg.se.Dominion.aview.tui.Tui
-import de.htwg.se.Dominion.controller.controllerComponent.Controller
+import de.htwg.se.Dominion.controller.controllerComponent.{Controller, ControllerInterface}
 import de.htwg.se.Dominion.model.Board
 import de.htwg.se.Dominion.model.playerComponent.Player
 
 import scala.collection.mutable.ListBuffer
 import scala.io.StdIn.readLine
+import com.google.inject.Guice
 
 object Dominion {
+  val injector = Guice.createInjector(new DominionModule)
   var board :Board = Board()
-  val controller = new Controller()
+  val controller = injector.getInstance(classOf[ControllerInterface])
   var tui : Tui = Tui(controller)
   var gui : SwingGui = new SwingGui(tui, controller)
   controller.notifyObservers

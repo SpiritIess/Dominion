@@ -4,7 +4,7 @@ import java.awt.BorderLayout
 
 import de.htwg.se.Dominion.aview.tui.Tui
 import de.htwg.se.Dominion.controller.GameState
-import de.htwg.se.Dominion.controller.controllerComponent.Controller
+import de.htwg.se.Dominion.controller.controllerComponent.{Controller, ControllerInterface}
 import de.htwg.se.Dominion.util.{Observable, Observer}
 import javax.swing.{JFrame, JScrollPane, JTextArea}
 
@@ -15,7 +15,7 @@ import scala.io.Source._
 
 class CellClicked(val row: Int, val column: Int) extends Event
 
-class SwingGui(tui: Tui, controller: Controller) extends Frame with Observer{
+class SwingGui(tui: Tui, controller: ControllerInterface) extends Frame with Observer{
   controller.add(this)
 //  listenTo(controller)
 
@@ -51,7 +51,7 @@ class SwingGui(tui: Tui, controller: Controller) extends Frame with Observer{
   }
 }
 object SwingGui {
-  def getPanel(tui: Tui, controller: Controller): Panel = {
+  def getPanel(tui: Tui, controller: ControllerInterface): Panel = {
     controller.gameState match {
       case GameState.startScreen => new GuiGameStart(tui, controller)
       case GameState.setUpPlayers => new GuiPlayerSetup(tui, controller)

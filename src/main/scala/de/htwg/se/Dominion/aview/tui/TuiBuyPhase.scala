@@ -2,13 +2,13 @@ package de.htwg.se.Dominion.aview.tui
 
 import de.htwg.se.Dominion.aview.tui.Tui
 import de.htwg.se.Dominion.controller.TurnState
-import de.htwg.se.Dominion.controller.controllerComponent.Controller
+import de.htwg.se.Dominion.controller.controllerComponent.{Controller, ControllerInterface}
 import de.htwg.se.Dominion.model.cardComponent.{Card, CardSet}
 import de.htwg.se.Dominion.model.playerComponent.Player
 import de.htwg.se.Dominion.model.Board
 import de.htwg.se.Dominion.util.Observer
 
-case class TuiBuyPhase(controller : Controller, tui:Tui, player: Player) extends State {
+case class TuiBuyPhase(controller : ControllerInterface, tui:Tui, player: Player) extends State {
   //controller.add(this)
 //  override def update: Boolean = {
 //    printBoard

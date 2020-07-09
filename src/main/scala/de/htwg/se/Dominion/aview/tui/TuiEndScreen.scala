@@ -1,9 +1,9 @@
 package de.htwg.se.Dominion.aview.tui
 
-import de.htwg.se.Dominion.controller.controllerComponent.Controller
+import de.htwg.se.Dominion.controller.controllerComponent.{Controller, ControllerInterface}
 import de.htwg.se.Dominion.util.Observer
 
-case class TuiEndScreen(controller:Controller) extends Observer with State {
+case class TuiEndScreen(controller: ControllerInterface) extends Observer with State {
   override def update: Boolean = {true}
 
   override def processInputLine(input: String): Unit = {
