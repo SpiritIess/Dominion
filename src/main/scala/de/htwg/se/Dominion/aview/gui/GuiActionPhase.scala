@@ -4,8 +4,11 @@ import java.awt.Color
 
 import de.htwg.se.Dominion.Dominion
 import de.htwg.se.Dominion.aview.tui.Tui
-import de.htwg.se.Dominion.controller.{Controller, GameState, TurnState}
-import de.htwg.se.Dominion.model.{Card, CardSet, Pile, Player}
+import de.htwg.se.Dominion.controller.controllerComponent.Controller
+import de.htwg.se.Dominion.controller.{GameState, TurnState}
+import de.htwg.se.Dominion.model.playerComponent.Player
+import de.htwg.se.Dominion.model.cardComponent.{Card, CardSet}
+import de.htwg.se.Dominion.model.pileComponent.Pile
 import de.htwg.se.Dominion.util.Observer
 import javax.swing.{BorderFactory, ImageIcon}
 

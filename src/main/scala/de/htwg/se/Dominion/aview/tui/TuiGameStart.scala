@@ -1,7 +1,7 @@
 package de.htwg.se.Dominion.aview.tui
 
 import de.htwg.se.Dominion.aview.tui.{State, TuiPlayerSetup}
-import de.htwg.se.Dominion.controller.Controller
+import de.htwg.se.Dominion.controller.controllerComponent.Controller
 import de.htwg.se.Dominion.model.Board
 import de.htwg.se.Dominion.util.Observer
 

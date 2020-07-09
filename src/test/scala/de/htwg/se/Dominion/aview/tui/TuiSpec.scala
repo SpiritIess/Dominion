@@ -1,5 +1,5 @@
 package de.htwg.se.Dominion.aview.tui
-import de.htwg.se.Dominion.controller.Controller
+import de.htwg.se.Dominion.controller.controllerComponent.Controller
 import org.scalatest.{Matchers, WordSpec}
 
 class TuiSpec extends  WordSpec with Matchers{

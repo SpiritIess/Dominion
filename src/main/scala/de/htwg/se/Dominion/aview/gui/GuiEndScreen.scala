@@ -1,7 +1,7 @@
 package de.htwg.se.Dominion.aview.gui
 
-import de.htwg.se.Dominion.controller.Controller
-import de.htwg.se.Dominion.model.Player
+import de.htwg.se.Dominion.controller.controllerComponent.Controller
+import de.htwg.se.Dominion.model.playerComponent.Player
 
 import scala.swing._
 import scala.swing.event._

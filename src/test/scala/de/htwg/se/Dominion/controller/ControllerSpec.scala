@@ -2,8 +2,9 @@ package de.htwg.se.Dominion.controller
 
 import de.htwg.se.Dominion.Dominion
 import de.htwg.se.Dominion.aview.tui.{Tui, TuiActionPhase, TuiBuyPhase}
-import de.htwg.se.Dominion.controller.Controller
-import de.htwg.se.Dominion.model.{CardSet, Player}
+import de.htwg.se.Dominion.controller.controllerComponent.Controller
+import de.htwg.se.Dominion.model.cardComponent.CardSet
+import de.htwg.se.Dominion.model.playerComponent.Player
 import de.htwg.se.Dominion.util.Observer
 import org.scalatest.{Matchers, WordSpec}
 

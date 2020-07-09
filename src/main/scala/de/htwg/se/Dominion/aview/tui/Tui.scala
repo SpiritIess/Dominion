@@ -2,8 +2,10 @@ package de.htwg.se.Dominion.aview.tui
 
 import de.htwg.se.Dominion.aview.tui._
 import de.htwg.se.Dominion.aview.tui.State
-import de.htwg.se.Dominion.controller.{Controller, GameState, TurnState}
-import de.htwg.se.Dominion.model.{Board, Player}
+import de.htwg.se.Dominion.controller.controllerComponent.Controller
+import de.htwg.se.Dominion.controller.{GameState, TurnState}
+import de.htwg.se.Dominion.model.Board
+import de.htwg.se.Dominion.model.playerComponent.Player
 import de.htwg.se.Dominion.util.Observer
 
 import scala.collection.mutable.ListBuffer

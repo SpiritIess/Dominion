@@ -1,5 +1,6 @@
-package de.htwg.se.Dominion.model
+package de.htwg.se.Dominion.model.pileComponent
 
+import de.htwg.se.Dominion.model.cardComponent.CardSet
 import org.scalatest.{Matchers, WordSpec}
 
 class DiscardPileSpec extends WordSpec with Matchers {

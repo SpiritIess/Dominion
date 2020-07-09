@@ -1,7 +1,6 @@
-package de.htwg.se.Dominion.model
+package de.htwg.se.Dominion.model.cardComponent
 
 import org.scalatest.{Matchers, WordSpec}
-import org.scalatest.junit.JUnitRunner
 
 class CardSpec extends WordSpec with Matchers {
 

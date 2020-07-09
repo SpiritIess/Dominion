@@ -1,4 +1,7 @@
-package de.htwg.se.Dominion.model
+package de.htwg.se.Dominion.model.cardComponent
+
+import de.htwg.se.Dominion.model.playerComponent.Player
+import de.htwg.se.Dominion.model.pileComponent.{DrawPile, Hand}
 
 //cardtype: 1-> money, 2-> points, 3-> action
 case class Card(cardID: Int, name: String, cardType: Int, cost:Int,

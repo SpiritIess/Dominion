@@ -3,7 +3,8 @@ package de.htwg.se.Dominion.aview.gui
 import java.awt.BorderLayout
 
 import de.htwg.se.Dominion.aview.tui.Tui
-import de.htwg.se.Dominion.controller.{Controller, GameState}
+import de.htwg.se.Dominion.controller.GameState
+import de.htwg.se.Dominion.controller.controllerComponent.Controller
 import de.htwg.se.Dominion.util.{Observable, Observer}
 import javax.swing.{JFrame, JScrollPane, JTextArea}
 

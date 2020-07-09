@@ -1,10 +1,11 @@
-package de.htwg.se.Dominion.controller
+package de.htwg.se.Dominion.controller.controllerComponent
 
 import de.htwg.se.Dominion.Dominion
-import de.htwg.se.Dominion.aview.gui.SwingGui
 import de.htwg.se.Dominion.aview.tui.{Tui, TuiBuyPhase}
-import de.htwg.se.Dominion.model.{Board, Card, CardSet, Pile, Player}
-import de.htwg.se.Dominion.util.Observable
+import de.htwg.se.Dominion.controller.TurnState
+import de.htwg.se.Dominion.model.cardComponent.{Card, CardSet}
+import de.htwg.se.Dominion.model.pileComponent.Pile
+import de.htwg.se.Dominion.model.playerComponent.Player
 
 import scala.collection.mutable.ListBuffer
 

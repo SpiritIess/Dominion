@@ -1,5 +1,8 @@
 package de.htwg.se.Dominion.model
 
+import de.htwg.se.Dominion.model.cardComponent.CardSet
+import de.htwg.se.Dominion.model.pileComponent.Pile
+
 case class Board() {
 
   private val moneyStack = Seq[String] ("Copper: " + Pile.piles(CardSet.copperCard), "Silver: " + Pile.piles(CardSet.silverCard), "Gold: " + Pile.piles(CardSet.goldCard))

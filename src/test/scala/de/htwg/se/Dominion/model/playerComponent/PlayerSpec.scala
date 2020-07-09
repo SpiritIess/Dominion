@@ -1,5 +1,6 @@
-package de.htwg.se.Dominion.model
+package de.htwg.se.Dominion.model.playerComponent
 
+import de.htwg.se.Dominion.model.cardComponent.CardSet
 import org.scalatest.{Matchers, WordSpec}
 
 class PlayerSpec extends WordSpec with Matchers {

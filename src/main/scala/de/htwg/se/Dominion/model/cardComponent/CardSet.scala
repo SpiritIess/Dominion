@@ -1,4 +1,4 @@
-package de.htwg.se.Dominion.model
+package de.htwg.se.Dominion.model.cardComponent
 
 object CardSet {
   val copperCard: Card = Card(1, "Copper", 1, 0, 0, 0, 1, 0)

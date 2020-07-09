@@ -1,7 +1,7 @@
 package de.htwg.se.Dominion.aview.gui
 
 import de.htwg.se.Dominion.aview.tui.Tui
-import de.htwg.se.Dominion.controller.Controller
+import de.htwg.se.Dominion.controller.controllerComponent.Controller
 import javax.swing.ImageIcon
 
 import scala.swing._

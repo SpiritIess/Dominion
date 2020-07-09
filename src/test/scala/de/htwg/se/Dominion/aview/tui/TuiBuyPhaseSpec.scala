@@ -1,8 +1,9 @@
 package de.htwg.se.Dominion.aview.tui
 
 import de.htwg.se.Dominion.Dominion
-import de.htwg.se.Dominion.controller.{Controller, GameState, RoundManager, TurnState}
-import de.htwg.se.Dominion.model.CardSet
+import de.htwg.se.Dominion.controller.controllerComponent.Controller
+import de.htwg.se.Dominion.controller.{GameState, TurnState}
+import de.htwg.se.Dominion.model.cardComponent.CardSet
 import org.scalatest.{Matchers, WordSpec}
 
 class TuiBuyPhaseSpec extends WordSpec with Matchers{

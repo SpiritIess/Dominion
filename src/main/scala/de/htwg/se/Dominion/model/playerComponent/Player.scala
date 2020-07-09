@@ -1,4 +1,6 @@
-package de.htwg.se.Dominion.model
+package de.htwg.se.Dominion.model.playerComponent
+
+import de.htwg.se.Dominion.model.pileComponent.{DiscardPile, DrawPile, Hand, Pile}
 
 case class Player(name: String) {
    override def toString:String = name

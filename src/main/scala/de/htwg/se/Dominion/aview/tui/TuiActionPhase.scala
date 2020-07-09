@@ -2,9 +2,10 @@ package de.htwg.se.Dominion.aview.tui
 
 import de.htwg.se.Dominion.Dominion
 import de.htwg.se.Dominion.aview.tui.Tui
-import de.htwg.se.Dominion.controller.Controller
 import de.htwg.se.Dominion.controller.TurnState
-import de.htwg.se.Dominion.model.{CardSet, Hand, Player}
+import de.htwg.se.Dominion.controller.controllerComponent.Controller
+import de.htwg.se.Dominion.model.pileComponent.Hand
+import de.htwg.se.Dominion.model.playerComponent.Player
 import de.htwg.se.Dominion.util.Observer
 
 case class TuiActionPhase(controller : Controller, tui: Tui, player:Player) extends State {

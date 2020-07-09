@@ -1,4 +1,7 @@
-package de.htwg.se.Dominion.model
+package de.htwg.se.Dominion.model.pileComponent
+
+import de.htwg.se.Dominion.model.cardComponent.Card
+import de.htwg.se.Dominion.model.playerComponent.Player
 
 import scala.util.Random
 

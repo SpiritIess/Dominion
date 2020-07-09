@@ -1,13 +1,16 @@
-package de.htwg.se.Dominion.controller
+package de.htwg.se.Dominion.controller.controllerComponent
 
 import de.htwg.se.Dominion.Dominion
-import de.htwg.se.Dominion.aview.gui.{GuiPlayerSetup, SwingGui}
 import de.htwg.se.Dominion.aview.tui.{Tui, TuiActionPhase, TuiEndScreen, TuiPlayerSetup}
-import de.htwg.se.Dominion.model.{Board, Card, CardSet, DrawPile, Hand, Pile, Player}
+import de.htwg.se.Dominion.controller.{GameState, TurnState}
+import de.htwg.se.Dominion.model.Board
+import de.htwg.se.Dominion.model.cardComponent.{Card, CardSet}
+import de.htwg.se.Dominion.model.pileComponent.{DrawPile, Hand, Pile}
+import de.htwg.se.Dominion.model.playerComponent.Player
 import de.htwg.se.Dominion.util.{Observable, UndoManager}
 
 class Controller(var gameState: GameState.Value = GameState.startScreen,
-                 var turnState: TurnState.Value = TurnState.actionPhase) extends Observable{
+                 var turnState: TurnState.Value = TurnState.actionPhase) extends ControllerInterface {
 
   private var currentPlayer: Option[Player] = None
   private val undoManager = new UndoManager
@@ -197,13 +200,14 @@ class Controller(var gameState: GameState.Value = GameState.startScreen,
     player.playerDiscardPile = player.playerDiscardPile.discardCard(card)
   }
 
-  def undo(): Unit = {
+  def undo: Unit = {
     undoManager.undoStep
     notifyInController
   }
 
-  def redo(): Unit = {
+  def redo: Unit = {
     undoManager.redoStep
     notifyInController
   }
+
 }

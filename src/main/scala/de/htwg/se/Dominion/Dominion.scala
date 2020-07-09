@@ -2,8 +2,9 @@ package de.htwg.se.Dominion
 
 import de.htwg.se.Dominion.aview.gui.SwingGui
 import de.htwg.se.Dominion.aview.tui.Tui
-import de.htwg.se.Dominion.controller.Controller
-import de.htwg.se.Dominion.model.{Board, Player}
+import de.htwg.se.Dominion.controller.controllerComponent.Controller
+import de.htwg.se.Dominion.model.Board
+import de.htwg.se.Dominion.model.playerComponent.Player
 
 import scala.collection.mutable.ListBuffer
 import scala.io.StdIn.readLine

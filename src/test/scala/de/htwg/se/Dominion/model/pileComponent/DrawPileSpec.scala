@@ -1,8 +1,8 @@
-package de.htwg.se.Dominion.model
+package de.htwg.se.Dominion.model.pileComponent
 
 import de.htwg.se.Dominion.Dominion
+import de.htwg.se.Dominion.model.cardComponent.CardSet
 import org.scalatest.{Matchers, WordSpec}
-import org.scalatest.junit.JUnitRunner
 
 class DrawPileSpec extends WordSpec with Matchers {
 

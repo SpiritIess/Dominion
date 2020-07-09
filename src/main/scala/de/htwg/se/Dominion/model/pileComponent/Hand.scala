@@ -1,4 +1,6 @@
-package de.htwg.se.Dominion.model
+package de.htwg.se.Dominion.model.pileComponent
+
+import de.htwg.se.Dominion.model.cardComponent.Card
 
 case class Hand(handCards: List[Card]) {
 
@@ -28,4 +30,3 @@ case class Hand(handCards: List[Card]) {
     handVal
   }
 }
-

@@ -1,10 +1,11 @@
-package de.htwg.se.Dominion.controller
+package de.htwg.se.Dominion.controller.controllerComponent
 
 import de.htwg.se.Dominion.Dominion
 import de.htwg.se.Dominion.aview.tui.Tui
-import de.htwg.se.Dominion.controller.GameState.gameState
+import de.htwg.se.Dominion.controller.TurnState
 import de.htwg.se.Dominion.controller.TurnState.turnState
-import de.htwg.se.Dominion.model.{Card, CardSet, Player}
+import de.htwg.se.Dominion.model.cardComponent.{Card, CardSet}
+import de.htwg.se.Dominion.model.playerComponent.Player
 import de.htwg.se.Dominion.util.Command
 
 class AnyCommand(turnState: TurnState.Value, tui: Tui, player: Player, index: Int, controller: Controller, card: Card = CardSet.copperCard ) extends Command{

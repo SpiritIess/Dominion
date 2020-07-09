@@ -1,4 +1,6 @@
-package de.htwg.se.Dominion.model
+package de.htwg.se.Dominion.model.pileComponent
+
+import de.htwg.se.Dominion.model.cardComponent.Card
 
 case class DiscardPile(pile: List[Card] = List()) extends PlayerPile(pile) {
 
