@@ -13,7 +13,7 @@ class HandSpec extends WordSpec with Matchers {
         handCards.length should be (5)
       }
       "should reduce the size of drawPile when one or more cards were drawn" in {
-        newDrawPile.pile.size should be (9)
+        newDrawPile.pile.size should be (14)
       }
       "have a copper card" in {
         startingHand.handCards.head should be (CardSet.copperCard)

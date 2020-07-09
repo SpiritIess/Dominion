@@ -35,7 +35,7 @@ case class RoundManager(controller: Controller){
     }
     if (player.mayBuy <= 0) {
       println("no buys left, next players turn!\n")
-      player.playerDiscardPile = player.playerDiscardPile.discardCards(player.hand.handCards)
+      controller.discardCards(player, player.hand.handCards)
       controller.callNextPlayer(tui, player)
     } else {
 //      print(Board.toString())

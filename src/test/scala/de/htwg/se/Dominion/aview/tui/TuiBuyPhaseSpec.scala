@@ -26,14 +26,14 @@ class TuiBuyPhaseSpec extends WordSpec with Matchers{
 //      player.playerDiscardPile.pile.length should be (6)
 //      player.handValue should be (oldValue - CardSet.copperCard.cost)
 //    }
-    "buy a card on input '1' and put it on the DiscadPile and subtract its cost" in {
+    "buy a card on input '1' and put it on the DiscardPile and subtract its cost" in {
       val oldValue = player.handValue
       player.mayBuy = 2
       tui.state.processInputLine("1")
       player.playerDiscardPile.pile.length should be (1)
       player.handValue should be (oldValue - CardSet.copperCard.cost)
     }
-    "buy a card on input '1' and put it on the DiscadPile and cleanup hand on end of turn" in {
+    "buy a card on input '1' and put it on the DiscardPile and cleanup hand on end of turn" in {
       player.mayBuy = 1
       tui.state.processInputLine("1")
       player.playerDiscardPile.pile.length should be (7)

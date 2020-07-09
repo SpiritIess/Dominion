@@ -19,7 +19,7 @@ import scala.collection.{immutable, mutable}
 import scala.swing.BorderPanel.Position
 
 class GuiActionPhase(tui:Tui, controller: Controller) extends BoxPanel(Orientation.Vertical){
-  preferredSize = new Dimension(1700, 900)
+  preferredSize = new Dimension(1400, 1000)
   val player: Player = controller.getPlayer match {
     case Some(p) => p
     case None => print("Failed getting a player"); Player("?")
@@ -74,113 +74,138 @@ class GuiActionPhase(tui:Tui, controller: Controller) extends BoxPanel(Orientati
     labelList.foreach(x => contents += x)
   }
 
-//  val drawPilesPanel = new FlowPanel() {
-//    val decks: Map[Card, Int] = Pile.piles
-//    val labelList: Iterable[BoxPanel] = for (i <- decks) yield new BoxPanel(Orientation.Vertical) {
-//      contents += new Label("Count: " + i._2)
-//      contents += new Label {
-//        private val temp = new ImageIcon("src/main/scala/de/htwg/se/Dominion/aview/resources/" + i._1.name + ".jpg").getImage
-//        private val resize = temp.getScaledInstance(150, 250, java.awt.Image.SCALE_SMOOTH)
-//        icon = new ImageIcon(resize)
-//        //        text = "Count: " + i._2
-//        font = myFont
-//        listenTo(mouse.clicks)
-//        if (controller.turnState == TurnState.buyingPhase) {
-//          reactions += {
-//            case _: MouseClicked => {
-//              controller.roundManager.processBuy(tui, player, i._1)
-//            }
-//          }
-//        } else {
-//          reactions += {
-//            case _: MouseClicked => println("Currently not in buying phase")
-//          }
+
+  val moneyDrawPilesPanel: FlowPanel = new FlowPanel() {
+    val decks: Map[Card, Int] = Map((CardSet.copperCard, Pile.piles(CardSet.copperCard)),
+      (CardSet.silverCard, Pile.piles(CardSet.silverCard)),
+      (CardSet.goldCard, Pile.piles(CardSet.goldCard)))
+    val labelList: Iterable[BoxPanel] = for (i <- decks) yield new BoxPanel(Orientation.Vertical) {
+      contents += new Label("Count: " + i._2)
+      contents += new Label {
+        private val temp = new ImageIcon("src/main/scala/de/htwg/se/Dominion/aview/resources/" + i._1.name + ".jpg").getImage
+        private val resize = temp.getScaledInstance(130, 203, java.awt.Image.SCALE_SMOOTH)
+        icon = new ImageIcon(resize)
+        font = myFont
+        listenTo(mouse.clicks)
+        if (controller.turnState == TurnState.buyingPhase) {
+          reactions += {
+            case _: MouseClicked => {
+              controller.roundManager.processBuy(tui, player, i._1)
+            }
+          }
+        } else {
+          reactions += {
+            case _: MouseClicked => println("Currently not in buying phase")
+          }
+        }
+      }
+    }
+    labelList.foreach(x => contents += x)
+  }
+
+
+//  val moneyDrawPilesPanel = new BoxPanel(Orientation.Horizontal) {
+//    val decks: Map[Card, Int] = Map((CardSet.copperCard, Pile.piles(CardSet.copperCard)),
+//      (CardSet.silverCard, Pile.piles(CardSet.silverCard)),
+//      (CardSet.goldCard, Pile.piles(CardSet.goldCard)))
+//    val labelList: Iterable[Label] = for (i <- decks) yield new Label {
+//      private val temp = new ImageIcon("src/main/scala/de/htwg/se/Dominion/aview/resources/" + i._1.name + ".jpg").getImage
+//      private val resize = temp.getScaledInstance(130, 203, java.awt.Image.SCALE_SMOOTH)
+//      icon = new ImageIcon(resize)
+//      text = "Count: " + i._2
+//      font = myFont
+//      listenTo(mouse.clicks)
+//      reactions += {
+//        case _: MouseClicked => {
+//          controller.roundManager.processBuy(tui, player, i._1)
 //        }
 //      }
-//
 //    }
 //    labelList.foreach(x => contents += x)
 //  }
 
-
-  val moneyDrawPilesPanel = new BoxPanel(Orientation.Horizontal) {
-    val decks: Map[Card, Int] = Map((CardSet.copperCard, Pile.piles(CardSet.copperCard)),
-      (CardSet.silverCard, Pile.piles(CardSet.silverCard)),
-      (CardSet.goldCard, Pile.piles(CardSet.goldCard)))
-    val labelList: Iterable[Label] = for (i <- decks) yield new Label {
-      private val temp = new ImageIcon("src/main/scala/de/htwg/se/Dominion/aview/resources/" + i._1.name + ".jpg").getImage
-      private val resize = temp.getScaledInstance(130, 203, java.awt.Image.SCALE_SMOOTH)
-      icon = new ImageIcon(resize)
-      text = "Count: " + i._2
-      font = myFont
-      listenTo(mouse.clicks)
-      reactions += {
-        case _: MouseClicked => {
-          controller.roundManager.processBuy(tui, player, i._1)
-        }
-      }
-    }
-    labelList.foreach(x => contents += x)
-  }
-
-  val pointsDrawPilesPanel = new BoxPanel(Orientation.Horizontal) {
+  val pointsDrawPilesPanel: FlowPanel = new FlowPanel() {
     val decks: Map[Card, Int] = Map((CardSet.propertyCard, Pile.piles(CardSet.propertyCard)),
       (CardSet.dukedomCard, Pile.piles(CardSet.dukedomCard)),
       (CardSet.provinceCard, Pile.piles(CardSet.provinceCard)),
       (CardSet.gardenCard, Pile.piles(CardSet.gardenCard)))
-    val labelList: Iterable[Label] = for (i <- decks) yield new Label {
-      private val temp = new ImageIcon("src/main/scala/de/htwg/se/Dominion/aview/resources/" + i._1.name + ".jpg").getImage
-      private val resize = temp.getScaledInstance(130, 203, java.awt.Image.SCALE_SMOOTH)
-      icon = new ImageIcon(resize)
-      text = "Count: " + i._2
-      font = myFont
-      listenTo(mouse.clicks)
-      reactions += {
-        case _: MouseClicked => {
-          controller.roundManager.processBuy(tui, player, i._1)
+    val labelList: Iterable[BoxPanel] = for (i <- decks) yield new BoxPanel(Orientation.Vertical) {
+      contents += new Label("Count: " + i._2)
+      contents += new Label {
+        private val temp = new ImageIcon("src/main/scala/de/htwg/se/Dominion/aview/resources/" + i._1.name + ".jpg").getImage
+        private val resize = temp.getScaledInstance(130, 203, java.awt.Image.SCALE_SMOOTH)
+        icon = new ImageIcon(resize)
+        font = myFont
+        listenTo(mouse.clicks)
+        if (controller.turnState == TurnState.buyingPhase) {
+          reactions += {
+            case _: MouseClicked => {
+              controller.roundManager.processBuy(tui, player, i._1)
+            }
+          }
+        } else {
+          reactions += {
+            case _: MouseClicked => println("Currently not in buying phase")
+          }
         }
       }
     }
     labelList.foreach(x => contents += x)
   }
 
-  val actionCardStackPanel1 = new BoxPanel(Orientation.Horizontal) {
+  val actionCardStackPanel1: FlowPanel = new FlowPanel() {
     val decks: Map[Card, Int] = Map((CardSet.moatCard, Pile.piles(CardSet.moatCard)),
       (CardSet.villageCard, Pile.piles(CardSet.villageCard)),
       (CardSet.lumberjackCard, Pile.piles(CardSet.lumberjackCard)),
       (CardSet.smithyCard, Pile.piles(CardSet.smithyCard)),
       (CardSet.moneyLenderCard, Pile.piles(CardSet.moneyLenderCard)))
-    val labelList: Iterable[Label] = for (i <- decks) yield new Label {
-      private val temp = new ImageIcon("src/main/scala/de/htwg/se/Dominion/aview/resources/" + i._1.name + ".jpg").getImage
-      private val resize = temp.getScaledInstance(130, 203, java.awt.Image.SCALE_SMOOTH)
-      icon = new ImageIcon(resize)
-      text = "Count: " + i._2
-      font = myFont
-      listenTo(mouse.clicks)
-      reactions += {
-        case _: MouseClicked => {
-          controller.roundManager.processBuy(tui, player, i._1)
+    val labelList: Iterable[BoxPanel] = for (i <- decks) yield new BoxPanel(Orientation.Vertical) {
+      contents += new Label("Count: " + i._2)
+      contents += new Label {
+        private val temp = new ImageIcon("src/main/scala/de/htwg/se/Dominion/aview/resources/" + i._1.name + ".jpg").getImage
+        private val resize = temp.getScaledInstance(130, 203, java.awt.Image.SCALE_SMOOTH)
+        icon = new ImageIcon(resize)
+        font = myFont
+        listenTo(mouse.clicks)
+        if (controller.turnState == TurnState.buyingPhase) {
+          reactions += {
+            case _: MouseClicked => {
+              controller.roundManager.processBuy(tui, player, i._1)
+            }
+          }
+        } else {
+          reactions += {
+            case _: MouseClicked => println("Currently not in buying phase")
+          }
         }
       }
     }
     labelList.foreach(x => contents += x)
   }
 
-  val actionCardStackPanel2 = new BoxPanel(Orientation.Horizontal) {
+  val actionCardStackPanel2: FlowPanel = new FlowPanel() {
     val decks: Map[Card, Int] = Map((CardSet.marketCard, Pile.piles(CardSet.marketCard)),
       (CardSet.adventurerCard, Pile.piles(CardSet.adventurerCard)),
       (CardSet.labCard, Pile.piles(CardSet.labCard)),
       (CardSet.funFairCard, Pile.piles(CardSet.funFairCard)))
-    val labelList: Iterable[Label] = for (i <- decks) yield new Label {
-      private val temp = new ImageIcon("src/main/scala/de/htwg/se/Dominion/aview/resources/" + i._1.name + ".jpg").getImage
-      private val resize = temp.getScaledInstance(130, 203, java.awt.Image.SCALE_SMOOTH)
-      icon = new ImageIcon(resize)
-      text = "Count: " + i._2
-      font = myFont
-      listenTo(mouse.clicks)
-      reactions += {
-        case _: MouseClicked => {
-          controller.roundManager.processBuy(tui, player, i._1)
+    val labelList: Iterable[BoxPanel] = for (i <- decks) yield new BoxPanel(Orientation.Vertical) {
+      contents += new Label("Count: " + i._2)
+      contents += new Label {
+        private val temp = new ImageIcon("src/main/scala/de/htwg/se/Dominion/aview/resources/" + i._1.name + ".jpg").getImage
+        private val resize = temp.getScaledInstance(130, 203, java.awt.Image.SCALE_SMOOTH)
+        icon = new ImageIcon(resize)
+        font = myFont
+        listenTo(mouse.clicks)
+        if (controller.turnState == TurnState.buyingPhase) {
+          reactions += {
+            case _: MouseClicked => {
+              controller.roundManager.processBuy(tui, player, i._1)
+            }
+          }
+        } else {
+          reactions += {
+            case _: MouseClicked => println("Currently not in buying phase")
+          }
         }
       }
     }
@@ -236,7 +261,7 @@ class GuiActionPhase(tui:Tui, controller: Controller) extends BoxPanel(Orientati
     contents += handPanel
     contents += optionPanelQuestion
   }
-  val moneyPointsDrawPilesPanel = new BoxPanel(Orientation.Horizontal){
+  val moneyPointsDrawPilesPanel = new FlowPanel(){
     contents += moneyDrawPilesPanel
     contents += pointsDrawPilesPanel
   }
