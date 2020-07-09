@@ -21,13 +21,13 @@ case class Card(cardID: Int, name: String, cardType: Int, cost:Int,
       }
       name match {
         case "Moat" => {
-          val (newCards, newDrawPile) = player.playerDrawPile.ensureDrawCapacity(extraDraws,player.playerDiscardPile)
+          val (newCards, newDrawPile) = player.playerDrawPile.ensureDrawCapacity(extraDraws,player)
           player.playerDiscardPile = player.playerDiscardPile.discardCard(this)
           val newHand = player.hand.removeCardFromHand(position)
           (Hand(newHand.handCards ::: newCards), newDrawPile)
         }
         case "Village" => {
-          val (newCard, newDrawPile) = player.playerDrawPile.ensureDrawCapacity(extraDraws,player.playerDiscardPile)
+          val (newCard, newDrawPile) = player.playerDrawPile.ensureDrawCapacity(extraDraws,player)
           player.mayPlayAction += extraActions
           player.playerDiscardPile = player.playerDiscardPile.discardCard(this)
           val newHand = player.hand.removeCardFromHand(position)
@@ -57,7 +57,7 @@ case class Card(cardID: Int, name: String, cardType: Int, cost:Int,
           (player.hand, player.playerDrawPile)
         }
         case "Adventurer" => {
-          var temp = player.playerDrawPile.drawOne
+          var temp = player.playerDrawPile.drawOne(player)
           var tempCardsList = List(CardSet.gardenCard)
           tempCardsList = tempCardsList.drop(1)
           var tempMoneyCardsList = List(temp._1)
@@ -67,7 +67,7 @@ case class Card(cardID: Int, name: String, cardType: Int, cost:Int,
             tempMoneyCardsList = List(temp._1)
           }
           do {
-            temp = temp._2.drawOne
+            temp = temp._2.drawOne(player)
             if(temp._1.cardType == 1) {
               moneyCardCounter += 1
               tempMoneyCardsList = tempMoneyCardsList ::: List(temp._1)
@@ -80,7 +80,7 @@ case class Card(cardID: Int, name: String, cardType: Int, cost:Int,
           (Hand(newHand.handCards ::: tempMoneyCardsList),temp._2)
         }
         case "Laboratory" => {
-          val (newCards,newDrawPile) = player.playerDrawPile.drawAdditional(extraDraws)
+          val (newCards,newDrawPile) = player.playerDrawPile.ensureDrawCapacity(extraDraws, player)
           player.mayPlayAction += extraActions
           player.playerDiscardPile = player.playerDiscardPile.discardCard(this)
           val newHand = player.hand.removeCardFromHand(position)
@@ -97,14 +97,14 @@ case class Card(cardID: Int, name: String, cardType: Int, cost:Int,
           //(Hand(player.hand.removeCardFromHand(position).handCards), player.playerDrawPile)
         }
         case "Smithy" => {
-          val (newCards,newDrawPile) = player.playerDrawPile.drawAdditional(extraDraws)
+          val (newCards,newDrawPile) = player.playerDrawPile.ensureDrawCapacity(extraDraws, player)
           player.playerDiscardPile = player.playerDiscardPile.discardCard(this)
           val newHand = player.hand.removeCardFromHand(position)
           (Hand(newHand.handCards ::: newCards), newDrawPile)
           //(Hand(player.hand.removeCardFromHand(position).handCards:::newCards), newDrawPile)
         }
         case "Market" => {
-          val (newCards,newDrawPile) = player.playerDrawPile.drawAdditional(extraDraws)
+          val (newCards,newDrawPile) = player.playerDrawPile.ensureDrawCapacity(extraDraws, player)
           player.handValue += extraGold
           player.mayPlayAction += extraActions
           player.mayBuy += extraBuys

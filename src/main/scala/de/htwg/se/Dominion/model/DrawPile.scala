@@ -4,19 +4,22 @@ import scala.util.Random
 
 case class DrawPile(pile : List[Card]) extends PlayerPile(pile) {
 
-  def drawOne : (Card, DrawPile) = (pile.head, DrawPile(pile.tail))
+  def drawOne(player: Player) : (Card, DrawPile) = {
+    val temp = ensureDrawCapacity(1,player)
+    (temp._1(0),temp._2)
+  }
+
 
   def drawAdditional(amount: Int) : (List[Card], DrawPile) = (pile.take(amount), DrawPile(pile.takeRight(pile.length - amount)))
 
-  def ensureDrawCapacity(amount: Int, discardPile : DiscardPile) : (List[Card], DrawPile) = {
-//    var handCards = pile.take(1)
+  def ensureDrawCapacity(amount: Int, player: Player) : (List[Card], DrawPile) = {
     if(amount > pile.size) {
       val temp = amount - pile.size
-//      (handCards,this) = drawAdditional(pile.size)
-      drawAdditional(pile.size)
-//      this = refresh(discardPile)
-      refresh(discardPile)
-      drawAdditional(amount)
+      val tempCards = drawAdditional(pile.size)._1
+      player.playerDrawPile = refresh(player.playerDiscardPile)
+      player.playerDiscardPile.refresh
+      val tempTupel = player.playerDrawPile.drawAdditional(temp)
+      (tempTupel._1 ::: tempCards, tempTupel._2)
     } else {
       drawAdditional(amount)
     }

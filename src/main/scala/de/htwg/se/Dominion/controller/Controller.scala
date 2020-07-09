@@ -119,7 +119,6 @@ class Controller(var gameState: GameState.Value = GameState.startScreen,
   }
 
   def refreshPlayer(player: Player) :Unit = {
-    player.hand = player.hand.emtpyHand
     if(player.playerDrawPile.pile.size >= 5) {
       val (handList, newDrawPile) = player.playerDrawPile.drawAdditional(5)
       player.hand = Hand(handList)
@@ -142,16 +141,18 @@ class Controller(var gameState: GameState.Value = GameState.startScreen,
     } else {
       nextPlayer = Some(Dominion.playerList(nextPlayerIndex))
     }
-    if(player.mayPlayAction == 0) {
-      refreshPlayer(player)
+    if(player.hand.handCards.isEmpty == false) {
+      player.playerDiscardPile = player.playerDiscardPile.discardCards(player.hand.handCards)
+      player.hand = player.hand.emtpyHand
     }
+    refreshPlayer(player)
     player.mayBuy = 1
     player.mayPlayAction = 1
     gameState = GameState.playerTurn
     turnState = TurnState.actionPhase
     currentPlayer = nextPlayer
     playerReset()
-    tui.state = TuiActionPhase(this, tui, nextPlayer.get)
+    tui.state = TuiActionPhase(this, tui, currentPlayer.get)
     notifyInController
   }
 

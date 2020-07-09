@@ -19,7 +19,7 @@ import scala.collection.{immutable, mutable}
 import scala.swing.BorderPanel.Position
 
 class GuiActionPhase(tui:Tui, controller: Controller) extends BoxPanel(Orientation.Vertical){
-  preferredSize = new Dimension(1600, 1100)
+  preferredSize = new Dimension(1700, 900)
   val player: Player = controller.getPlayer match {
     case Some(p) => p
     case None => print("Failed getting a player"); Player("?")
@@ -205,7 +205,10 @@ class GuiActionPhase(tui:Tui, controller: Controller) extends BoxPanel(Orientati
   val yesButton = new Button("Yes")
   val noButton = new Button("No")
   val okButton = new Button("Okay")
-  val endPhase = new Button("End Buy Phase")
+  val endPhase =
+    if(controller.turnState == TurnState.buyingPhase)
+      new Button("End Buy Phase")
+    else new Button("End Action Phase")
   val doneButton = new Button("Done")
 
   val optionPanelQuestion: BoxPanel = new BoxPanel(Orientation.Vertical) {
@@ -254,6 +257,9 @@ class GuiActionPhase(tui:Tui, controller: Controller) extends BoxPanel(Orientati
 
   reactions += {
     case ButtonClicked(`prevButton`) => controller.undo
-    case ButtonClicked(`endPhase`) => controller.actionToBuyPhase(tui, player)
+    case ButtonClicked(`endPhase`) =>
+      if(controller.turnState == TurnState.buyingPhase)
+        controller.callNextPlayer(tui, player)
+      else controller.actionToBuyPhase(tui, player)
   }
 }
