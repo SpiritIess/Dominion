@@ -36,7 +36,7 @@ case class Tui(controller: ControllerInterface) extends Observer {
           case TurnState.actionPhase => Try(TuiActionPhase(controller, tui, player.get))
           case TurnState.buyingPhase => Try(TuiBuyPhase(controller, tui, player.get))
         }
-//      case GameState.endScreen => Try(new TuiEndScreen)
+      case GameState.endScreen => Try(TuiEndScreen(controller))
     }
     }
   }

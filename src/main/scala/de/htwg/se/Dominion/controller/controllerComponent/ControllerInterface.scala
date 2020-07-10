@@ -22,7 +22,7 @@ trait ControllerInterface extends Observable{
 
   def getDeckScore(player: Player): Int
 
-  def getPileScore(player: Player, cards: List[Card]): Int
+  def getCardScore(player: Player, card: Card): Int
 
   def actionToBuyPhase(tui: Tui, player: Player): Unit
 

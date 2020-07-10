@@ -14,17 +14,19 @@ case class TuiActionPhase(controller : ControllerInterface, tui: Tui, player:Pla
 
 
   override def processInputLine(input: String): Unit = {
-    val inputNumber = input.toInt
-    if (player.mayPlayAction > 0) {
-      if (inputNumber >= 0 && inputNumber <= player.hand.handCards.length + 1) {
-        controller.play(tui, player, inputNumber)
-      } else {
-        println("bad input, please type in the number of the wanted card on your keyboard and confirm with 'Enter'.\n")
-      }
-    } else {
-      controller.turnState = TurnState.buyingPhase
+    input match {
+      case "q" => controller.quitGame(tui)
+      case _ => val inputNumber = input.toInt
+        if (player.mayPlayAction > 0) {
+          if (inputNumber >= 0 && inputNumber <= player.hand.handCards.length + 1) {
+            controller.play(tui, player, inputNumber)
+          } else {
+            println("bad input, please type in the number of the wanted card on your keyboard and confirm with 'Enter'.\n")
+          }
+        } else {
+          controller.turnState = TurnState.buyingPhase
+        }
     }
-
   }
 
 //  override def update: Boolean = {

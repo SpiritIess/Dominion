@@ -43,17 +43,19 @@ class Controller @Inject () extends ControllerInterface {
 
   override def getDeckScore(player: Player): Int = {
     var deckScore: Int = 0
-    deckScore += getPileScore(player, player.playerDrawPile.pile)
-    deckScore += getPileScore(player, player.playerDiscardPile.pile)
+    player.playerDrawPile.pile.foreach(x => deckScore += getCardScore(player, x))
+    player.playerDiscardPile.pile.foreach(x => deckScore += getCardScore(player, x))
+    player.hand.handCards.foreach(x => deckScore += getCardScore(player, x))
     deckScore
   }
 
-  override def getPileScore(player: Player, cards: List[Card]): Int = {
-    cards match {
+  override def getCardScore(player: Player, card: Card): Int = {
+    card match {
       case CardSet.propertyCard =>  1
       case CardSet.dukedomCard =>  2
       case CardSet.provinceCard =>  3
       case CardSet.gardenCard => (player.playerDrawPile.pile.length + player.playerDiscardPile.pile.length) / 10
+      case _ => 0
     }
   }
 

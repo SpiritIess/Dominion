@@ -38,7 +38,7 @@ class SwingGui(tui: Tui, controller: ControllerInterface) extends Frame with Obs
   visible = true
   centerOnScreen()
   resizable = true
-  pack()
+//  pack()
 
   def redraw():Unit = {
     repaint

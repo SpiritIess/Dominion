@@ -22,12 +22,16 @@ import scala.collection.{immutable, mutable}
 import scala.swing.BorderPanel.Position
 
 class GuiActionPhase(tui:Tui, controller: ControllerInterface) extends BoxPanel(Orientation.Vertical){
+
   preferredSize = new Dimension(1400, 1000)
+
   val player: Player = controller.getPlayer match {
     case Some(p) => p
     case None => print("Failed getting a player"); Player("?")
   }
+
   val myFont = new Font("Charlemagne Std Bold", java.awt.Font.BOLD, 15)
+
   val infoPanel: BoxPanel = new BoxPanel(Orientation.Vertical) {
     contents += new Label("Player: " + player)
     contents += new Label("Actions: " + player.mayPlayAction)
@@ -36,9 +40,7 @@ class GuiActionPhase(tui:Tui, controller: ControllerInterface) extends BoxPanel(
     font = new Font("Charlemagne Std Bold", java.awt.Font.BOLD, 20)
     border = BorderFactory.createLineBorder(Color.BLACK, 2)
   }
-//  contents += new BorderPanel {
-//    layout(infoPanel) = North
-//  }
+
   val drawPilePanel: BoxPanel = new BoxPanel(Orientation.Vertical) {
     contents += new Label {
       private val temp = new ImageIcon("src/main/scala/de/htwg/se/Dominion/aview/resources/card_back.jpg").getImage
@@ -77,7 +79,6 @@ class GuiActionPhase(tui:Tui, controller: ControllerInterface) extends BoxPanel(
     labelList.foreach(x => contents += x)
   }
 
-
   val moneyDrawPilesPanel: FlowPanel = new FlowPanel() {
     val decks: Map[Card, Int] = Map((CardSet.copperCard, Pile.piles(CardSet.copperCard)),
       (CardSet.silverCard, Pile.piles(CardSet.silverCard)),
@@ -105,27 +106,6 @@ class GuiActionPhase(tui:Tui, controller: ControllerInterface) extends BoxPanel(
     }
     labelList.foreach(x => contents += x)
   }
-
-
-//  val moneyDrawPilesPanel = new BoxPanel(Orientation.Horizontal) {
-//    val decks: Map[Card, Int] = Map((CardSet.copperCard, Pile.piles(CardSet.copperCard)),
-//      (CardSet.silverCard, Pile.piles(CardSet.silverCard)),
-//      (CardSet.goldCard, Pile.piles(CardSet.goldCard)))
-//    val labelList: Iterable[Label] = for (i <- decks) yield new Label {
-//      private val temp = new ImageIcon("src/main/scala/de/htwg/se/Dominion/aview/resources/" + i._1.name + ".jpg").getImage
-//      private val resize = temp.getScaledInstance(130, 203, java.awt.Image.SCALE_SMOOTH)
-//      icon = new ImageIcon(resize)
-//      text = "Count: " + i._2
-//      font = myFont
-//      listenTo(mouse.clicks)
-//      reactions += {
-//        case _: MouseClicked => {
-//          controller.roundManager.processBuy(tui, player, i._1)
-//        }
-//      }
-//    }
-//    labelList.foreach(x => contents += x)
-//  }
 
   val pointsDrawPilesPanel: FlowPanel = new FlowPanel() {
     val decks: Map[Card, Int] = Map((CardSet.propertyCard, Pile.piles(CardSet.propertyCard)),
@@ -227,8 +207,6 @@ class GuiActionPhase(tui:Tui, controller: ControllerInterface) extends BoxPanel(
       font = myFont
     }
   }
-
-
 
   val yesButton = new Button("Yes")
   val noButton = new Button("No")
