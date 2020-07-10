@@ -5,7 +5,7 @@ import de.htwg.se.Dominion.model.playerComponent.Player
 
 import scala.util.Random
 
-case class DrawPile(pile : List[Card]) extends PlayerPile(pile) {
+case class DrawPile(pile : List[Card]) extends PlayerPile(pile) with DrawPileInterface {
 
   def drawOne(player: Player) : (Card, DrawPile) = {
     val temp = ensureDrawCapacity(1,player)
