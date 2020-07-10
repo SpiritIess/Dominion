@@ -1,107 +1,43 @@
 package de.htwg.se.Dominion.aview.tui
 
-import de.htwg.se.Dominion.controller.Controller
-import de.htwg.se.Dominion.model.{Board, Player}
+import de.htwg.se.Dominion.aview.tui._
+import de.htwg.se.Dominion.aview.tui.State
+import de.htwg.se.Dominion.controller.controllerComponent.{Controller, ControllerInterface}
+import de.htwg.se.Dominion.controller.{GameState, TurnState}
+import de.htwg.se.Dominion.model.Board
+import de.htwg.se.Dominion.model.playerComponent.Player
+import de.htwg.se.Dominion.util.Observer
 
 import scala.collection.mutable.ListBuffer
+import scala.util.Try
 
-case class Tui(controller: Controller) {
-  var state : State = TuiGameStart(controller ,this)
+case class Tui(controller: ControllerInterface) extends Observer {
+  controller.add(this)
+  var state: State = TuiGameStart(controller, this)
+  controller.startGame
+//  var contents = state
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  /*
-
-
-  def readPlayerCount(): Int = {
-    print("Input number of Players: ")
-    scala.io.StdIn.readInt()
+  override def update: Boolean = {
+    state = Tui.getTui(this, controller, controller.getPlayer).get
+    redraw
+    true
+  }
+  def redraw:Unit = {
+    print(Board().toString + "\n")
   }
 
-  def getPlayerNames(playerCount: Int = readPlayerCount()) : List[String] = {
-    var playerList = new ListBuffer[String]()
-    for (x <- 1 to playerCount) {
-      print("Input player " + x  + " name: ")
-      playerList += scala.io.StdIn.readLine()
+  object Tui {
+    def getTui(tui:Tui, controller: ControllerInterface, player: Option[Player], amount:Int = 0) : Try[State] = {
+    controller.gameState match {
+      case GameState.startScreen => Try(TuiGameStart(controller, tui))
+      case GameState.setUpPlayers => Try(TuiPlayerSetup(controller, tui, amount))
+      case GameState.playerTurn =>
+        controller.turnState match {
+          case TurnState.actionPhase => Try(TuiActionPhase(controller, tui, player.get))
+          case TurnState.buyingPhase => Try(TuiBuyPhase(controller, tui, player.get))
+        }
+      case GameState.endScreen => Try(TuiEndScreen(controller))
     }
-    playerList.toList
-  }
-
-  def getPlayerList(playerNames: List[String] = getPlayerNames()): List[Player] = {
-    var playerList = new ListBuffer[Player]
-    for (x <- playerNames) {
-      playerList += Player(x)
-    }
-    playerList.toList
-  }
-
-  def processInputLine(input: String): Int = {
-    input match {
-      case "2" => {
-
-      }
-      case "3" => 5
-      case "4" => val players = getPlayerList(); println(players.head.startingHand); players.length
-      case _ => 2
     }
   }
-
-   */
 }
