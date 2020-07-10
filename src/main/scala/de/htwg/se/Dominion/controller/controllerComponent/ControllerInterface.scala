@@ -8,7 +8,7 @@ import de.htwg.se.Dominion.controller.{GameState, TurnState}
 
 trait ControllerInterface extends Observable{
 
-  var roundManager: RoundManager
+  val roundManager: RoundManager
   var turnState: TurnState.Value
   var gameState: GameState.Value
 

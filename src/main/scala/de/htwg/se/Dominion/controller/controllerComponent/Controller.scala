@@ -1,7 +1,8 @@
 package de.htwg.se.Dominion.controller.controllerComponent
 
-import com.google.inject.Inject
-import de.htwg.se.Dominion.Dominion
+import com.google.inject.{Guice, Inject}
+import de.htwg.se.Dominion.Dominion.injector
+import de.htwg.se.Dominion.{Dominion, DominionModule}
 import de.htwg.se.Dominion.aview.tui.{Tui, TuiActionPhase, TuiEndScreen, TuiPlayerSetup}
 import de.htwg.se.Dominion.controller.{GameState, TurnState}
 import de.htwg.se.Dominion.model.Board
@@ -10,13 +11,14 @@ import de.htwg.se.Dominion.model.pileComponent.{DrawPile, Hand, Pile}
 import de.htwg.se.Dominion.model.playerComponent.Player
 import de.htwg.se.Dominion.util.{Observable, UndoManager}
 
-class Controller @Inject() () extends ControllerInterface {
+class Controller @Inject () extends ControllerInterface {
 
+//  val injector = Guice.createInjector(new DominionModule)
   var gameState: GameState.Value = GameState.startScreen
   var turnState: TurnState.Value = TurnState.actionPhase
   private var currentPlayer: Option[Player] = None
   private val undoManager = new UndoManager
-  override var roundManager: RoundManager = RoundManager(this)
+  val roundManager: RoundManager = RoundManager(this)
 
   override def startGame: Unit = {
     gameState = GameState.startScreen
@@ -82,7 +84,7 @@ class Controller @Inject() () extends ControllerInterface {
         }
       } else {
         println("Game-End-condition is met, calculating winner!\n")
-        tui.state = TuiEndScreen(this)
+//        tui.state = TuiEndScreen(this)
         gameState = GameState.endScreen
         notifyInController
       }
@@ -93,7 +95,7 @@ class Controller @Inject() () extends ControllerInterface {
     gameState = GameState.setUpPlayers
     println(Board().toString())
     //println("type in the names of the players, using a space as seperator\n")
-    tui.state = TuiPlayerSetup(this, tui, amount)
+//    tui.state = TuiPlayerSetup(this, tui, amount)
     //SwingGui.content = new GuiPlayerSetup(this, tui)
     notifyInController
   }
@@ -101,7 +103,6 @@ class Controller @Inject() () extends ControllerInterface {
   override def updatePlayerList(tui: Tui, playerString: String): List[Player] = {
     val playerArray = playerString.split(" ")
     println(playerArray.mkString("\n"))
-    //println(Board().toString)
     playerArray.foreach(i => {
       Dominion.playerList += Player(i)
     })
@@ -112,7 +113,7 @@ class Controller @Inject() () extends ControllerInterface {
   override def quitGame(tui:Tui): Unit = {
     gameState = GameState.endScreen
     //    tui.state = TuiEndScreen(this, tui)
-    //    println("you chose to quit the game\n")
+    println("you chose to quit the game\n")
     notifyInController
   }
 
@@ -150,7 +151,7 @@ class Controller @Inject() () extends ControllerInterface {
     turnState = TurnState.actionPhase
     currentPlayer = nextPlayer
     playerReset()
-    tui.state = TuiActionPhase(this, tui, currentPlayer.get)
+//    tui.state = TuiActionPhase(this, tui, currentPlayer.get)
     notifyInController
   }
 
@@ -167,12 +168,12 @@ class Controller @Inject() () extends ControllerInterface {
   override def callPreviousPlayer(tui: Tui, player:Player): Unit = {
     val prevPlayerIndex = Dominion.playerList.indexOf(player) - 1
     if (prevPlayerIndex == -1) {
-      tui.state = TuiActionPhase(this, tui, Dominion.playerList(Dominion.playerList.length))
+//      tui.state = TuiActionPhase(this, tui, Dominion.playerList(Dominion.playerList.length))
       gameState = GameState.playerTurn
       turnState = TurnState.actionPhase
       notifyInController
     }else {
-      tui.state = TuiActionPhase(this, tui, Dominion.playerList(prevPlayerIndex))
+//      tui.state = TuiActionPhase(this, tui, Dominion.playerList(prevPlayerIndex))
       gameState = GameState.playerTurn
       turnState = TurnState.actionPhase
       notifyInController

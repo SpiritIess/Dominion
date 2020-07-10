@@ -23,7 +23,7 @@ case class Tui(controller: ControllerInterface) extends Observer {
     true
   }
   def redraw:Unit = {
-    print(Board().toString)
+    print(Board().toString + "\n")
   }
 
   object Tui {

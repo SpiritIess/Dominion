@@ -8,7 +8,8 @@ import de.htwg.se.Dominion.model.cardComponent.{Card, CardSet}
 import de.htwg.se.Dominion.model.playerComponent.Player
 import de.htwg.se.Dominion.util.Command
 
-class AnyCommand(turnState: TurnState.Value, tui: Tui, player: Player, index: Int, controller: Controller, card: Card = CardSet.copperCard ) extends Command{
+class AnyCommand(turnState: TurnState.Value, tui: Tui, player: Player, index: Int,
+                 controller: ControllerInterface, card: Card = CardSet.copperCard ) extends Command{
 
   var mementoTurn: turnState = turnState
   var mementoPlayer: Player = player
