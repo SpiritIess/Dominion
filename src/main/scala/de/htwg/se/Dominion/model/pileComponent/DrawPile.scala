@@ -9,7 +9,7 @@ case class DrawPile(pile : List[Card]) extends PlayerPile(pile) {
 
   def drawOne(player: Player) : (Card, DrawPile) = {
     val temp = ensureDrawCapacity(1,player)
-    (temp._1(0),temp._2)
+    (temp._1.head,temp._2)
   }
 
 

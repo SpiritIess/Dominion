@@ -8,6 +8,6 @@ import net.codingwell.scalaguice.ScalaModule
 
 
 class DominionModule extends AbstractModule with ScalaModule {
-  def configure() = { bind[ControllerInterface].to[Controller] }
+  def configure(): Unit = bind[ControllerInterface].to[Controller]
 
 }

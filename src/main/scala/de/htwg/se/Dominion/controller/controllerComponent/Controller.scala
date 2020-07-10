@@ -1,5 +1,6 @@
 package de.htwg.se.Dominion.controller.controllerComponent
 
+import com.google.inject.Inject
 import de.htwg.se.Dominion.Dominion
 import de.htwg.se.Dominion.aview.tui.{Tui, TuiActionPhase, TuiEndScreen, TuiPlayerSetup}
 import de.htwg.se.Dominion.controller.{GameState, TurnState}
@@ -9,9 +10,10 @@ import de.htwg.se.Dominion.model.pileComponent.{DrawPile, Hand, Pile}
 import de.htwg.se.Dominion.model.playerComponent.Player
 import de.htwg.se.Dominion.util.{Observable, UndoManager}
 
-class Controller(var gameState: GameState.Value = GameState.startScreen,
-                 var turnState: TurnState.Value = TurnState.actionPhase) extends ControllerInterface {
+class Controller @Inject() () extends ControllerInterface {
 
+  var gameState: GameState.Value = GameState.startScreen
+  var turnState: TurnState.Value = TurnState.actionPhase
   private var currentPlayer: Option[Player] = None
   private val undoManager = new UndoManager
   override var roundManager: RoundManager = RoundManager(this)
@@ -71,13 +73,6 @@ class Controller(var gameState: GameState.Value = GameState.startScreen,
     currentPlayer
   }
 
-  //  def firstTurn(tui:Tui): Unit ={
-  //    gameState = GameState.playerOneTurn
-  //    tui.state = TuiActionPhase(this, tui, Dominion.playerList.head)
-  //    println(s"${Dominion.playerList.head}, choose an action-card from your hand, " +
-  //      s"or press '0' to skip to the Buying-Phase and confirm your decision by pressing 'Enter'!\n")
-  //    notifyObservers
-  //  }
   override def isEndGame(tui:Tui) : Unit = {
     var emptyPileCounter : Int = 0
     for(i<-  Pile.piles) {
