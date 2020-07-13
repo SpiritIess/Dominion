@@ -2,9 +2,9 @@ package de.htwg.se.Dominion.aview.tui
 
 import de.htwg.se.Dominion.Dominion
 import de.htwg.se.Dominion.aview.tui.TuiPlayerSetup
-import de.htwg.se.Dominion.controller.Controller
 import de.htwg.se.Dominion.controller.GameState
-import de.htwg.se.Dominion.model.Player
+import de.htwg.se.Dominion.controller.controllerComponent.Controller
+import de.htwg.se.Dominion.model.playerComponent.Player
 import org.scalatest.{Matchers, WordSpec}
 
 import scala.collection.mutable.ListBuffer

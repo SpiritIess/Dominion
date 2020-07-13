@@ -2,8 +2,9 @@ package de.htwg.se.Dominion.controller
 
 import de.htwg.se.Dominion.Dominion
 import de.htwg.se.Dominion.aview.tui.{Tui, TuiActionPhase, TuiBuyPhase}
-import de.htwg.se.Dominion.controller.Controller
-import de.htwg.se.Dominion.model.{CardSet, Player}
+import de.htwg.se.Dominion.controller.controllerComponent.Controller
+import de.htwg.se.Dominion.model.cardComponent.CardSet
+import de.htwg.se.Dominion.model.playerComponent.Player
 import de.htwg.se.Dominion.util.Observer
 import org.scalatest.{Matchers, WordSpec}
 
@@ -30,7 +31,7 @@ class ControllerSpec extends WordSpec with Matchers {
       controller.gameState should be (GameState.startScreen)
     }
     "notify its Observer when starting a players turn" in {
-      controller.startTurn
+      controller.startTurn(tui)
       observer.updated should be (true)
       controller.turnState should be(TurnState.actionPhase)
     }
@@ -61,11 +62,11 @@ class ControllerSpec extends WordSpec with Matchers {
 //      controller.turnState should be (TurnState.actionPhase)
       //tui.state should be (TuiActionPhase(controller, tui, player))
 //    }
-    "notify its Observers after quitting the game" in {
-      controller.quitGame(tui)
-      observer.updated should be (true)
-      controller.gameState should be (GameState.endScreen)
-    }
+//    "notify its Observers after quitting the game" in {
+//      controller.quitGame(tui)
+//      observer.updated should be (true)
+//      controller.gameState should be (GameState.endScreen)
+//    }
     "notify its Observers after discarding a Card to the DiscardPile" in {
       val player2 = Player("Markus")
       val handIndex = 1

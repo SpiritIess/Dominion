@@ -1,11 +1,11 @@
 package de.htwg.se.Dominion.aview.tui
 
 import de.htwg.se.Dominion.aview.tui.{State, TuiPlayerSetup}
-import de.htwg.se.Dominion.controller.Controller
+import de.htwg.se.Dominion.controller.controllerComponent.{Controller, ControllerInterface}
 import de.htwg.se.Dominion.model.Board
 import de.htwg.se.Dominion.util.Observer
 
-case class TuiGameStart(controller: Controller, tui: Tui) extends Observer with State{
+case class TuiGameStart(controller: ControllerInterface, tui: Tui) extends State{
   //controller.add(this)
   override def processInputLine(input: String): Unit = {
     input match {
@@ -21,7 +21,7 @@ case class TuiGameStart(controller: Controller, tui: Tui) extends Observer with 
     }
   }
 
-  override def update: Boolean = {
-    true
-  }
+//  override def update: Boolean = {
+//    true
+//  }
 }

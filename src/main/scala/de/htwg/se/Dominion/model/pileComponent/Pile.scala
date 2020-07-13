@@ -1,4 +1,6 @@
-package de.htwg.se.Dominion.model
+package de.htwg.se.Dominion.model.pileComponent
+
+import de.htwg.se.Dominion.model.cardComponent.{Card, CardSet}
 
 object Pile { //initializing all piles with their respective cards and their amounts
   val startPile =  List(CardSet.copperCard, CardSet.copperCard, CardSet.copperCard, CardSet.copperCard,
